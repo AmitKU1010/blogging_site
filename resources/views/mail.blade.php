@@ -1,0 +1,2 @@
+ {{ $otp }} is Your Otp
+

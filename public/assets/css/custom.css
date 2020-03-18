@@ -1,0 +1,23 @@
+.hover-facebook a:hover {
+    background: #3b5998;
+    color: #fff;
+}
+
+.hover-google a:hover {
+    background: #ce453a;
+    color: #fff;
+}
+
+.m9 {
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+.m10 {
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+.viewModal {
+    overflow-x: scroll;
+}
