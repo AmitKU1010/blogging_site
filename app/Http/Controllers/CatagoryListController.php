@@ -88,7 +88,7 @@ class CatagoryListController extends Controller
     {
         //
     }
-
+ 
  
      
     public function edit($catagory_list_id)

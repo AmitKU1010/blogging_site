@@ -98,10 +98,12 @@
               <!--Edit Profile Menu-->
               <ul class="edit-menu">
               	<li class="active"><i class="icon ion-ios-information-outline"></i><a href="{{url('/')}}/user/edit_profile">Basic Information</a></li>
-                <li><i class="icon ion-ios-settings"></i><a href="#">Account Settings</a></li>
-              	<li><i class="icon ion-ios-locked-outline"></i><a href="#">Change Password</a></li>
+                <!-- <li><i class="icon ion-ios-settings"></i><a href="#">Account Settings</a></li> -->
 
                 <li><i class="icon ion-ios-albums"></i><a href="#" id="blog_post">Blog Post</a></li>
+                
+              	<li><i class="icon ion-ios-locked-outline"></i><a href="#" id="change_password">Change Password</a></li>
+
 
                   
 
@@ -545,6 +547,49 @@
 
 
 
+              <!-- Change Password
+              ================================================= -->
+
+              <div class="col-md-12" style="display: none;" id="change_password_view">
+
+           
+              <div class="edit-profile-container">
+                <div class="block-title">
+                  <h4 class="grey"><i class="icon ion-ios-locked-outline"></i>Change Password</h4>
+                  <div class="line"></div>
+                  <p></p>
+                  <div class="line"></div>
+                </div>
+                <div class="edit-block">
+                  <form name="update-pass" id="education" class="form-inline">
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="my-password">Old password</label>
+                        <input id="my-password" class="form-control input-group-lg" type="password" name="password" title="Enter password" placeholder="Old password"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-6">
+                        <label>New password</label>
+                        <input class="form-control input-group-lg" type="password" name="password" title="Enter password" placeholder="New password"/>
+                      </div>
+                      <div class="form-group col-xs-6">
+                        <label>Confirm password</label>
+                        <input class="form-control input-group-lg" type="password" name="password" title="Enter password" placeholder="Confirm password"/>
+                      </div>
+                    </div>
+                    <p><a href="#">Forgot Password?</a></p>
+                    <button class="btn btn-primary">Update Password</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+              <!-- Change Password
+              ================================================= -->
+
+
+
 
             </div>
             <div class="col-md-2 static">
@@ -593,6 +638,16 @@
          {
         $('#edit_info').hide();
         $('#blog_post_view').show();
+        $('#change_password_view').hide();
+
+        });   
+
+         $(document).on("click","#change_password",function() 
+         {
+        $('#edit_info').hide();
+        $('#blog_post_view').hide();
+        $('#change_password_view').show();
+
         });
 
 

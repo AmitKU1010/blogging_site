@@ -52,8 +52,8 @@
             </div><!--profile card ends-->
             <ul class="nav-news-feed">
               <li><i class="icon ion-ios-paper"></i><div><a href="{{url('/')}}/user/newsfeed">My Newsfeed</a></div></li>
-              
-              <li><i class="icon ion-settings"></i><div><a href="#">Settings</a></div></li>
+               
+              <li><i class="icon ion-settings"></i><div><a href="{{url('/')}}/user/edit_profile">Publish Post</a></div></li>
               <li><i class="icon ion-ios-people-outline"></i><div> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
                 <i class="dropdown-icon icon icon-power"></i> Log out
@@ -71,7 +71,7 @@
     			<div class="col-md-7">
             <!-- Post Create Box 
              ================================================= -->
-            <div class="create-post">
+          <!--   <div class="create-post">
             	<div class="row">
             		<div class="col-md-7 col-sm-7">
                   <div class="form-group">
@@ -91,7 +91,7 @@
                   </div>
                 </div>
             	</div>
-            </div><!-- Post Create Box End-->
+            </div> --><!-- Post Create Box End-->
  
 <div id="exTab2" class="container"> 
 <ul class="nav nav-tabs">
@@ -390,7 +390,7 @@
 
  
 
-
+ 
             
 
            
