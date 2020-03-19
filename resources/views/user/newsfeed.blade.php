@@ -196,8 +196,14 @@
                 <div class="post-detail">
 
                     <div class="reaction">
-                    <a class="btn text-green"><i class="icon ion-thumbsup"></i> 1330</a>
-                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 100</a>
+                    <!-- <a class="btn text-green"><i class="icon ion-thumbsup"></i> 1330</a>
+                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 100</a> -->
+ 
+                                        <span class="pull-right">
+                                            <span class="like-btn">
+                                                <i id="like{{$Own_Blog->id}}" class="glyphicon glyphicon-thumbs-up {{ auth()->user()->hasLiked($Own_Blog) ? 'like-post' : '' }}"></i> <div id="like{{$Own_Blog->id}}-bs3">{{ $Own_Blog->likers()->get()->count() }}</div>
+                                            </span>
+                                        </span>
 
                     <!-- Modal starts -->
                   <input type="button" class="btn btn-info" data-toggle="modal" data-target="#myModall" value="comment">
@@ -478,4 +484,44 @@
         $('.notification').show();
       });
     </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {     
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('i.glyphicon-thumbs-up, i.glyphicon-thumbs-down').click(function(){    
+            var id = $(this).parents(".panel").data('id');
+            var c = $('#'+this.id+'-bs3').html();
+            var cObjId = this.id;
+            var cObj = $(this);
+
+            $.ajax({
+               type:'POST',
+               url:'/blogging-site/public/like',
+               data:{id:id},
+               success:function(data){
+                  if(jQuery.isEmptyObject(data.success.attached)){
+                    $('#'+cObjId+'-bs3').html(parseInt(c)-1);
+                    $(cObj).removeClass("like-post");
+                  }else{
+                    $('#'+cObjId+'-bs3').html(parseInt(c)+1);
+                    $(cObj).addClass("like-post");
+                  }
+               }
+            });
+
+        });      
+
+        $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });                                        
+    }); 
+</script>
  

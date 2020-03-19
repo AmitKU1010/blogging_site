@@ -1,21 +1,17 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Post;
+use App\User;
 use App\Blogs;
-use App\User; 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-  public function index()
+    public function index()
     {
         return view('home');
     }
@@ -25,7 +21,7 @@ class HomeController extends Controller
         $posts = Blogs::get();
         return view('posts', compact('posts'));
     }
- 
+  
     public function LikePost(Request $request){
 
         $post = Blogs::find($request->id);
@@ -33,4 +29,4 @@ class HomeController extends Controller
 
         return response()->json(['success'=>$response]);
     }
-}
+} 

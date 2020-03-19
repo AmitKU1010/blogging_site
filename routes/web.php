@@ -79,9 +79,9 @@ Auth::routes();
     Route::get('/user/blog_post','UserController@blog_post');
     Route::post('/user/update_blog','UserController@update_blog');
 
-   Route::get('/home', 'HomeController@index')->name('home');
-Route::get('posts', 'HomeController@posts')->name('posts');
-Route::post('like', 'HomeController@LikePost')->name('like');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('posts', 'HomeController@posts')->name('posts');
+    Route::post('like', 'HomeController@LikePost')->name('like');
 
 
 

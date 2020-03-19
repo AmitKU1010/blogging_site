@@ -33,10 +33,14 @@ class UserController extends Controller
     {
     
         
-        $Own_Blogs=DB::table('Blogs')->where('user_id',Auth::id())->get();
+        // $Own_Blogs=DB::table('Blogs')->where('user_id',Auth::id())->get();
 
+        $Own_Blogs = Blogs::get();
+          
+        return view('user.newsfeed', compact('Own_Blogs'));
 
-        return view('user.newsfeed')->with('Own_Blogs',$Own_Blogs);
+ 
+        // return view('user.newsfeed')->with('Own_Blogs',$Own_Blogs);
     } 
  
     public function edit_profile()
@@ -98,7 +102,7 @@ class UserController extends Controller
         return view('user.register-after-modal')->with('Category',$Category);
   
     } 
-
+ 
     public function blog_post()
     {   
 

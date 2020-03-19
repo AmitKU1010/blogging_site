@@ -2,15 +2,18 @@
 namespace App;
 use App\Profile;
 use App\Role;
+use App\Post; 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Overtrue\LaravelFollow\Traits\CanLike;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use CanLike;
 
     protected $dates = ['deleted_at'];
 

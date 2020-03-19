@@ -1,12 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Mail;
-
 use App\User;
-
 class CustomerController extends Controller
 {
 

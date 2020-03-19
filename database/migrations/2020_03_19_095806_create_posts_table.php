@@ -6,15 +6,25 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePostsTable extends Migration
 {
-     public function up()
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+          Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('posts');

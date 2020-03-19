@@ -152,7 +152,7 @@ h2 {
 }
 </style>
 </head>
-<body>
+<body> 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -166,7 +166,7 @@ h2 {
                                 <div class="panel panel-info" data-id="{{ $post->id }}">
                                     <div class="panel-body">
                                         <a href="https://www.codechief.org/user/img/user.jpg" title="Nature Portfolio" data-title="Amazing Nature" data-footer="The beauty of nature" data-type="image" data-toggle="lightbox">
-                                    <img src="https://www.codechief.org/user/img/user.jpg" style="height: 50px; width: 50px; border-radius: 50%;">
+                                    <img src="https://www.codechief.org/user/ img/user.jpg" style="height: 50px; width: 50px; border-radius: 50%;">
                                             <span class="overlay"><i class="fa fa-search"></i></span>
                                         </a>
                                     </div>  
@@ -205,7 +205,7 @@ h2 {
 
             $.ajax({
                type:'POST',
-               url:'/like',
+               url:'/blogging-site/public/like',
                data:{id:id},
                success:function(data){
                   if(jQuery.isEmptyObject(data.success.attached)){
