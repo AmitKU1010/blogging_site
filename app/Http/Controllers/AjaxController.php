@@ -29,7 +29,7 @@ class AjaxController extends Controller
             ->get();
         return json_encode($Catagorylist);
 
-    }  
+    }   
 
     public function getsubcatagoryBycatagory(Request $request)
     {
@@ -45,4 +45,17 @@ class AjaxController extends Controller
 
     }
 
+    public function getBlogComments(Request $request)
+    {
+        $CommentList=DB::table('comments')
+        ->join('users','comments.user_id', '=', 'users.id')
+        ->where([['comments.blog_id','=',$request->blog_id]])
+
+         ->select('comments.*','users.*','users.name as uname','comments.comment_description as cds','users.profile_image as profile_img')
+            ->get();
+        return json_encode($CommentList);
+
+    }
+
 }
+ 

@@ -79,16 +79,28 @@ Auth::routes();
     Route::get('/user/blog_post','UserController@blog_post');
     Route::post('/user/update_blog','UserController@update_blog');
 
+    Route::post('/user/comments','UserController@comments');
+
+
+
+
+
+
+
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('posts', 'HomeController@posts')->name('posts');
     Route::post('like', 'HomeController@LikePost')->name('like');
 
+    Route::post('dislike', 'HomeController@DisLikePost')->name('dislike');
 
+ 
+   
 
     // ajax related
-     Route::post('/get/catagory', 'AjaxController@getcatagoryBydepartment');
-     Route::post('/get/subcatagory', 'AjaxController@getsubcatagoryBycatagory');
-
+   Route::post('/get/catagory', 'AjaxController@getcatagoryBydepartment');
+   Route::post('/get/subcatagory', 'AjaxController@getsubcatagoryBycatagory');
+   Route::post('/ajax/getBlogComments','AjaxController@getBlogComments');
+ 
 
     
  

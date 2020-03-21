@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Blogs;
+use DB;
 class HomeController extends Controller
 {
     public function __construct()
@@ -23,10 +24,28 @@ class HomeController extends Controller
     }
   
     public function LikePost(Request $request){
-
         $post = Blogs::find($request->id);
         $response = auth()->user()->toggleLike($post);
-
+  
         return response()->json(['success'=>$response]);
     }
+ 
+ // public function DisLikePost(Request $request){
+
+ //      DB::table('followables')->insert([
+ //    ['relation' => $request->id]
+ //                 ]);
+
+ //        // return response()->json(['success'=>$Blogs]);
+ //    }
+
+      public function DisLikePost(Request $request){
+        $post = Blogs::find($request->id);
+        $response = auth()->user()->toggleLike($post);
+  
+        return response()->json(['success'=>$response]);
+    }
+
+
+ 
 } 

@@ -524,7 +524,7 @@
                     <div class="row">
                       <div class="form-group col-xs-12">
                         <label for="email">Post Caption</label>
-                        <textarea cols="3" rows="3">
+                        <textarea cols="3" rows="3" name="post_caption">
                         </textarea>
                             @if ($errors->count() > 0)
                         <span class='help-block' style="color: red;">

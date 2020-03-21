@@ -11,7 +11,8 @@ use DB;
 use App\Blogs; 
 use DateTime;
 use DateInterval;
-
+use App\Comment;
+ 
 class UserController extends Controller
 {
     /**
@@ -31,13 +32,26 @@ class UserController extends Controller
      */
     public function index()
     {
-    
+     
         
         // $Own_Blogs=DB::table('Blogs')->where('user_id',Auth::id())->get();
 
-        $Own_Blogs = Blogs::get();
-          
-        return view('user.newsfeed', compact('Own_Blogs'));
+         $Own_Blogs = Blogs::where('user_id', Auth::id())->get();
+
+        $comments=DB::table('comments')->where('user_id',Auth::id())->get();
+
+         // $comments = Comment::where('user_id', Auth::id())->get();
+
+
+
+
+
+      
+
+        $Trending_Blogs = Blogs::get();
+
+        // $Count_blog=DB::table('followables')->where('user_id',Auth::id())->get();
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','comments'));
 
  
         // return view('user.newsfeed')->with('Own_Blogs',$Own_Blogs);
@@ -111,6 +125,22 @@ class UserController extends Controller
   
     }
 
+    public function comments(Request $request)
+    {  
+        $Comment=new Comment();
+
+        $Comment->user_id=Auth::id();
+        $Comment->blog_id=$request->input('blog_id');
+        $Comment->comment_description=$request->input('comment');
+        $Comment->save();
+
+       return Redirect::back()->with('message','Profile Updated Successfully !');
+
+
+   
+
+    }
+
 
       public function update_blog(Request $request)
     {   
@@ -119,7 +149,7 @@ class UserController extends Controller
         $Blogs->user_id=Auth::id();
         $Blogs->catagory_name=$request->input('catagory_name');
         $Blogs->subcatagory_name=$request->input('subcatagory_name');
-        $Blogs->post_caption=$request->input('post_caption');
+        $Blogs->post_caption=$request->input('post_caption'); 
         $Blogs->post_description=$request->input('post_description');
 
         // dd($Blogs->post_description);
@@ -157,7 +187,10 @@ class UserController extends Controller
           $ChoosenTopics->save();
         }
 
-        return view('user.newsfeed');
+        $Own_Blogs = Blogs::get();
+
+        return view('user.newsfeed', compact('Own_Blogs'));
+       
 
     }
 }

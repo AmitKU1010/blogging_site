@@ -38,17 +38,17 @@
    
  
     <div id="page-contents">
-    	<div class="container">
-    		<div class="row">
+      <div class="container">
+        <div class="row">
   
           <!-- Newsfeed Common Side Bar Left
           ================================================= -->
-    			<div class="col-md-3 static">
+          <div class="col-md-3 static">
             <div class="profile-card">
          
               <img  alt="{{Auth::user()->name}}" src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" class="profile-photo" />
               <h5><a href="#" class="text-white">{{Auth::user()->name}}({{Auth::user()->email}})</a></h5>
-            	<a href="#" class="text-white"><i class="ion ion-android-person-add"></i> 1,299 followers</a>
+              <a href="#" class="text-white"><i class="ion ion-android-person-add"></i> 1,299 followers</a>
             </div><!--profile card ends-->
             <ul class="nav-news-feed">
               <li><i class="icon ion-ios-paper"></i><div><a href="{{url('/')}}/user/newsfeed">My Newsfeed</a></div></li>
@@ -68,18 +68,18 @@
               
             </div><!--chat block ends-->
           </div>
-    			<div class="col-md-7">
+          <div class="col-md-7">
             <!-- Post Create Box 
              ================================================= -->
           <!--   <div class="create-post">
-            	<div class="row">
-            		<div class="col-md-7 col-sm-7">
+              <div class="row">
+                <div class="col-md-7 col-sm-7">
                   <div class="form-group">
                     <img src="../../blog_assets/images/users/user-6.jpg" alt="" class="profile-photo-md" />
                     <textarea name="texts" id="exampleTextarea" cols="30" rows="1" class="form-control" placeholder="Write what you wish"></textarea>
                   </div>
                 </div>
-            		<div class="col-md-5 col-sm-5">
+                <div class="col-md-5 col-sm-5">
                   <div class="tools">
                     <ul class="publishing-tools list-inline">
                       <li><a href="#"><i class="ion-compose"></i></a></li>
@@ -90,7 +90,7 @@
                     <button class="btn btn-primary pull-right">Publish</button>
                   </div>
                 </div>
-            	</div>
+              </div>
             </div> --><!-- Post Create Box End-->
  
 <div id="exTab2" class="container"> 
@@ -130,7 +130,7 @@
 
                  <div class="user-info" style="padding-left: 65px;">
                     <h5><a href="#" class="profile-link">Debasmita Sahoo</a> <span class="following">following</span></h5>
-                    <p class="text-muted">Published a photo about 3 mins ago</p>
+                    <p class="text-muted">Published a photo about 10 sec ago</p>
                   </div>
 
               <img src="../../blog_assets/images/post-images/8.jpg" alt="post-image" class="img-responsive post-image" />
@@ -169,44 +169,48 @@
 
 
 
-  
-
-              <!-- Post Content
+              <!-- Post Conten t
             ================================================= -->
 
            @if(count($Own_Blogs) > 0)
            @foreach($Own_Blogs as $Own_Blog)
- 
+
+
             <div class="post-content own_post"  style="display: none;" >
                <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
 
                  <div class="user-info" style="padding-left: 65px;">
-                    <h5><a href="#" class="profile-link">{{Auth::user()->name}}</a> <span class="following">following</span></h5>
-                    <p class="text-muted">You Published a photo about 3 mins ago</p>
+                    <h5><a href="#" class="profile-link">{{Auth::user()->name}}</a> <span class="following">Follow</span></h5>
+                    <p class="text-muted">You Published a photo about 10 sec ago</p>
                   </div>
 
                       <div class="line-divider"></div>
                   <div class="post-text">
+                    <strong><b> <u> {{$Own_Blog->post_caption}} </u></b></strong>
                     <p>{{strip_tags($Own_Blog->post_description)}} <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
                   </div>
  
               <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
               <div class="post-container">
-                <img src="../../blog_assets/images/users/user-5.jpg" alt="user" class="profile-photo-md pull-left" />
+                <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
                 <div class="post-detail">
+                
+
+  
 
                     <div class="reaction">
-                    <!-- <a class="btn text-green"><i class="icon ion-thumbsup"></i> 1330</a>
+                  <!--   <a class="btn text-green"><i class="icon ion-thumbsup"></i> 1330</a>
                     <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 100</a> -->
+
+
+                                
  
-                                        <span class="pull-right">
-                                            <span class="like-btn">
-                                                <i id="like{{$Own_Blog->id}}" class="glyphicon glyphicon-thumbs-up {{ auth()->user()->hasLiked($Own_Blog) ? 'like-post' : '' }}"></i> <div id="like{{$Own_Blog->id}}-bs3">{{ $Own_Blog->likers()->get()->count() }}</div>
-                                            </span>
-                                        </span>
+
+                            
+                        
 
                     <!-- Modal starts -->
-                  <input type="button" class="btn btn-info" data-toggle="modal" data-target="#myModall" value="comment">
+                  <input type="button"  data-id="{{$Own_Blog->id}}" class="btn btn-info modalOpencl" data-toggle="modal" data-target="#myModall" value="comment">
 
  
 
@@ -228,70 +232,17 @@
     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" style="width: 500px;overflow:scroll;height: 350px;">
         
             <!-- Fluid width widget -->        
-          <div class="panel panel-default">
+          <div class="panel panel-default" id="before_result">
+
+           
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <span class="glyphicon glyphicon-comment"></span> 
                         Recent Comments
                     </h3>
                 </div>
-                <div class="panel-body">
-                    <ul class="media-list">
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="http://placehold.it/60x60" class="img-circle">
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    Mauris Eu
-                                    <br>
-                                    <small>
-                                        commented on <a href="#">Post Title</a>
-                                    </small>
-                                </h4>
-                                <p>
-                                    Vivamus pulvinar mauris eu placerat blandit. In euismod tellus vel ex vestibulum congue...
-                                </p>
-                            </div>
-                        </li>
-                      
-                        <li class="media">
-                            <div class="media-left">
-                               <img src="http://placehold.it/60x60" class="img-circle">
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    Praesent Tinci
-                                    <br>
-                                    <small>
-                                        commented on <a href="#">Post Title</a>
-                                    </small>
-                                </h4>
-                                <p>
-                                    Sed convallis dignissim magna et dignissim. Praesent tincidunt sapien eu gravida dignissim.
-                                </p>
-                            </div>
-                        </li>
-
-                           <li class="media">
-                            <div class="media-left">
-                               <img src="http://placehold.it/60x60" class="img-circle">
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    Praesent Tinci
-                                    <br>
-                                    <small>
-                                        commented on <a href="#">Post Title</a>
-                                    </small>
-                                </h4>
-                                <p>
-                                    Sed convallis dignissim magna et dignissim. Praesent tincidunt sapien eu gravida dignissim.
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- <a href="#" class="btn btn-default btn-block">More Events »</a> -->
+               <div class="panel-body" id="result">
+                <!-- Go to the jquery Section TO see The Append Content -->
                 </div>
             </div>
             <!-- End fluid width widget --> 
@@ -299,15 +250,17 @@
     </div>
   </div>
 </div>
-
-
-
-         
-        </div>
+ </div>
         <div class="modal-footer">
-             <input type="text" style="border-radius: 3rem;border-color: black;" class="form-control"  placeholder="Post a comment Here">
+
+          <form action="{{url('/')}}/user/comments" method="POST">
+              @csrf
+            <input type="hidden" name="blog_id" id="blog_id" value="{{$Own_Blog->id}}">
+             <input type="text" required style="border-radius: 3rem;border-color: black;" class="form-control" name="comment"  placeholder="Post a comment Here">
              <br>
-                    <input type="button" class="btn btn-primary" value="Comment Here" placeholder="Post a comment">
+                    <input type="submit" class="btn btn-primary" value="Comment Here" placeholder="Post a comment">
+
+          </form>
         </div>
       </div>
     </div>
@@ -318,16 +271,11 @@
 
 
                   </div> 
-                  <div class="user-info">
+                 <!--  <div class="user-info">
                     <h5><a href="#" class="profile-link">{{Auth::user()->name}}</a> <span class="following"></span></h5>
                     <p class="text-muted">Follow</p>
                   </div>
-                  <br>
-
-
-
-
-                
+                  <br> -->
              <!--   
                   <div class="line-divider"></div>
                   <div class="post-comment">
@@ -335,7 +283,25 @@
                     <input type="text" class="form-control" placeholder="Post a comment">
                     <input type="button" class="btn btn-primary" value="Comment Here" placeholder="Post a comment">
                   </div> -->
+
+                    <div class="panel panel-info" data-id="{{ $Own_Blog->id }}">  
+                                    <div class="panel-footer">
+                                        <span class="pull-rigt">
+                                            <span class="like-btn">
+                                                <i id="like{{$Own_Blog->id}}" class="glyphicon glyphicon-thumbs-up {{ auth()->user()->hasLiked($Own_Blog) ? 'like-post' : '' }}"></i> <div id="like{{$Own_Blog->id}}-bs3">{{ $Own_Blog->likers()->get()->count() }}</div>
+                                            </span>
+                                        </span>
+                                        
+                                         <!--  <span class="pull-rigt">
+                                            <span class="like-btn">
+                                                <i id="like{{$Own_Blog->id}}" class="glyphicon glyphicon-thumbs-up {{ auth()->user()->hasLiked($Own_Blog) ? 'like-post' : '' }}"></i> <div id="like{{$Own_Blog->id}}-bs3">{{ $Own_Blog->likers()->get()->count() }}</div>
+                                            </span>
+                                        </span>
+ -->                                    </div>
+                                </div>
                 </div>
+
+
               </div>
             </div>
 
@@ -354,7 +320,7 @@
 
                  <div class="user-info" style="padding-left: 65px;">
                     <h5><a href="#" class="profile-link">Debasmita Sahoo</a> <span class="following">following</span></h5>
-                    <p class="text-muted">Published a photo about 3 mins ago</p>
+                    <p class="text-muted">Published a photo about 10 sec ago</p>
                   </div>
 
               <img src="../../blog_assets/images/post-images/3.jpg" alt="post-image" class="img-responsive post-image" />
@@ -406,7 +372,7 @@
 
           <!-- Newsfeed Common Side Bar Right
           ================================================= -->
-    			<div class="col-md-2 static">
+          <div class="col-md-2 static">
             <div class="suggestions" id="sticky-sidebar">
               <h4 class="grey">Who to Follow</h4>
 
@@ -453,10 +419,9 @@
               </div>
             </div>
           </div>
-    		</div>
-    	</div>
+        </div>
+      </div>
     </div>
-
 
 
 @include('blogging_ui.footer')
@@ -523,5 +488,57 @@
             $(this).ekkoLightbox();
         });                                        
     }); 
+</script>
+<script type="text/javascript">
+  $(document).on('click','.modalOpencl',function()
+  {
+   var blog_id = $(this).data('id');
+   $('#blog_id').val(blog_id);
+   var thisSelf=$(this);
+
+   $('#result').empty();
+
+ // alert(blog_id);
+  $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/getBlogComments",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          blog_id : blog_id,
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+           console.log(responseData);
+          console.log(data);
+          // alert(data);
+
+
+        $.each(responseData, function(index, value){
+            $("#result").append('<ul class="media-list">\
+                        <li class="media">\
+                            <div class="media-left">\
+        <img src="{{URL::asset('/images/profile_image')}}/'+responseData[index]['profile_img']+'" style="width: 49px;height:51px;" class="img-circle">\
+                            </div>\
+                            <div class="media-body">\
+                                <h4 class="media-heading">\
+                                    '+responseData[index]['uname']+'\
+                                    <br>\
+                                    <small>\
+                                        commented on <a href="#">'+responseData[index]['uname']+'</a> Post\
+                                    </small>\
+                                </h4>\
+                                <p>\
+                                    '+responseData[index]['cds']+'\
+                                </p>\
+                            </div>\
+                        </li>\
+                    </ul>');
+        });
+        }
+  });
+ 
+  });
 </script>
  

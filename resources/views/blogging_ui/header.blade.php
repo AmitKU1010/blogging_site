@@ -6,6 +6,8 @@
 		<meta name="description" content="Phoenix Software Solutions" />
 		<meta name="keywords" content="index" />
 		<meta name="robots" content="index, follow" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 		<title>Blogging Site</title>
   
     <!-- Stylesheets
@@ -43,4 +45,59 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+  
+
+<style type="text/css">
+   
+.like-btn{
+  background: #3399ff none repeat scroll 0 0;
+  border-radius: 3px;
+  color: white;
+  padding: 7px 3px 3px 7px;
+  margin-right: 5px;
+  margin-top: -5px;
+}
+.like-btn i,.dislike-btn i{
+  color: white;
+}
+.dislike-btn{
+  background: #FA4E69 none repeat scroll 0 0;
+  border-radius: 3px;
+  color: white;
+  padding: 7px 5px 3px 3px; 
+  margin-top: -5px;
+}
+
+.panel .panel-footer { 
+  padding: 8px !important; 
+  background-color: #f9f9f9 !important;
+  border:0px;
+  border-style: none;
+}  
+
+.panel .panel-footer i.glyphicon { 
+  display: inline; 
+  font-size: 1.125em; 
+  cursor: pointer; 
+  padding-right: 7px;
+}
+.panel .panel-footer i.glyphicon-thumbs-down { 
+  color: #e74c3c; 
+  padding-left: 5px; 
+  padding-right: 5px;
+}
+.panel .panel-footer div { 
+  width: 15px; 
+  display: inline; 
+  font: 300 normal 1.125em "Roboto",Arial,Verdana,sans-serif; 
+  color: white !important; 
+  text-align: center; 
+  background-color: transparent !important; 
+
+} 
+.like-post{
+  color: #e21309 !important;
+}
+</style>
 	</head>
+
