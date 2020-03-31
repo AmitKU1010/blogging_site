@@ -17,7 +17,7 @@
             <!-- <a class="navbar-brand" href="index-register.html"><img src="images/logo.png" alt="logo" /></a> -->
             <h3 style="color: white;"><i>BLOGGING SITE</i></h3>
           </div>
-
+ 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-menu">

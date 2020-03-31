@@ -93,6 +93,12 @@ Auth::routes();
 
     Route::post('dislike', 'HomeController@DisLikePost')->name('dislike');
 
+    // follow unfollow
+    Route::get('users', 'HomeController@users')->name('users');
+    Route::get('user/{id}', 'HomeController@user')->name('user.view');
+    Route::post('ajaxRequest', 'HomeController@ajaxRequest')->name('ajaxRequest');
+    // follow unfollow
+
  
    
 

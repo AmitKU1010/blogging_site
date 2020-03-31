@@ -13,14 +13,14 @@
               <span class="icon-bar"></span>
             </button>
             <!-- <a class="navbar-brand" href="index-register.html"><img src="../../blog_assets/images/logo.png" alt="logo" /></a> -->
-            <h3 style="color: white;"><i>𝔹𝕃𝕆𝔾𝔾𝕀ℕ𝔾 𝕊𝕀𝕋𝔼</i></h3>
+            <h3 style="color:  #007fff;"><i>𝔹𝕃𝕆𝔾𝔾𝕀ℕ𝔾 𝕊𝕀𝕋𝔼</i></h3>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-menu">
             
-              <li class="dropdown"><a href="{{url('/')}}/user/newsfeed">HOME</a></li>
+              <li class="dropdown"><a href="{{url('/')}}/user/newsfeed"  style="color:  #007fff;">HOME</a></li>
                
  
             </ul>
@@ -52,20 +52,20 @@
                    <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image) }}" alt="" class="img-responsive profile-photo" />
                  
 
-              <h4>{{Auth::user()->name}}</h4>
+              <h4 style="color:  #007fff;">{{Auth::user()->name}}</h4>
               <p class="text-muted">({{Auth::user()->email}})</p>
                 </div>
               </div>
               <div class="col-md-9">
                 <ul class="list-inline profile-menu">
                   <li><a href="#">Timeline</a></li>
-                  <li><a href="#" class="active">About</a></li>
+                  <li><a href="#" class="active" style="color:  #007fff;">About</a></li>
                   <li><a href="#">Album</a></li>
                   <li><a href="#">Friends</a></li>
                 </ul>
                 <ul class="follow-me list-inline">
                   <li>1,299 people following Him</li>
-                  <li><button class="btn-primary">Following Topics</button></li>
+                  <li><button class="btn-primary" style="background-color:  #007fff;" >Following Topics</button></li>
                 </ul>
               </div>
             </div>
@@ -97,7 +97,7 @@
               
               <!--Edit Profile Menu-->
               <ul class="edit-menu">
-              	<li class="active"><i class="icon ion-ios-information-outline"></i><a href="{{url('/')}}/user/edit_profile">Basic Information</a></li>
+              	<li class="active"><i class="icon ion-ios-information-outline"></i><a href="{{url('/')}}/user/edit_profile" style="color:  #007fff;">Basic Information</a></li>
                 <!-- <li><i class="icon ion-ios-settings"></i><a href="#">Account Settings</a></li> -->
 
                 <li><i class="icon ion-ios-albums"></i><a href="#" id="blog_post">Blog Post</a></li>
@@ -461,7 +461,7 @@
                         <textarea id="my-info" name="about_me" class="form-control" placeholder="Some texts about me" rows="4" cols="400">{{Auth::user()->about_me}}</textarea>
                       </div>
                     </div>
-                    <button class="btn btn-primary">Save Changes</button>
+                    <button class="btn btn-primary"  style="background-color:  #007fff;">Save Changes</button>
                   </form>
                 </div>
               </div>

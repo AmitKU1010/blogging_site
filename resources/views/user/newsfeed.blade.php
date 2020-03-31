@@ -13,14 +13,14 @@
               <span class="icon-bar"></span>
             </button>
             <!-- <a class="navbar-brand" href="index-register.html"><img src="../../blog_assets/images/logo.png" alt="logo" /></a> -->
-            <h3 style="color: white;"><i>𝔹𝕃𝕆𝔾𝔾𝕀ℕ𝔾 𝕊𝕀𝕋𝔼</i></h3>
+            <h3 style="color:  #007fff;"><i>𝔹𝕃𝕆𝔾𝔾𝕀ℕ𝔾 𝕊𝕀𝕋𝔼</i></h3>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-menu">
             
-              <li class="dropdown"><a href="{{url('/')}}/user/newsfeed">HOME</a></li>
+              <li class="dropdown"><a href="{{url('/')}}/user/newsfeed" style="color:  #007fff;">HOME</a></li>
                
  
             </ul>
@@ -63,7 +63,7 @@
               </form>
              <!--  <li><i class="icon ion-ios-videocam"></i><div><a href="newsfeed-videos.html">Videos</a></div></li> -->
             </ul><!--news-feed links ends-->
-               <div id="chat-block">
+               <div id="chat-block" >
               <div class="title"><a href="{{url('/')}}/user/edit_profile" style="color:white;">My Profile</a></div>
               
             </div><!--chat block ends-->
@@ -184,7 +184,7 @@
                     <p class="text-muted">You Published a photo about 10 sec ago</p>
                   </div>
 
-                      <div class="line-divider"></div>
+                  <div class="line-divider"></div>
                   <div class="post-text">
                     <strong><b> <u> {{$Own_Blog->post_caption}} </u></b></strong>
                     <p>{{strip_tags($Own_Blog->post_description)}} <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>

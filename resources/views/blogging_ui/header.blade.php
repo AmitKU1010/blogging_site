@@ -6,8 +6,7 @@
 		<meta name="description" content="Phoenix Software Solutions" />
 		<meta name="keywords" content="index" />
 		<meta name="robots" content="index, follow" />
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>Blogging Site</title>
   
     <!-- Stylesheets
