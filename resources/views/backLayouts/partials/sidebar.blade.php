@@ -48,7 +48,7 @@
 							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-database"></i><span class="side-menu__label">Track Users</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li>
-									<a href="#!" class="slide-item">User List</a>
+									<a href="{{route('admin.trackuserlist')}}" class="slide-item">User List</a>
 								</li>
 
 								

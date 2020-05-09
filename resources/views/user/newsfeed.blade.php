@@ -12,10 +12,10 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <!-- <a class="navbar-brand" href="index-register.html"><img src="../../blog_assets/images/logo.png" alt="logo" /></a> -->
+            <!-- <a class="navbar-brand" href="#" ><img src="../../blog_assets/images/Logo 3.jpg" style="backgound-color:black;height:68px;width:130px;" alt="logo" /></a> -->
             <h3 style="color:  #007fff;"><i>𝔹𝕃𝕆𝔾𝔾𝕀ℕ𝔾 𝕊𝕀𝕋𝔼</i></h3>
           </div>
-
+ 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-menu">
@@ -65,7 +65,7 @@
             </ul><!--news-feed links ends-->
                <div id="chat-block" >
               <div class="title"><a href="{{url('/')}}/user/edit_profile" style="color:white;">My Profile</a></div>
-              
+
             </div><!--chat block ends-->
           </div>
           <div class="col-md-7">
@@ -100,7 +100,7 @@
       </li>
       <li><a href="#2" id="own_post_link" data-toggle="tab">Own Posts</a>
       </li>
-      <li><a href="#3" data-toggle="tab" id="notification_link">Notification</a>
+      <li><a href="#javascript:void(0)" data-toggle="tab" id="notification_link">Notification</a>
       </li>
     </ul>
 
@@ -116,71 +116,93 @@
         </div>
       </div> -->
   </div>
+  
 
 
             <div class="container"><h2></h2></div>
-
  
-            <!-- Post Content
+            <!--Trending Post Content 
             ================================================= -->
-
-
+ 
+          @if(count($Trending_Blogs) > 0)
+           @foreach($Trending_Blogs as $Trending_Blog)
+ 
+          
+ 
             <div class="post-content trending">
-               <img src="../../blog_assets/images/users/user-5.jpg" alt="user" class="profile-photo-md pull-left" />
-
+            <img src="{{URL::asset('/images/profile_image/'.$Trending_Blog->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
+ 
                  <div class="user-info" style="padding-left: 65px;">
-                    <h5><a href="#" class="profile-link">Debasmita Sahoo</a> <span class="following">following</span></h5>
-                    <p class="text-muted">Published a photo about 10 sec ago</p>
+                    <h5><a href="{{url('/')}}/user/other_user_details/{{$Trending_Blog->real_user_id}}" class="profile-link">{{$Trending_Blog->name}}</a></h5>
+                    <p class="text-muted">You Published a photo about 10 sec ago</p>
                   </div>
 
-              <img src="../../blog_assets/images/post-images/8.jpg" alt="post-image" class="img-responsive post-image" />
-              <div class="post-container">
-                <img src="../../blog_assets/images/users/user-5.jpg" alt="user" class="profile-photo-md pull-left" />
-                <div class="post-detail">
-                  <div class="user-info">
-                    <h5><a href="#" class="profile-link">Debasmita Sahoo</a> <span class="following"></span></h5>
-                    <p class="text-muted">Caption Of the Post</p>
-                  </div>
-                  <div class="reaction">
-                    <a class="btn text-green"><i class="icon ion-thumbsup"></i> 1330</a>
-                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 100</a>
-                  </div>
                   <div class="line-divider"></div>
                   <div class="post-text">
-                    <p>Can alternatives be found to Huawei? After we decided not to rule Huawei out of our 5G network, Boris asked: “If people oppose one brand or another then they have to tell us what is the alternative, right?” Answering that question the day before yesterday in Munich, was US defence secretary Mark Esper who said: “We are encouraging allied and U.S. tech companies to develop alternative 5G solutions and we are working alongside them to test these technologies at our military bases as we speak.”<i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
+                    <strong><b> <u> {{$Trending_Blog->post_caption}} </u></b></strong>
+                    <p>{{strip_tags($Trending_Blog->post_description)}} <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
+                  </div>
+ 
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+
+
+              <!-- Post Container Starts -->
+              <div class="post-container">
+                <img src="{{URL::asset('/images/profile_image/'.$Trending_Blog->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
+                <div class="post-detail">
+                  <div class="user-info">
+                    <h5><a href="#" class="profile-link">{{$Trending_Blog->name}}</a> <span class="following"></span></h5>
+                    <!-- <p class="text-muted">Caption Of the Post</p> -->
+                  <br>
+                  </div> 
+                  <div class="reaction">
+                    <a class="btn text-green like-but"><i class="icon ion-thumbsup"></i> 0</a>
+                    <a class="btn text-red dislike-but" id="dislike-but"><i class="fa fa-thumbs-down"></i> 0</a>
                   </div>
                   <div class="line-divider"></div>
-                  <div class="post-comment">
-                    <img src="../../blog_assets/images/users/user-11.jpg" alt="" class="profile-photo-sm" />
-                    <p><a href="#" class="profile-link">Monalisa Rath </a><i class="em em-laughing"></i> Intel is reported to be in talks to sell its home connectivity unit to MaxLinear. In November, Bloomberg reported that Intel had appointed a financial adviser.</p>
+
+                    <div class="post-comment">
+                    <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" style="height: 36px;
+                    width: 60px;" alt="" class="profile-photo-sm" />
+
+                  <!-- Comment Input -->
+
+
+
+                    <input type="hidden" class="blog_id_trending" name="blog_id_trending" id="blog_id_trending" value="{{$Trending_Blog->real_blog_id}}">
+
+                    <input type="text" id="comment_input_trending-{{$Trending_Blog->real_blog_id}}" class="form-control"  style="height: 41px;" placeholder="Post a comment">
+
+                  <input type="button" id="comment_btn_trending-{{$Trending_Blog->real_blog_id}}" style="background-color: #007fff;color: white;" class="comment_btn_trending" value="Comment" onclick="submit_comment_trending(this.id)" placeholder="Post a comment">
+                 &nbsp;
+                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Trending_Blog->id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Comment..">
                   </div>
-                  <div class="post-comment">
-                    <img src="../../blog_assets/images/users/user-4.jpg" alt="" class="profile-photo-sm" />
-                    <p><a href="#" class="profile-link">Ashish Debata</a> After we decided not to rule Huawei out of our 5G network, Boris asked: “If people oppose one brand or another then they have to tell us what is the alternative .</p>
-                  </div>  
-                  <div class="post-comment">
-                    <img src="../../blog_assets/images/users/user-19.jpg" alt="" class="profile-photo-sm" />
-                    <input type="text" class="form-control" placeholder="Post a comment">
-                    <input type="button" class="btn btn-primary" value="Comment Here" placeholder="Post a comment">
-                  </div>
+                  <!-- Comment Input -->
+                
+
                 </div>
+                <br>
               </div>
             </div>
+            @endforeach
+            @endif
 
-
-
-              <!-- Post Conten t
+             <!--Trending Post Content 
             ================================================= -->
 
+
+
+              <!-- Own Post Content
+            ================================================= -->
+          
            @if(count($Own_Blogs) > 0)
            @foreach($Own_Blogs as $Own_Blog)
 
-
             <div class="post-content own_post"  style="display: none;" >
-               <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
+            <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
 
                  <div class="user-info" style="padding-left: 65px;">
-                    <h5><a href="#" class="profile-link">{{Auth::user()->name}}</a> <span class="following">Follow</span></h5>
+                    <h5><a href="#" class="profile-link">{{Auth::user()->name}}</a></h5>
                     <p class="text-muted">You Published a photo about 10 sec ago</p>
                   </div>
 
@@ -191,36 +213,85 @@
                   </div>
  
               <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+
+
+              <!-- Post Container Starts -->
               <div class="post-container">
                 <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
                 <div class="post-detail">
-                
+                  <div class="user-info">
+                    <h5><a href="#" class="profile-link">{{Auth::user()->name}}</a> <span class="following"></span></h5>
+                    <!-- <p class="text-muted">Caption Of the Post</p> -->
+                  <br>
+                  </div>
+                  <div class="reaction">
+                    <a class="btn text-green"><i class="icon ion-thumbsup"></i> 0</a>
+                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
+                  </div>
+                  <div class="line-divider"></div>
+                    <div class="post-comment">
+                    <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" style="height: 36px;
+                    width: 60px;" alt="" class="profile-photo-sm" />
 
-  
 
-                    <div class="reaction">
-                  <!--   <a class="btn text-green"><i class="icon ion-thumbsup"></i> 1330</a>
-                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 100</a> -->
+                  <!-- Comment Input -->
+                    <input type="hidden" class="blog_id" name="blog_id" id="blog_id" value="{{$Own_Blog->real_blog_id}}">
 
+                    <input type="text" id="comment_input-{{$Own_Blog->real_blog_id}}" class="form-control"  style="height: 41px;" placeholder="Post a comment">
 
-                                
+                  <input type="button" style="background-color: #007fff;color: white;" id="comment_btn-{{$Own_Blog->real_blog_id}}" class="comment_btn" value="Comment" onclick="submit_comment(this.id)" placeholder="Post a comment">
+
+                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Own_Blog->real_blog_id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Comment..">
+                  </div>
+                  <!-- Comment Input -->
+
+                  
+
  
 
-                            
-                        
 
-                    <!-- Modal starts -->
-                  <input type="button"  data-id="{{$Own_Blog->id}}" class="btn btn-info modalOpencl" data-toggle="modal" data-target="#myModall" value="comment">
+                  <div id="ppp-{{$Own_Blog->real_blog_id}}">
 
- 
+                  </div>
 
-  <!-- Modal -->
+                </div>
+                <br>
+              </div>
+            </div>
+            @endforeach
+            @endif
+              <!-- Own Post Content
+            ================================================= -->
+
+
+
+
+              <!-- Notification
+            ================================================= -->
+
+
+            <div class="post-content notification" id="notification" style="display: none;">
+
+              <div id="notification_id">
+              <!-- Go to Jquery Append Method -->
+              </div>
+
+              
+            </div>
+            </div>
+
+
+              <!-- Notification
+            ================================================= -->
+
+             <!-- Modal starts -->
+             <!-- Modal -->
   <div class="modal fade" id="myModall" role="dialog">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Comment Here</h4>
+          <h4 class="modal-title">All Comments</h4>
         </div>
         <div class="modal-body">
                     
@@ -237,7 +308,7 @@
            
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <span class="glyphicon glyphicon-comment"></span> 
+                        <span class="glyphicon glyphicon-comment"></span> 
                         Recent Comments
                     </h3>
                 </div>
@@ -253,110 +324,12 @@
  </div>
         <div class="modal-footer">
 
-          <form action="{{url('/')}}/user/comments" method="POST">
-              @csrf
-            <input type="hidden" name="blog_id" id="blog_id" value="{{$Own_Blog->id}}">
-             <input type="text" required style="border-radius: 3rem;border-color: black;" class="form-control" name="comment"  placeholder="Post a comment Here">
-             <br>
-                    <input type="submit" class="btn btn-primary" value="Comment Here" placeholder="Post a comment">
-
-          </form>
         </div>
       </div>
     </div>
   </div>
+<!-- Modal Ends -->
 
-                    <!-- Modal starts -->
-
-
-
-                  </div> 
-                 <!--  <div class="user-info">
-                    <h5><a href="#" class="profile-link">{{Auth::user()->name}}</a> <span class="following"></span></h5>
-                    <p class="text-muted">Follow</p>
-                  </div>
-                  <br> -->
-             <!--   
-                  <div class="line-divider"></div>
-                  <div class="post-comment">
-                    <img src="../../blog_assets/images/users/user-19.jpg" alt="" class="profile-photo-sm" />
-                    <input type="text" class="form-control" placeholder="Post a comment">
-                    <input type="button" class="btn btn-primary" value="Comment Here" placeholder="Post a comment">
-                  </div> -->
-
-                    <div class="panel panel-info" data-id="{{ $Own_Blog->id }}">  
-                                    <div class="panel-footer">
-                                        <span class="pull-rigt">
-                                            <span class="like-btn">
-                                                <i id="like{{$Own_Blog->id}}" class="glyphicon glyphicon-thumbs-up {{ auth()->user()->hasLiked($Own_Blog) ? 'like-post' : '' }}"></i> <div id="like{{$Own_Blog->id}}-bs3">{{ $Own_Blog->likers()->get()->count() }}</div>
-                                            </span>
-                                        </span>
-                                        
-                                         <!--  <span class="pull-rigt">
-                                            <span class="like-btn">
-                                                <i id="like{{$Own_Blog->id}}" class="glyphicon glyphicon-thumbs-up {{ auth()->user()->hasLiked($Own_Blog) ? 'like-post' : '' }}"></i> <div id="like{{$Own_Blog->id}}-bs3">{{ $Own_Blog->likers()->get()->count() }}</div>
-                                            </span>
-                                        </span>
- -->                                    </div>
-                                </div>
-                </div>
-
-
-              </div>
-            </div>
-
-            @endforeach
-            @endif
-
-
-
-
-              <!-- Post Content
-            ================================================= -->
-
-
-            <div class="post-content notification" id="notification" style="display: none;">
-               <img src="../../blog_assets/images/users/user-5.jpg" alt="user" class="profile-photo-md pull-left" />
-
-                 <div class="user-info" style="padding-left: 65px;">
-                    <h5><a href="#" class="profile-link">Debasmita Sahoo</a> <span class="following">following</span></h5>
-                    <p class="text-muted">Published a photo about 10 sec ago</p>
-                  </div>
-
-              <img src="../../blog_assets/images/post-images/3.jpg" alt="post-image" class="img-responsive post-image" />
-              <div class="post-container">
-                <img src="../../blog_assets/images/users/user-5.jpg" alt="user" class="profile-photo-md pull-left" />
-                <div class="post-detail">
-                  <div class="user-info">
-                    <h5><a href="#" class="profile-link">Debasmita Sahoo</a> <span class="following"></span></h5>
-                    <p class="text-muted">Caption Of the Post</p>
-                  </div>
-                  <div class="reaction">
-                    <a class="btn text-green"><i class="icon ion-thumbsup"></i> 1330</a>
-                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 100</a>
-                  </div>
-                  <div class="line-divider"></div>
-                  <div class="post-text">
-                    <p>Can alternatives be found to Huawei? After we decided not to rule Huawei out of our 5G network, Boris asked: “If people oppose one brand or another then they have to tell us what is the alternative, right?” Answering that question the day before yesterday in Munich, was US defence secretary Mark Esper who said: “We are encouraging allied and U.S. tech companies to develop alternative 5G solutions and we are working alongside them to test these technologies at our military bases as we speak.”<i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
-                  </div>
-                  <div class="line-divider"></div>
-                  <div class="post-comment">
-                    <img src="../../blog_assets/images/users/user-11.jpg" alt="" class="profile-photo-sm" />
-                    <p><a href="#" class="profile-link">Monalisa Rath </a><i class="em em-laughing"></i> Intel is reported to be in talks to sell its home connectivity unit to MaxLinear. In November, Bloomberg reported that Intel had appointed a financial adviser.</p>
-                  </div>
-                  <div class="post-comment">
-                    <img src="../../blog_assets/images/users/user-4.jpg" alt="" class="profile-photo-sm" />
-                    <p><a href="#" class="profile-link">Ashish Debata</a> After we decided not to rule Huawei out of our 5G network, Boris asked: “If people oppose one brand or another then they have to tell us what is the alternative .</p>
-                  </div>  
-                  <div class="post-comment">
-                    <img src="../../blog_assets/images/users/user-19.jpg" alt="" class="profile-photo-sm" />
-                    <input type="text" class="form-control" placeholder="Post a comment">
-                    <input type="button" class="btn btn-primary" value="Comment Here" placeholder="Post a comment">
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
 
   
 
@@ -366,71 +339,69 @@
             
 
            
-          
+           
         
           
 
           <!-- Newsfeed Common Side Bar Right
           ================================================= -->
+          
           <div class="col-md-2 static">
+       
             <div class="suggestions" id="sticky-sidebar">
-              <h4 class="grey">Who to Follow</h4>
+            <button style="background-color:#007fff;color:white;font-size:13px;borde-radius:30px;"><a href="{{url('/')}}/user/blog_post_special" style="color:white;text-decoration:none;"> Post Your Blog</a></button>
+           
+              <!-- <h4 class="grey">Who to Follow</h4> -->
 
   <div class="search-container">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Search Freinds,posts,etc.." name="search" style="border:1px solid black;">
-      <i class="fa fa-search"></i>
+    <form action="{{url('/')}}/user/search" method="post" enctype="multipart/form-data">
+    @csrf
+    <span>
+      <input type="text" placeholder="Search People....." name="requested_name" style="border:1px solid black;">
+     <input type="submit"  value="Search" style="margin-top:8px;" style="background-color: #007fff;color: #007fff;">
+      <!-- <i class="fa fa-search"></i> -->
+      </span>
     </form>
-  </div>
+  </div> 
+  <br> 
+   <h4 class="grey"><u> Who to Follow</u></h4>
+                @if($users->count())
+                @foreach($users as $user)
               <div class="follow-user">
-                <img src="../../blog_assets/images/users/user-11.jpg" alt="" class="profile-photo-sm pull-left" />
+                <img src="{{URL::asset('/images/profile_image/'.$user->profile_image)}}" alt="" class="profile-photo-sm pull-left" />
                 <div>
-                  <h5><a href="#">Sumitra Nayak</a></h5>
-                  <a href="#" class="text-green">Follow</a>
+                  <h5><a href="#">{{ $user->name }}</a></h5> <button  style="background-color: #007fff;color: white;" class="action-follow" data-id="{{ $user->id }}"><strong>
+            @if(auth()->user()->isFollowing($user))
+                UnFollow
+            @else
+                Follow
+            @endif
+            </strong></button>
+                 
                 </div>
               </div>
-              <div class="follow-user">
-                <img src="../../blog_assets/images/users/user-12.jpg" alt="" class="profile-photo-sm pull-left" />
-                <div>
-                  <h5><a href="#">Biki Rath</a></h5>
-                  <a href="#" class="text-green">Follow</a>
-                </div>
-              </div>
-              <div class="follow-user">
-                <img src="../../blog_assets/images/users/user-13.jpg" alt="" class="profile-photo-sm pull-left" />
-                <div>
-                  <h5><a href="#">Debasis Sahoo</a></h5>
-                  <a href="#" class="text-green">Follow</a>
-                </div>
-              </div>
-              <div class="follow-user">
-                <img src="../../blog_assets/images/users/user-14.jpg" alt="" class="profile-photo-sm pull-left" />
-                <div>
-                  <h5><a href="#">Sonali Nayak</a></h5>
-                  <a href="#" class="text-green">Follow</a>
-                </div>
-              </div>
-              <div class="follow-user">
-                <img src="../../blog_assets/images/users/user-15.jpg" alt="" class="profile-photo-sm pull-left" />
-                <div>
-                  <h5><a href="#">Rasmita Agasty</a></h5>
-                  <a href="#" class="text-green">Follow</a>
-                </div>
-              </div>
+               @endforeach
+               @endif  
             </div>
           </div>
         </div>
       </div>
     </div>
 
-
 @include('blogging_ui.footer')
+<script src="{{ asset('js/custom.js') }}" defer></script>
+
  <script type="text/javascript">
       $(document).on("click","#trending_link",function()
       {
         $('.trending').show();
         $('.own_post').hide();
         $('.notification').hide();
+        $('.trending').show();
+
+        // var divClone2 = $(".own_post").clone();
+        // $('.own_post').empty();
+        // $(".trending").append(divClone);
 
       });
 
@@ -440,64 +411,71 @@
         $('.own_post').show();
         $('.notification').hide();
 
+        // var divClone = $(".trending").clone();
+        // $('.trending').empty();
+
+        // $(".own_post").append(divClone2);
+
       });
 
         $(document).on("click","#notification_link",function()
       {
+        // window.location.href=window.location.href;
+
+        $('#notification_id').empty();
+
+        // $(this).prop('disabled',true);
+
         $('.trending').hide();
         $('.own_post').hide();
         $('.notification').show();
-      });
-    </script>
+ 
+        $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/getBlognotification",
+         data:{
+          "_token": "{{ csrf_token() }}",
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+          //  console.log(responseData);
+          console.log(data);
+          // alert(data);
 
 
-<script type="text/javascript">
-    $(document).ready(function() {     
+   $.each(responseData, function(index, value)
+   {
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    $("#notification_id").append('<img src="{{URL::asset('/images/profile_image')}}/'+responseData[index]['profile_image']+'"alt="user" class="profile-photo-md pull-left" />\
+                 <div class="user-info" style="padding-left: 65px;">\
+                    <h5><a href="#" class="profile-link">'+responseData[index]['name']+'</a> Commented On Your <span style="color:black;"> "'+responseData[index]['blogcaption']+'"</span> Post that</h5>\
+                    <span style="color:black;">'+responseData[index]['noti_desc']+'</span><p class="text-muted">1 minute ago</p>\
+                  </div>');
+    });
+    }
+   });
+ 
+  });
 
-        $('i.glyphicon-thumbs-up, i.glyphicon-thumbs-down').click(function(){    
-            var id = $(this).parents(".panel").data('id');
-            var c = $('#'+this.id+'-bs3').html();
-            var cObjId = this.id;
-            var cObj = $(this);
 
-            $.ajax({
-               type:'POST',
-               url:'/blogging-site/public/like',
-               data:{id:id},
-               success:function(data){
-                  if(jQuery.isEmptyObject(data.success.attached)){
-                    $('#'+cObjId+'-bs3').html(parseInt(c)-1);
-                    $(cObj).removeClass("like-post");
-                  }else{
-                    $('#'+cObjId+'-bs3').html(parseInt(c)+1);
-                    $(cObj).addClass("like-post");
-                  }
-               }
-            });
 
-        });      
 
-        $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox();
-        });                                        
-    }); 
-</script>
-<script type="text/javascript">
+
+
+
+
+
+
+
   $(document).on('click','.modalOpencl',function()
   {
    var blog_id = $(this).data('id');
    $('#blog_id').val(blog_id);
+
    var thisSelf=$(this);
-
    $('#result').empty();
-
  // alert(blog_id);
   $.ajax({
         type:"POST",
@@ -513,8 +491,6 @@
            console.log(responseData);
           console.log(data);
           // alert(data);
-
-
         $.each(responseData, function(index, value){
             $("#result").append('<ul class="media-list">\
                         <li class="media">\
@@ -523,15 +499,15 @@
                             </div>\
                             <div class="media-body">\
                                 <h4 class="media-heading">\
-                                    '+responseData[index]['uname']+'\
+                                    '+responseData[index]['uname']+'&nbsp;<span style="color:black;font-size:13px;">about a minute ago</span>\
                                     <br>\
                                     <small>\
-                                        commented on <a href="#">'+responseData[index]['uname']+'</a> Post\
+                                        commented that \
                                     </small>\
                                 </h4>\
-                                <p>\
+                                <p style="font-size:13px;color:black;"> <strong>\
                                     '+responseData[index]['cds']+'\
-                                </p>\
+                                    </strong></p>\
                             </div>\
                         </li>\
                     </ul>');
@@ -540,5 +516,113 @@
   });
  
   });
-</script>
+
+
+
+
+
+
+  function submit_comment_trending(str)
+  {
+        var id = str;
+        // alert(id);
+        var separate=id.split('-');
+
+        var blog_id=separate[1];
+        // alert(separate);
+        var comment_input=$('#comment_input_trending'+'-'+separate[1]).val();
+
+      // $('#ppp'+'-'+separate[1]).show();
+
+      
+
+
+        // alert(comment_input);
+         // alert(blog_id);
+  $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/submit_comment",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          blog_id : blog_id,comment_input:comment_input,
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+           console.log(responseData);
+          console.log(data);
+          // alert(data);
+ 
+      $('#comment_input_trending'+'-'+separate[1]).val("");
+        }
+  });
+  } 
+
+
+
+  
+  function submit_comment(str)
+  {
+        var id = str;
+        // alert(id);
+        var separate=id.split('-');
+
+        var blog_id=separate[1];
+        // alert(separate);
+        var comment_input=$('#comment_input'+'-'+separate[1]).val();
+
+      
+
+      // $('#ppp'+'-'+separate[1]).show();
+ 
+
+        // alert(comment_input);
+        //  alert(blog_id);
+  $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/submit_comment",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          blog_id : blog_id,comment_input:comment_input,
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+           console.log(responseData);
+          console.log(data);
+          // alert(data);
+ 
+      $('#comment_input'+'-'+separate[1]).val("");
+        }
+  });
+  } 
+
+
+$(document).on('click','.like-but',function()
+{
+
+// $('.like-but').text('2');
+$('.like-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+$('.dislike-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+
+
+});
+
+
+$(document).on('click','.dislike-but',function()
+{
+
+// $('.like-but').text('2');
+$('.like-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+
+$('.dislike-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+
+
+});
+
+    </script>
+
+
  

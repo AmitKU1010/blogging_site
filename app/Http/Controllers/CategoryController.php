@@ -97,7 +97,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function edit($id)
-    {
+    { 
     $Category=Category::find($id);
     return view('admin.categories.edit_catagory')->with('Category',$Category);
     }

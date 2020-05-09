@@ -20,6 +20,14 @@
   <script src="{{ asset('blog_assets/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('blog_assets/js/jquery.appear.min.js') }}"></script>
   <script src="{{ asset('blog_assets/js/script.js') }}"></script>
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
+  <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+    
     <script type="text/javascript">
     $(document).ready(function(){
         openLoginModal();
@@ -27,6 +35,8 @@
 
 
     });
+
+    
 
 
     

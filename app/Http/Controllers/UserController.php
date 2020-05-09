@@ -12,7 +12,7 @@ use App\Blogs;
 use DateTime;
 use DateInterval;
 use App\Comment;
- 
+  
 class UserController extends Controller
 {
     /**
@@ -36,22 +36,43 @@ class UserController extends Controller
         
         // $Own_Blogs=DB::table('Blogs')->where('user_id',Auth::id())->get();
 
-         $Own_Blogs = Blogs::where('user_id', Auth::id())->get();
 
-        $comments=DB::table('comments')->where('user_id',Auth::id())->get();
+        // $Own_Blogs=DB::table('blogs')->leftJoin('comments','blogs.id','comments.blog_id')->select('blogs.*','comments.*','blogs.id as blog_id')->get();
+
+        // var_dump($Own_Blogs);
+        // dd($Own_Blogs);
+
+
+
+         $Own_Blogs =DB::table('blogs')
+         ->join('users','users.id','blogs.user_id')
+         ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
+         ->where('blogs.user_id',Auth::id())
+         ->get();
+ 
+         
+         
+         
+         
+        //  $Own_Blogs =Blogs::where('user_id', Auth::id())->get();
+
+        // $comments=DB::table('comments')->get();
+
+        // dd($comments);
 
          // $comments = Comment::where('user_id', Auth::id())->get();
 
+        $Trending_Blogs = DB::table('blogs')
+        ->join('users','users.id','blogs.user_id')
+        ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
+        ->get();
+
+        $users = User::orderBy('id', 'desc')->take(5)->get();
 
 
-
-
-      
-
-        $Trending_Blogs = Blogs::get();
 
         // $Count_blog=DB::table('followables')->where('user_id',Auth::id())->get();
-        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','comments'));
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users'));
 
  
         // return view('user.newsfeed')->with('Own_Blogs',$Own_Blogs);
@@ -65,6 +86,17 @@ class UserController extends Controller
         ->get();
  
         return view('user.edit_profile')->with('User',$User)->with('Subcatagory',$Subcatagory)
+        ->with('Category',$Category);
+    }
+
+    public function blog_post_special()
+    {
+        $User=User::all();
+        $Category=Category::all();
+        $Subcatagory= DB::table('categories')->join('subcatagories','subcatagories.catagory_name','categories.id')
+        ->get();
+ 
+        return view('user.blog_post_special')->with('User',$User)->with('Subcatagory',$Subcatagory)
         ->with('Category',$Category);
     }
  
@@ -141,6 +173,22 @@ class UserController extends Controller
 
     }
 
+    public function other_user_details($id)
+    {
+
+
+    $user=User::find($id);
+
+
+        // dd($User);
+    //   return view('user.other_user', compact('user'));
+
+    return view('user.other_user')->with('user',$user);
+
+
+
+    }
+
 
       public function update_blog(Request $request)
     {   
@@ -161,7 +209,30 @@ class UserController extends Controller
         $Blogs->post_image=$filename;
         $Blogs->save();
        return Redirect::back()->with('message','Profile Updated Successfully !');
-  
+    }
+
+ 
+    public function user_search(Request $request)
+    {
+
+      $requested_name=$request->input('requested_name');   
+      $users = User::where('name','LIKE','%'.$requested_name.'%')->get();   
+      
+      
+      $Own_Blogs =DB::table('blogs')
+      ->join('users','users.id','blogs.user_id')
+      ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
+      ->where('blogs.user_id',Auth::id())
+      ->get();
+
+     $Trending_Blogs = DB::table('blogs')
+     ->join('users','users.id','blogs.user_id')
+     ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
+     ->get();
+
+      return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users'));
+
+ 
     }
 
     public function choosen_topic_store(Request $request)

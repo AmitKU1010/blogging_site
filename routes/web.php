@@ -68,6 +68,9 @@ Auth::routes();
 
     Route::get('/catagorylist/single_service/{id}','ProductController@single_service');
 
+
+  
+
    // search dashboard
     Route::post('/customer/search', 'WelcomeController@search');
     // search dashboard
@@ -76,16 +79,25 @@ Auth::routes();
     Route::get('/user/register-after-modal','UserController@registeraftermodal');
     Route::post('/user/choosen_topic_store','UserController@choosen_topic_store');
     Route::post('/user/update_profile','UserController@update_profile');
-    Route::get('/user/blog_post','UserController@blog_post');
+    Route::get('/user/blog_post_special','UserController@blog_post_special');
     Route::post('/user/update_blog','UserController@update_blog');
 
     Route::post('/user/comments','UserController@comments');
 
+    Route::post('/user/search','UserController@user_search');
+
+    Route::post('/user/blog_post','UserController@blog_post');
+
+    Route::get('/user/other_user_details/{id}','UserController@other_user_details');
+ 
 
 
 
 
 
+
+
+ 
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('posts', 'HomeController@posts')->name('posts');
@@ -106,6 +118,10 @@ Auth::routes();
    Route::post('/get/catagory', 'AjaxController@getcatagoryBydepartment');
    Route::post('/get/subcatagory', 'AjaxController@getsubcatagoryBycatagory');
    Route::post('/ajax/getBlogComments','AjaxController@getBlogComments');
+    
+   Route::post('/ajax/submit_comment','AjaxController@submit_comment');
+   
+   Route::post('/ajax/getBlognotification','AjaxController@getBlognotification');
  
 
     
@@ -123,9 +139,13 @@ Auth::routes();
 
     Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
 
+    Route::get('trackuserlist', 'AdminController@trackuserlist')->name('trackuserlist');
+
     Route::post('vendor/dashboard', 'AdminController@vendordashboard');
 
-  
+
+ 
+   
 
     Route::resource('profiles', 'ProfileController');
     Route::get('/profiles/destroy/{id}','ProfileController@destroy');
@@ -210,7 +230,7 @@ Auth::routes();
 
     // services
 
-
+ 
        //managers
     Route::resource('managers', 'ManagerController');
     Route::post('/managers/store', 'ManagerController@store');

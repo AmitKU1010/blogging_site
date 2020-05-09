@@ -156,7 +156,7 @@ class ProductController extends Controller
         $single_service_data =Product::where('id',$id)->first();
         $Product=DB::table('products')->get();
 
-
+ 
         // dd($single_service);
         return view('admin.services.single_service',compact('single_service_data'))->with('single_service',$single_service)
         ->with('Product',$Product);

@@ -73,7 +73,7 @@ class HomeController extends Controller
         $users = User::get();
         return view('users', compact('users'));
     }
-
+ 
 
     /**
      * Show the application of itsolutionstuff.com.
@@ -86,7 +86,7 @@ class HomeController extends Controller
         return view('usersView', compact('user'));
     }
 
-
+ 
     /**
      * Show the application of itsolutionstuff.com.
      *
@@ -97,8 +97,6 @@ class HomeController extends Controller
 
         $user = User::find($request->user_id);
         $response = auth()->user()->toggleFollow($user);
-
-
         return response()->json(['success'=>$response]);
     }
 

@@ -52,7 +52,7 @@ html, body {
 
 body{
 	font-family: 'Lato', sans-serif;
-  line-height: 26px;
+  line-height: 22px;
 	color: #6d6e71;
 	font-size: 13px;
 }
@@ -1032,8 +1032,8 @@ textarea{
 #exTab2  li > a
 {
   font-weight: bolder;
-  font-size: 20px;
-  padding: 0px 47px;
+  font-size: 18px;
+  padding: 0px 52px;
 
 }
 
@@ -1115,7 +1115,7 @@ ul.nav-news-feed li div::after{
 ul.nav-news-feed li a{
   color: black;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14.5px;
 }
 
 ul.nav-news-feed li i{
@@ -1143,9 +1143,9 @@ ul.nav-news-feed i.ion-ios-videocam{color: #9e1f63;}
   margin: 0 0 40px 0;
   text-align: center;
 }
-
+ 
 #chat-block .title{
-  background: #8dc63f;
+  background: #007fff;
   padding: 2px 20px;
   width: 70%;
   height: 30px;
@@ -1319,7 +1319,7 @@ ul.online-users li span.online-dot{
   height: 30px;
   border: 1px solid #ccc;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  margin: 7px 0;
+  margin: 2px 5px 0 -2px;
   min-width: 0;
 }
 
@@ -3021,7 +3021,7 @@ login signup form css
 .search-container input[type=text] {
   padding: 6px;
   margin-top: 8px;
-  font-size: 17px;
+  font-size: 13px;
   border: none;
 }
  .search-container button {

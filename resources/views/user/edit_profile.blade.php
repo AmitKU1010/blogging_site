@@ -70,7 +70,7 @@
               </div>
             </div>
           </div><!--Timeline Menu for Large Screens End-->
-  
+   
           <!--Timeline Menu for Small Screens-->
           <div class="navbar-mobile hidden-lg hidden-md">
             <div class="profile-info">
@@ -169,6 +169,7 @@
                        <div class="form-group col-xs-6">
                         <label for="dob">Date Of Birth</label>
                         <input id="dob" class="form-control input-group-lg" type="date" name="dob" value="{{Auth::user()->dob}}" title=""/>
+                        
                       </div>
                     </div>
 
@@ -177,7 +178,7 @@
                       <div class="form-group col-xs-6">
                         <label for="city"> Gender</label>
                         <select class="form-control" name="gender">
-                          <option>Select</option>
+                          <!-- <option>Select</option> -->
                           <option value="male">Male</option>
                           <option value="female">Female</option>
                           <option value="other">Other</option>
@@ -596,28 +597,28 @@
               
               <!--Sticky Timeline Activity Sidebar-->
               <div id="sticky-sidebar">
-                <h4 class="grey">Amit's activity</h4>
+                <h4 class="grey">{{Auth::user()->name}}'s activity</h4>
                 <div class="feed-item">
                   <div class="live-activity">
-                    <p><a href="#" class="profile-link">Amit</a> Commended on a Photo</p>
+                    <p><a href="#" class="profile-link">{{Auth::user()->name}}</a> Commended on a Photo</p>
                     <p class="text-muted">5 mins ago</p>
                   </div>
                 </div>
                 <div class="feed-item">
                   <div class="live-activity">
-                    <p><a href="#" class="profile-link">Amit</a> Has posted a photo</p>
+                    <p><a href="#" class="profile-link">{{Auth::user()->name}}</a> Has posted a photo</p>
                     <p class="text-muted">an hour ago</p>
                   </div>
                 </div>
                 <div class="feed-item">
                   <div class="live-activity">
-                    <p><a href="#" class="profile-link">Amit</a> Liked her friend's post</p>
+                    <p><a href="#" class="profile-link">{{Auth::user()->name}}</a> Liked her friend's post</p>
                     <p class="text-muted">4 hours ago</p>
                   </div>
                 </div>
                 <div class="feed-item">
                   <div class="live-activity">
-                    <p><a href="#" class="profile-link">Amit</a> has shared an album</p>
+                    <p><a href="#" class="profile-link">{{Auth::user()->name}}</a> has shared an album</p>
                     <p class="text-muted">a day ago</p>
                   </div>
                 </div>

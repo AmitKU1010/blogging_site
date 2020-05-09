@@ -18,7 +18,7 @@
       <link href="{{ asset('blog_assets/font-awesome/4.0.3/css/font-awesome.css') }}" rel="stylesheet" />
 
  
- 
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     
     <!--Google Font-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
