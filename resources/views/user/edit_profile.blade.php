@@ -100,7 +100,7 @@
               	<li class="active"><i class="icon ion-ios-information-outline"></i><a href="{{url('/')}}/user/edit_profile" style="color:  #007fff;">Basic Information</a></li>
                 <!-- <li><i class="icon ion-ios-settings"></i><a href="#">Account Settings</a></li> -->
 
-                <li><i class="icon ion-ios-albums"></i><a href="#" id="blog_post">Blog Post</a></li>
+                <!-- <li><i class="icon ion-ios-albums"></i><a href="#" id="blog_post">Blog Post</a></li> -->
                 
               	<li><i class="icon ion-ios-locked-outline"></i><a href="#" id="change_password">Change Password</a></li>
 

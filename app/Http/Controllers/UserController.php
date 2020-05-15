@@ -78,6 +78,35 @@ class UserController extends Controller
         // return view('user.newsfeed')->with('Own_Blogs',$Own_Blogs);
     } 
  
+
+
+
+    public function newsfeed_after_search(Request $request)
+    {
+
+      $search_post_name=$request->input('search_post_name');   
+
+        
+
+         $Own_Blogs =DB::table('blogs')
+         ->join('users','users.id','blogs.user_id')
+         ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
+         ->where('blogs.user_id',Auth::id())
+         ->get();
+ 
+ 
+
+        $Trending_Blogs = DB::table('blogs')
+        ->join('users','users.id','blogs.user_id')
+        ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
+        ->where('blogs.post_caption', 'LIKE','%'.$search_post_name.'%')
+        ->get();
+
+        $users = User::orderBy('id', 'desc')->take(5)->get();
+
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users'));
+
+    }
     public function edit_profile()
     {
         $User=User::all();
@@ -201,12 +230,48 @@ class UserController extends Controller
         $Blogs->post_description=$request->input('post_description');
 
         // dd($Blogs->post_description);
-        $real=$request->input('post_image');
-        $post_image = $request->file('post_image');
-        $filename = time().'.'.$post_image->getClientOriginalExtension();
+
+        $real=$request->file('post_image');
+
+        
+        if($real !='')
+        {
+        
+        $filename = time().'.'.$real->getClientOriginalExtension();
         $destinationPath = public_path('/images/post_img');
-        $post_image->move($destinationPath, $filename);
+        $real->move($destinationPath, $filename);
         $Blogs->post_image=$filename;
+        }
+
+        $real_two=$request->file('post_image_two');
+        if($real_two !='')
+        {
+        $filename2 = time().'.'.$real_two->getClientOriginalExtension();
+        $destinationPath2 = public_path('/images/post_img');
+        $real_two->move($destinationPath2, $filename2);
+        $Blogs->post_image_two=$filename2;
+        }
+
+        $real_three=$request->file('post_image_three');
+        if($real_three !='')
+        {
+        $filename3 = time().'.'.$real_three->getClientOriginalExtension();
+        $destinationPath3 = public_path('/images/post_img');
+        $real_three->move($destinationPath3, $filename3);
+        $Blogs->post_image_three=$filename3;
+        }
+ 
+        $real_four=$request->file('post_image_four');
+        if($real_four !='')
+        {
+        $filename_four = time().'.'.$real_four->getClientOriginalExtension();
+        $destinationPath_four = public_path('/images/post_img');
+        $real_four->move($destinationPath_four, $filename_four);
+        $Blogs->post_image_four=$filename_four;
+        }
+
+
+
         $Blogs->save();
        return Redirect::back()->with('message','Profile Updated Successfully !');
     }

@@ -19,22 +19,28 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-menu">
+
             
               <li class="dropdown"><a href="{{url('/')}}/user/newsfeed" style="color:  #007fff;">HOME</a></li>
-               
- 
+
             </ul>
-            <form class="navbar-form navbar-right hidden-sm">
+            <form action="{{url('/')}}/user/newsfeed/after_search" method="post" enctype="multipart/form-data" class="navbar-form navbar-right hidden-sm">
+               @csrf
+ 
               <div class="form-group">
-                <i class="icon ion-android-search"></i>
-                <input type="text" class="form-control" placeholder="Search friends,posts,catagories">
+                <input type="text" name="search_post_name" required class="form-control" placeholder="Search Posts">
               </div>
+              <button class="icon ion-android-search" type="submit"> </button>
+
             </form>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container -->
       </nav>
     </header>
     <!--Header End-->
+
+
+
    
  
     <div id="page-contents">
@@ -53,7 +59,7 @@
             <ul class="nav-news-feed">
               <li><i class="icon ion-ios-paper"></i><div><a href="{{url('/')}}/user/newsfeed">My Newsfeed</a></div></li>
                
-              <li><i class="icon ion-settings"></i><div><a href="{{url('/')}}/user/edit_profile">Publish Post</a></div></li>
+              <!-- <li><i class="icon ion-settings"></i><div><a href="{{url('/')}}/user/edit_profile">Publish Post</a></div></li> -->
               <li><i class="icon ion-ios-people-outline"></i><div> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
                 <i class="dropdown-icon icon icon-power"></i> Log out
@@ -126,9 +132,9 @@
  
           @if(count($Trending_Blogs) > 0)
            @foreach($Trending_Blogs as $Trending_Blog)
- 
-          
- 
+
+
+
             <div class="post-content trending">
             <img src="{{URL::asset('/images/profile_image/'.$Trending_Blog->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
  
@@ -142,8 +148,142 @@
                     <strong><b> <u> {{$Trending_Blog->post_caption}} </u></b></strong>
                     <p>{{strip_tags($Trending_Blog->post_description)}} <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
                   </div>
- 
+
+
+               <!-- Image Layout End for Trending -->
+
+           @php
+           $count_image1=$Trending_Blog->post_image;
+           $count_image2=$Trending_Blog->post_image_two;
+           $count_image3=$Trending_Blog->post_image_three;
+           $count_image4=$Trending_Blog->post_image_four;
+
+        if($count_image1 !='' && $count_image2 =='' && $count_image3 =='' && $count_image4 =='')
+        {
+          @endphp
+          <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-12">
+                        
               <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+               
+                      </div>
+                    </div>
+                  </div>
+        @php
+        }
+    else if($count_image1 !='' && $count_image2 !='' && $count_image3 =='' && $count_image4 =='')
+           {
+           @endphp
+
+           <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-6">
+                        
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+               
+                      </div>
+
+                      <div class="col-md-6">
+                        
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+                      </div>
+                    </div>
+                  </div>
+
+
+           @php
+         }
+    else if($count_image1 !='' && $count_image2 !='' && $count_image3 !='' && $count_image4 =='')
+         {
+
+           @endphp
+           <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-06">
+
+                      <div class="col-md-6">
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+
+
+
+                      <div class="col-md-6">     
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+                  </div>
+               </div>
+               </div>
+
+
+               <br>
+
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-06">
+
+                      <div class="col-md-6">
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+
+                  </div>
+               </div>
+               </div>
+             @php
+
+            }
+     else if($count_image1 !='' && $count_image2 !='' && $count_image3 !='' && $count_image4 !='')
+            {
+             @endphp
+
+             <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-06">
+
+                      <div class="col-md-6">
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+
+
+
+                      <div class="col-md-6">     
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+                  </div>
+               </div>
+               </div>
+
+
+               <br>
+
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-06">
+
+                      <div class="col-md-6">
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+
+
+
+                      <div class="col-md-6">     
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+                  </div>
+               </div>
+               </div>
+
+
+
+             @php
+             }
+            @endphp
+
+                 
+                
+
+
+               <!-- Image Layout End for Trending -->
 
 
               <!-- Post Container Starts -->
@@ -211,8 +351,138 @@
                     <strong><b> <u> {{$Own_Blog->post_caption}} </u></b></strong>
                     <p>{{strip_tags($Own_Blog->post_description)}} <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
                   </div>
- 
+
+
+                <!--Image Layout Starts  for Own blog -->
+                  @php
+           $count_image1=$Own_Blog->post_image;
+           $count_image2=$Own_Blog->post_image_two;
+           $count_image3=$Own_Blog->post_image_three;
+           $count_image4=$Own_Blog->post_image_four;
+
+         if($count_image1 !='' && $count_image2 =='' && $count_image3 =='' && $count_image4 =='')
+        {
+          @endphp
+          <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-12">
+                        
               <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+               
+                      </div>
+                    </div>
+                  </div>
+        @php
+        }
+    else if($count_image1 !='' && $count_image2 !='' && $count_image3 =='' && $count_image4 =='')
+           {
+           @endphp
+
+           <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-6">
+                        
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+               
+                      </div>
+
+                      <div class="col-md-6">
+                        
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+                      </div>
+                    </div>
+                  </div>
+
+
+           @php
+         }
+    else if($count_image1 !='' && $count_image2 !='' && $count_image3 !='' && $count_image4 =='')
+         {
+
+           @endphp
+           <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-06">
+
+                      <div class="col-md-6">
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+
+
+
+                      <div class="col-md-6">     
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+                  </div>
+               </div>
+               </div>
+
+
+               <br>
+
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-06">
+
+                      <div class="col-md-6">
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+
+                  </div>
+               </div>
+               </div>
+             @php
+
+            }
+     else if($count_image1 !='' && $count_image2 !='' && $count_image3 !='' && $count_image4 !='')
+            {
+             @endphp
+
+             <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-06">
+
+                      <div class="col-md-6">
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+
+
+
+                      <div class="col-md-6">     
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+                  </div>
+               </div>
+               </div>
+
+
+               <br>
+
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-06">
+
+                      <div class="col-md-6">
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+
+
+
+                      <div class="col-md-6">     
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+                      </div>
+                  </div>
+               </div>
+               </div>
+
+
+
+             @php
+             }
+            @endphp
+
+                <!--Image Layout Ends  for Own blog -->
+
 
 
               <!-- Post Container Starts -->
@@ -225,9 +495,10 @@
                   <br>
                   </div>
                   <div class="reaction">
-                    <a class="btn text-green"><i class="icon ion-thumbsup"></i> 0</a>
-                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
+                    <a class="btn text-green like-but-own"><i class="icon ion-thumbsup"></i> 0</a>
+                    <a class="btn text-red dislike-but-own"><i class="fa fa-thumbs-down"></i> 0</a>
                   </div>
+
                   <div class="line-divider"></div>
                     <div class="post-comment">
                     <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" style="height: 36px;
@@ -357,7 +628,7 @@
     <form action="{{url('/')}}/user/search" method="post" enctype="multipart/form-data">
     @csrf
     <span>
-      <input type="text" placeholder="Search People....." name="requested_name" style="border:1px solid black;">
+      <input type="text" placeholder="Search People....." required name="requested_name" style="border:1px solid black;">
      <input type="submit"  value="Search" style="margin-top:8px;" style="background-color: #007fff;color: #007fff;">
       <!-- <i class="fa fa-search"></i> -->
       </span>
@@ -370,7 +641,9 @@
               <div class="follow-user">
                 <img src="{{URL::asset('/images/profile_image/'.$user->profile_image)}}" alt="" class="profile-photo-sm pull-left" />
                 <div>
-                  <h5><a href="#">{{ $user->name }}</a></h5> <button  style="background-color: #007fff;color: white;" class="action-follow" data-id="{{ $user->id }}"><strong>
+
+
+                  <h5><a href="{{url('/')}}/user/other_user_details/{{$user->id}}">{{ $user->name }}</a></h5> <button  style="background-color: #007fff;color: white;" class="action-follow" data-id="{{ $user->id }}"><strong>
             @if(auth()->user()->isFollowing($user))
                 UnFollow
             @else
@@ -447,10 +720,9 @@
 
    $.each(responseData, function(index, value)
    {
-
     $("#notification_id").append('<img src="{{URL::asset('/images/profile_image')}}/'+responseData[index]['profile_image']+'"alt="user" class="profile-photo-md pull-left" />\
                  <div class="user-info" style="padding-left: 65px;">\
-                    <h5><a href="#" class="profile-link">'+responseData[index]['name']+'</a> Commented On Your <span style="color:black;"> "'+responseData[index]['blogcaption']+'"</span> Post that</h5>\
+                    <h5><a href="{{URL::asset('/user/other_user_details')}}/'+responseData[index]['id']+'" class="profile-link">'+responseData[index]['name']+'</a> Commented On Your <span style="color:black;"> "'+responseData[index]['blogcaption']+'"</span> Post that</h5>\
                     <span style="color:black;">'+responseData[index]['noti_desc']+'</span><p class="text-muted">1 minute ago</p>\
                   </div>');
     });
@@ -491,6 +763,7 @@
            console.log(responseData);
           console.log(data);
           // alert(data);
+
         $.each(responseData, function(index, value){
             $("#result").append('<ul class="media-list">\
                         <li class="media">\
@@ -498,8 +771,8 @@
         <img src="{{URL::asset('/images/profile_image')}}/'+responseData[index]['profile_img']+'" style="width: 49px;height:51px;" class="img-circle">\
                             </div>\
                             <div class="media-body">\
-                                <h4 class="media-heading">\
-                                    '+responseData[index]['uname']+'&nbsp;<span style="color:black;font-size:13px;">about a minute ago</span>\
+                                <h4 class="media-heading"> <a href="{{URL::asset('/user/other_user_details')}}/'+responseData[index]['id']+'">\
+                                    '+responseData[index]['uname']+'</a>&nbsp;<span style="color:black;font-size:13px;">about a minute ago</span>\
                                     <br>\
                                     <small>\
                                         commented that \
@@ -600,6 +873,22 @@
   } 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
 $(document).on('click','.like-but',function()
 {
 
@@ -618,6 +907,30 @@ $(document).on('click','.dislike-but',function()
 $('.like-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
 
 $('.dislike-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+
+
+});
+
+
+
+$(document).on('click','.like-but-own',function()
+{
+
+// $('.like-but-own').text('2');
+$('.like-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+$('.dislike-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+
+
+});
+
+
+$(document).on('click','.dislike-but-own',function()
+{
+
+// $('.like-but').text('2');
+$('.like-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+
+$('.dislike-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
 
 
 });

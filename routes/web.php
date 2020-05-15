@@ -39,7 +39,7 @@ Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 
  
- 
+  
 
 
 // Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
@@ -75,6 +75,11 @@ Auth::routes();
     Route::post('/customer/search', 'WelcomeController@search');
     // search dashboard
     Route::get('/user/newsfeed','UserController@index');
+ 
+    Route::post('/user/newsfeed/after_search','UserController@newsfeed_after_search');
+
+
+
     Route::get('/user/edit_profile','UserController@edit_profile');
     Route::get('/user/register-after-modal','UserController@registeraftermodal');
     Route::post('/user/choosen_topic_store','UserController@choosen_topic_store');

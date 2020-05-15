@@ -130,7 +130,7 @@
                   <div class="line"></div>
                 </div> 
                 <div class="edit-block">
-                  <form method="post" action="{{url('/')}}/user/update_blog"  name="basic-info" id="basic-info" class="form-inline" enctype="multipart/form-data">    
+                  <form method="post" action="{{url('/')}}/user/update_blog"  name="basic-info" id="basic-info" class="form-inline" enctype="multipart/form-data" >    
                     {{csrf_field()}}
                     <div class="row">
                       <div class="form-group col-xs-6">
@@ -161,13 +161,34 @@
                         @endif
                       </div>
                     </div>
+ 
+                     <div class="row">
+                        <div class="form-group col-xs-6">
+                        <label for="city"> Post Image One</label>
+                        <input  class="form-control input-group-lg" type="file" name="post_image" >
+                      </div> 
+
+                       <div class="form-group col-xs-6">
+                        <label for="city"> Post Image Two</label>
+                        <input name="post_image_two" class="form-control input-group-lg" type="file">
+                      </div>
+
+                    </div>
+
 
                      <div class="row">
                         <div class="form-group col-xs-6">
-                        <label for="city"> Post Image</label>
-                        <input id="post_image" class="form-control input-group-lg" type="file" name="post_image" title="Enter city" placeholder="Your city" value="Bhubaneswar"/>
+                        <label for="city"> Post Image Three</label>
+                        <input name="post_image_three" class="form-control input-group-lg" type="file"  >
+                      </div> 
+
+                       <div class="form-group col-xs-6">
+                        <label for="city"> Post Image Four</label>
+                        <input name="post_image_four" class="form-control input-group-lg" type="file"  >
                       </div>
+
                     </div>
+ 
  
 
                     <div class="row">
