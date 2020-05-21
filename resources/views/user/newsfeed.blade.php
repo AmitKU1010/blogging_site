@@ -1,3 +1,5 @@
+<!-- Original -->
+
 @include('blogging_ui.header')
 <body>
     <header id="header" >
@@ -42,7 +44,7 @@
 
 
    
- 
+  
     <div id="page-contents">
       <div class="container">
         <div class="row">
@@ -53,8 +55,8 @@
             <div class="profile-card">
          
               <img  alt="{{Auth::user()->name}}" src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" class="profile-photo" />
-              <h5><a href="#" class="text-white">{{Auth::user()->name}}({{Auth::user()->email}})</a></h5>
-              <a href="#" class="text-white"><i class="ion ion-android-person-add"></i> 1,299 followers</a>
+              <h5><a href="#" class="text-white">{{Auth::user()->name}}</a></h5>
+              <a href="" class="text-white"><i class="ion ion-android-person-add"></i> {{$cc}} followers</a>
             </div><!--profile card ends-->
             <ul class="nav-news-feed">
               <li><i class="icon ion-ios-paper"></i><div><a href="{{url('/')}}/user/newsfeed">My Newsfeed</a></div></li>
@@ -164,8 +166,8 @@
           <div class="row">
                     <div class="col-md-12">
                       <div class="col-md-12">
-                        
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+                         
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" id="{{$Trending_Blog->real_blog_id}}" style="width: 847px;height: 400px;" class="img-responsive post-image" />
                
                       </div>
                     </div>
@@ -180,13 +182,13 @@
                     <div class="col-md-12">
                       <div class="col-md-6">
                         
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                
                       </div>
 
                       <div class="col-md-6">
                         
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
                     </div>
                   </div>
@@ -203,13 +205,13 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
 
 
 
                       <div class="col-md-6">     
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
                   </div>
                </div>
@@ -223,7 +225,7 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
 
                   </div>
@@ -241,13 +243,13 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
 
 
 
                       <div class="col-md-6">     
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
                   </div>
                </div>
@@ -261,13 +263,13 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
 
 
 
                       <div class="col-md-6">     
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_four)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
                   </div>
                </div>
@@ -303,7 +305,7 @@
 
                     <div class="post-comment">
                     <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" style="height: 36px;
-                    width: 60px;" alt="" class="profile-photo-sm" />
+                    width: 36px;" alt="" class="profile-photo-sm" />
 
                   <!-- Comment Input -->
 
@@ -342,7 +344,7 @@
             <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
 
                  <div class="user-info" style="padding-left: 65px;">
-                    <h5><a href="#" class="profile-link">{{Auth::user()->name}}</a></h5>
+                    <h5><a href="{{url('/')}}/user/other_user_details/{{$Own_Blog->real_user_id}}" class="profile-link">{{Auth::user()->name}}</a></h5>
                     <p class="text-muted">You Published a photo about 10 sec ago</p>
                   </div>
 
@@ -367,7 +369,7 @@
                     <div class="col-md-12">
                       <div class="col-md-12">
                         
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 400px;" class="img-responsive post-image" />
                
                       </div>
                     </div>
@@ -382,13 +384,13 @@
                     <div class="col-md-12">
                       <div class="col-md-6">
                         
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
                
                       </div>
 
                       <div class="col-md-6">
                         
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 430px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
                       </div>
                     </div>
                   </div>
@@ -405,13 +407,13 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
                       </div>
 
 
 
                       <div class="col-md-6">     
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
                       </div>
                   </div>
                </div>
@@ -425,7 +427,7 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
                       </div>
 
                   </div>
@@ -443,13 +445,13 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
                       </div>
 
 
 
                       <div class="col-md-6">     
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
                       </div>
                   </div>
                </div>
@@ -463,13 +465,13 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
                       </div>
 
 
 
                       <div class="col-md-6">     
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 107px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_four)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
                       </div>
                   </div>
                </div>
@@ -487,10 +489,10 @@
 
               <!-- Post Container Starts -->
               <div class="post-container">
-                <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
+                <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="Img" class="profile-photo-md pull-left" />
                 <div class="post-detail">
                   <div class="user-info">
-                    <h5><a href="#" class="profile-link">{{Auth::user()->name}}</a> <span class="following"></span></h5>
+                    <h5><a href="{{url('/')}}/user/other_user_details/{{$Own_Blog->real_user_id}}" class="profile-link">{{Auth::user()->name}}</a> <span class="following"></span></h5>
                     <!-- <p class="text-muted">Caption Of the Post</p> -->
                   <br>
                   </div>
@@ -502,7 +504,7 @@
                   <div class="line-divider"></div>
                     <div class="post-comment">
                     <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" style="height: 36px;
-                    width: 60px;" alt="" class="profile-photo-sm" />
+                    width: 50p36" alt="Img" class="profile-photo-sm" />
 
 
                   <!-- Comment Input -->
@@ -602,6 +604,53 @@
 <!-- Modal Ends -->
 
 
+       <!-- Modal starts -->
+             <!-- Modal -->
+  <div class="modal fade" id="image-modal" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">All Comments</h4>
+        </div>
+        <div class="modal-body">
+                    
+
+
+<!-- Container, Row, and Column used for illustration purposes -->
+<div class="container" style="margin-left: -300px;">
+    <div class="row" >
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" style="width: 500px;overflow:scroll;height: 350px;">
+        
+            <!-- Fluid width widget -->        
+          <div class="panel panel-default" id="before_result">
+
+           
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-comment"></span> 
+                        Recent Comments
+                    </h3>
+                </div>
+               <div class="panel-body" id="result">
+                <!-- Go to the jquery Section TO see The Append Content -->
+                </div>
+            </div>
+            <!-- End fluid width widget --> 
+            
+    </div>
+  </div>
+</div>
+ </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal Ends -->
+
+
   
 
  
@@ -620,27 +669,46 @@
           <div class="col-md-2 static">
        
             <div class="suggestions" id="sticky-sidebar">
-            <button style="background-color:#007fff;color:white;font-size:13px;borde-radius:30px;"><a href="{{url('/')}}/user/blog_post_special" style="color:white;text-decoration:none;"> Post Your Blog</a></button>
-           
+            <a href="{{url('/')}}/user/blog_post_special" style="background-color:#007fff;color:white;font-size:17px;borde-radius:40px;border: 2px solid black;width: 200px;"> Post Your Blog</a>
               <!-- <h4 class="grey">Who to Follow</h4> -->
-
-  <div class="search-container">
-    <form action="{{url('/')}}/user/search" method="post" enctype="multipart/form-data">
-    @csrf
+              <div class="search-container">
     <span>
-      <input type="text" placeholder="Search People....." required name="requested_name" style="border:1px solid black;">
-     <input type="submit"  value="Search" style="margin-top:8px;" style="background-color: #007fff;color: #007fff;">
-      <!-- <i class="fa fa-search"></i> -->
+      <input type="text" placeholder="Search People....." required name="requested_name" id="requested_name" style="border:1px solid black;">
+     <input type="button"  value="Search" style="margin-top:8px;" style="background-color: #007fff;color: #007fff;"  id="search_people_btn">
       </span>
-    </form>
   </div> 
   <br> 
-   <h4 class="grey"><u> Who to Follow</u></h4>
+      <div class="follow-unfollow">
+      <h4 class="grey"><u> Who to Follow</u></h4>
                 @if($users->count())
                 @foreach($users as $user)
+
               <div class="follow-user">
+               @php
+               $post_img_val=$user->profile_image;
+
+               $gender=$user->gender;
+               if($post_img_val=='' && $user->gender=='male' )
+               {
+                @endphp
+                <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="profile-photo-sm pull-left" />
+                @php
+                }
+                else if($post_img_val=='' && $user->gender=='female')
+                {
+                @endphp
+                <img src="{{URL::asset('/images/gender_img/female.png')}}" alt="" class="profile-photo-sm pull-left" />
+                  @php
+                }
+                else
+                {
+                @endphp
                 <img src="{{URL::asset('/images/profile_image/'.$user->profile_image)}}" alt="" class="profile-photo-sm pull-left" />
+                @php
+                }
+                @endphp
                 <div>
+
 
 
                   <h5><a href="{{url('/')}}/user/other_user_details/{{$user->id}}">{{ $user->name }}</a></h5> <button  style="background-color: #007fff;color: white;" class="action-follow" data-id="{{ $user->id }}"><strong>
@@ -654,7 +722,12 @@
                 </div>
               </div>
                @endforeach
-               @endif  
+               @endif
+          </div>
+
+        
+
+
             </div>
           </div>
         </div>
@@ -872,21 +945,163 @@
   });
   } 
 
+ $(document).on('click','#search_people_btn',function()
+  {
+  var req_name=$('#requested_name').val();
+
+  if(req_name.length==0)
+  {
+     $('#requested_name').after('<div style="color:red;">People Name is Required</div>');
+     exit();
+  }
+ 
+   $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/search_people",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          req_name : req_name,
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+          //  console.log(responseData);
+          // console.log(data);
+          // alert(responseData);
+          // alert(data);
+
+        $('.follow-unfollow').empty();
+
+         if(responseData=='')
+          {
+            $(".follow-unfollow").append('<h4>Sorry!! Result Not Found.</h4>');
+          }
+
+          else
+          {
 
 
+          $.each(responseData, function(index, value){
+
+          // var prof=responseData[index]['profile_image'];
+
+          // alert(prof);
+
+          if(responseData[index]['profile_image'] != null)
+          {
+          // alert(prof);
+           
+        $(".follow-unfollow").append('<div><img src="{{URL::asset('/images/profile_image')}}/'+responseData[index]['profile_image']+'" alt="Img" class="profile-photo-sm pull-left" />\
+                <div>\
+                  <h5><a href="{{URL::asset('/user/other_user_details')}}/'+responseData[index]['id']+'" class="profile-link"><h5 style="margin-left:50px;">'+responseData[index]['name']+'</h5></a></h5> \
+\
+                 <div style="margin-left:50px;"> <button  style="background-color: #007fff;color: white;" class="action-follow-two"  id="'+responseData[index]['id']+'" data-id="{{ $user->id }}" ><strong>\
+            \
+                 @if(auth()->user()->isFollowing($user))\
+                UnFollow\
+            @else\
+                Follow\
+            @endif\
+                \
+            </strong></button>\
+                <div><div>\
+                </div>\
+                ');
 
 
+      }
+ 
+    else if(responseData[index]['profile_image'] == null && responseData[index]['gender'] =='female')
+    {
+      $(".follow-unfollow").append('<div><img src="{{URL::asset('/images/gender_img/female.png')}}" alt="Img" class="profile-photo-sm pull-left" /> </div>\
+                <div>\
+                  <h5><a href="{{URL::asset('/user/other_user_details')}}/'+responseData[index]['id']+'" class="profile-link"><h5 style="margin-left:50px;">'+responseData[index]['name']+'</h5></a></h5> \
+                  <div style="margin-left:50px;">\
+                  <button  style="background-color: #007fff;color: white;" class="action-follow-two"  id="'+responseData[index]['id']+'" data-id="{{ $user->id }}" ><strong>\
+            \
+                 @if(auth()->user()->isFollowing($user))\
+                UnFollow\
+            @else\
+                Follow\
+            @endif\
+                \
+            </strong></button>\
+            </div>\
+\
+                </div>\
+              </div>');
+    }
+      else
+      {
+
+        $(".follow-unfollow").append('<div><img src="{{URL::asset('/images/gender_img/male.png')}}" alt="Img" class="profile-photo-sm pull-left" /> </div>\
+                <div>\
+                  <h5><a href="{{URL::asset('/user/other_user_details')}}/'+responseData[index]['id']+'" class="profile-link"><h5 style="margin-left:50px;">'+responseData[index]['name']+'</h5></a></h5> \
+                  <div style="margin-left:50px;">\
+                  <button  style="background-color: #007fff;color: white;" class="action-follow-two"  id="'+responseData[index]['id']+'" data-id="{{ $user->id }}" ><strong>\
+            \
+                 @if(auth()->user()->isFollowing($user))\
+                UnFollow\
+            @else\
+                Follow\
+            @endif\
+                \
+            </strong></button>\
+            </div>\
+\
+                </div>\
+              </div>');
+      }
+
+        });
+
+      }
+     }
+    });
+  });
 
 
+$(document).on('click','.action-follow-two',function()
+{
+  var user_id=$(this).attr('id');
+
+  // alert(user_id);
+ 
+  $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajaxRequest",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          user_id : user_id
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+
+         // alert(data);
+          var kk=responseData.success.attached;
+
+          var dk=responseData.success.attached;
 
 
+          // alert(kk);
+
+          if(kk=='')
+          {
+          $('#'+user_id).text("Follow");
+          }
+          else
+          {
+          $('#'+user_id).text("Unfollow");
+          }
+        }
+  });
 
 
+});
 
-
-
-
-  
 
 
 $(document).on('click','.like-but',function()
@@ -935,7 +1150,20 @@ $('.dislike-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
 
 });
 
-    </script>
+
+
+$(document).on('click','.post-image',function()
+{
+    var id= $(this).attr('id');
+    // alert(id);
+
+    $('#image-modal').modal('show');
+});
+
+</script>
+
+
+
 
 
  

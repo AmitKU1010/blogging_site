@@ -133,5 +133,25 @@ class AjaxController extends Controller
 
     }
 
+       public function search_people(Request $request)
+    {
+
+      $requested_name=$request->req_name;   
+      // $users = User::where('name','LIKE','%'.$requested_name.'%')->get();
+
+
+      $users=DB::table('users')->where('name','LIKE','%'.$requested_name.'%')->get();
+
+      
+
+        
+
+        return json_encode($users);
+
+    }   
+
+
+    
+
 }
  

@@ -22,6 +22,10 @@
   <script src="{{ asset('blog_assets/js/script.js') }}"></script>
   <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  
   <script>
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap4'

@@ -53,15 +53,15 @@
                  
 
               <h4 style="color:  #007fff;">{{Auth::user()->name}}</h4>
-              <p class="text-muted">({{Auth::user()->email}})</p>
+              <p class="text-muted"></p>
                 </div>
               </div>
               <div class="col-md-9">
                 <ul class="list-inline profile-menu">
-                  <li><a href="#">Timeline</a></li>
-                  <li><a href="#" class="active" style="color:  #007fff;">About</a></li>
-                  <li><a href="#">Album</a></li>
-                  <li><a href="#">Friends</a></li>
+                  <!-- <li><a href="#">Timeline</a></li> -->
+                  <li><a href="#" class="active" style="color:  #007fff;"><!-- About --></a></li>
+                  <li><a href="#"><!-- Album --></a></li>
+                  <li><a href="#"><!-- Friends --></a></li>
                 </ul>
                 <ul class="follow-me list-inline">
                   <li>1,299 people following Him</li>
@@ -579,7 +579,7 @@
                         <input class="form-control input-group-lg" type="password" name="password" title="Enter password" placeholder="Confirm password"/>
                       </div>
                     </div>
-                    <p><a href="#">Forgot Password?</a></p>
+                    <!-- <p><a href="#">Forgot Password?</a></p> -->
                     <button class="btn btn-primary">Update Password</button>
                   </form>
                 </div>

@@ -24,12 +24,12 @@
                
  
             </ul>
-            <form class="navbar-form navbar-right hidden-sm">
+           <!--  <form class="navbar-form navbar-right hidden-sm">
               <div class="form-group">
                 <i class="icon ion-android-search"></i>
                 <input type="text" class="form-control" placeholder="Search friends,posts,catagories">
               </div>
-            </form>
+            </form> -->
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container -->
       </nav>
@@ -53,24 +53,24 @@
                  
 
               <h4 style="color:  #007fff;">{{Auth::user()->name}}</h4>
-              <p class="text-muted">({{Auth::user()->email}})</p>
+              <!-- <p class="text-muted">({{Auth::user()->email}})</p> -->
                 </div>
               </div>
               <div class="col-md-9">
                 <ul class="list-inline profile-menu">
-                  <li><a href="#">Timeline</a></li>
-                  <li><a href="#" class="active" style="color:  #007fff;">About</a></li>
-                  <li><a href="#">Album</a></li>
-                  <li><a href="#">Friends</a></li>
+                  <li><a href="#"><!-- Timeline --></a></li>
+                  <li><a href="#" class="active" style="color:  #007fff;"><!-- About --></a></li>
+                  <li><a href="#"><!-- Album --></a></li>
+                  <li><a href="#"><!-- Friends --></a></li>
                 </ul>
                 <ul class="follow-me list-inline">
-                  <li>1,299 people following Him</li>
+                  <li>{{$cc}}  people following</li>
                   <li><button class="btn-primary" style="background-color:  #007fff;" >Following Topics</button></li>
                 </ul>
               </div>
             </div>
           </div><!--Timeline Menu for Large Screens End-->
-  
+   
           <!--Timeline Menu for Small Screens-->
           <div class="navbar-mobile hidden-lg hidden-md">
             <div class="profile-info">
@@ -97,8 +97,8 @@
               
               <!--Edit Profile Menu-->
               <ul class="edit-menu">
-                <li ><i class="icon ion-ios-albums"></i><a href="#" id="blog_post">Blog Post</a></li>
-<!-- 
+                <li><i class="icon ion-ios-albums"></i><a href="#" id="blog_post">Blog Post</a></li>
+                <!-- 
               	<li class="active"><i class="icon ion-ios-information-outline"></i><a href="{{url('/')}}/user/edit_profile" style="color:  #007fff;">Basic Information</a></li>
                 <li><i class="icon ion-ios-settings"></i><a href="#">Account Settings</a></li> -->
 
@@ -161,35 +161,13 @@
                         @endif
                       </div>
                     </div>
- 
+  
                      <div class="row">
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-xs-12">
                         <label for="city"> Post Image One</label>
-                        <input  class="form-control input-group-lg" type="file" name="post_image" >
+                        <input  class="form-control input-group-lg" multiple="true" type="file" name="post_image[]" id="pst_img">
                       </div> 
-
-                       <div class="form-group col-xs-6">
-                        <label for="city"> Post Image Two</label>
-                        <input name="post_image_two" class="form-control input-group-lg" type="file">
-                      </div>
-
                     </div>
-
-
-                     <div class="row">
-                        <div class="form-group col-xs-6">
-                        <label for="city"> Post Image Three</label>
-                        <input name="post_image_three" class="form-control input-group-lg" type="file"  >
-                      </div> 
-
-                       <div class="form-group col-xs-6">
-                        <label for="city"> Post Image Four</label>
-                        <input name="post_image_four" class="form-control input-group-lg" type="file"  >
-                      </div>
-
-                    </div>
- 
- 
 
                     <div class="row">
                       <div class="form-group col-xs-12">
@@ -298,4 +276,17 @@
       });
         
       }); 
+
+
+ $("input[type='file']").change(function()
+ {
+        var $fileUpload = $("input[type='file']");
+        if (parseInt($fileUpload.get(0).files.length)>4)
+        {
+         alert("You can only upload a maximum of 4 files");
+         // $("#pst_img").reset();
+         location.reload();
+
+        }
+ });
     </script>

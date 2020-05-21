@@ -25,10 +25,7 @@
  
             </ul>
             <form class="navbar-form navbar-right hidden-sm">
-              <div class="form-group">
-                <i class="icon ion-android-search"></i>
-                <input type="text" class="form-control" placeholder="Search friends,posts,catagories">
-              </div>
+             
             </form>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container -->
@@ -52,22 +49,45 @@
             <div class="row"> 
               <div class="col-md-3">
                 <div class="profile-info">
-                   <img src="{{URL::asset('/images/profile_image/'.$user->profile_image) }}" alt="" class="img-responsive profile-photo" />
-                 
+                   <!-- <img src="{{URL::asset('/images/profile_image/'.$user->profile_image) }}" alt="" class="img-responsive profile-photo" /> -->
+                    @php
+               $post_img_val=$user->profile_image;
 
+               $gender=$user->gender;
+               if($post_img_val=='' && $user->gender=='male' )
+               {
+                @endphp
+                <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="img-responsive profile-photo" />
+                @php
+                }
+                else if($post_img_val=='' && $user->gender=='female')
+                {
+                @endphp
+                <img src="{{URL::asset('/images/gender_img/female.png')}}" alt="" class="img-responsive profile-photo" />
+                  @php
+                }
+                else
+                {
+                @endphp
+                <img src="{{URL::asset('/images/profile_image/'.$user->profile_image)}}" alt="" class="img-responsive profile-photo" />
+                @php
+                }
+                @endphp
+                  
+ 
               <h4 style="color:  #007fff;">{{$user->name}}</h4>
-              <p class="text-muted">({{$user->email}})</p>
+              <p class="text-muted"><!-- ({{$user->email}}) --></p>
                 </div>
               </div>
               <div class="col-md-9">
                 <ul class="list-inline profile-menu">
-                  <li><a href="#">Timeline</a></li>
-                  <li><a href="#" class="active" style="color:  #007fff;">About</a></li>
-                  <li><a href="#">Album</a></li>
-                  <li><a href="#">Friends</a></li>
+                  <li><a href="#"><!-- Timeline --></a></li>
+                  <li><a href="#" class="active" style="color:  #007fff;"><!-- About --></a></li>
+                  <li><a href="#"><!-- Album --></a></li>
+                  <li><a href="#"><!-- Friends --></a></li>
                 </ul>
                 <ul class="follow-me list-inline">
-                  <li>1,299 people following Him</li>
+                  <li>{{$cc}} people following Him</li>
                   <li><button class="btn-primary" style="background-color:  #007fff;" >Following Topics</button></li>
                 </ul>
               </div>
@@ -124,7 +144,7 @@
               ================================================= -->
               <div class="edit-profile-container" id="edit_info">
                 <div class="block-title">
-                  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Edit basic information</h4>
+                  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Basic information</h4>
                   <div class="line"></div>
                   <p></p>
                   <div class="line"></div>
@@ -142,7 +162,13 @@
                         </span>
                         @endif
                       </div> 
+                      
                       <div class="form-group col-xs-6">
+                        <label for="city"> Gender</label>
+                        <input type="text" value="{{$user->gender}}" readonly class="form-control input-group-lg">
+                      </div>
+
+                     <!--  <div class="form-group col-xs-6">
                         <label for="lastname" class="">Mobile Number</label>
                         <input id="lastname" class="form-control input-group-lg" type="text" readonly name="email" title="Enter last name" placeholder="Last name" value="{{$user->email}}" />
                           @if ($errors->count() > 0)
@@ -150,12 +176,12 @@
                         <strong>{{ $errors->first('email') }}</strong>
                         </span>
                         @endif
-                      </div>
+                      </div> -->
                     </div>
 
 
                     <div class="row">
-                      <div class="form-group col-xs-6">
+                      <!-- <div class="form-group col-xs-6">
                         <label for="email">My email</label>
                         <input id="email_new" class="form-control input-group-lg" type="text" readonly name="email_new" title="" placeholder="My Email" value="{{$user->email_new}}"/>
                             @if ($errors->count() > 0)
@@ -163,19 +189,16 @@
                         <strong>{{ $errors->first('email_new') }}</strong>
                         </span>
                         @endif
-                      </div>
-                       <div class="form-group col-xs-6">
+                      </div> -->
+                       <!-- <div class="form-group col-xs-6">
                         <label for="dob">Date Of Birth</label>
                         <input id="dob" class="form-control input-group-lg" readonly type="date" name="dob" value="{{$user->dob}}" title=""/>
-                      </div>
+                      </div> -->
                     </div>
 
                  
                     <div class="row">
-                      <div class="form-group col-xs-6">
-                        <label for="city"> Gender</label>
-                        <input type="text" value="{{$user->gender}}" readonly class="form-control input-group-lg">
-                      </div>
+                      
 
                        
                       <div class="form-group col-xs-6">
@@ -187,10 +210,10 @@
                     <div class="row">
                     
                       </div>
-                       <div class="form-group col-xs-6">
+                       <!-- <div class="form-group col-xs-6">
                         <label for="city">City</label>
                         <input id="city" class="form-control input-group-lg" type="text" readonly name="city" title="Enter city" value="{{$user->city}}" placeholder="Your city"/>
-                      </div>
+                      </div> -->
                     </div>
 
 

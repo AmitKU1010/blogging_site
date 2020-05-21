@@ -67,12 +67,16 @@ class UserController extends Controller
         ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
         ->get();
 
-        $users = User::orderBy('id', 'desc')->take(5)->get();
+        $users = User::orderBy('id', 'asc')->take(5)->get();
+
+         $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
+
+        $cc=count($follow_count);
 
 
 
         // $Count_blog=DB::table('followables')->where('user_id',Auth::id())->get();
-        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users'));
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc'));
 
  
         // return view('user.newsfeed')->with('Own_Blogs',$Own_Blogs);
@@ -84,7 +88,7 @@ class UserController extends Controller
     public function newsfeed_after_search(Request $request)
     {
 
-      $search_post_name=$request->input('search_post_name');   
+       $search_post_name=$request->input('search_post_name');   
 
         
 
@@ -104,7 +108,11 @@ class UserController extends Controller
 
         $users = User::orderBy('id', 'desc')->take(5)->get();
 
-        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users'));
+         $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
+
+        $cc=count($follow_count);
+
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc'));
 
     }
     public function edit_profile()
@@ -124,9 +132,14 @@ class UserController extends Controller
         $Category=Category::all();
         $Subcatagory= DB::table('categories')->join('subcatagories','subcatagories.catagory_name','categories.id')
         ->get();
+
+        $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
+
+        $cc=count($follow_count);
+
  
         return view('user.blog_post_special')->with('User',$User)->with('Subcatagory',$Subcatagory)
-        ->with('Category',$Category);
+        ->with('Category',$Category)->with('cc',$cc);
     }
  
     public function update_profile(Request $request)
@@ -201,27 +214,45 @@ class UserController extends Controller
    
 
     }
-
+ 
     public function other_user_details($id)
     {
 
+        if(Auth::id() != $id)
+        {
+        $user=User::find($id);
+         $follow_count=DB::table('users')->join('followables','users.id','followables.user_id')->where('followables.user_id',$id)->get();
 
-    $user=User::find($id);
+        $cc=count($follow_count);
+
+        return view('user.other_user')->with('user',$user)->with('cc',$cc);
+        }
+        else
+        {
 
 
-        // dd($User);
-    //   return view('user.other_user', compact('user'));
 
-    return view('user.other_user')->with('user',$user);
+        $User=User::all();
+        $Category=Category::all();
+        $Subcatagory= DB::table('categories')->join('subcatagories','subcatagories.catagory_name','categories.id')
+        ->get();
+
+
+
+ 
+        return view('user.edit_profile')->with('User',$User)->with('Subcatagory',$Subcatagory)
+        ->with('Category',$Category);
+
+        }
+        
 
 
 
     }
-
+ 
 
       public function update_blog(Request $request)
     {   
-
         $Blogs=new Blogs();
         $Blogs->user_id=Auth::id();
         $Blogs->catagory_name=$request->input('catagory_name');
@@ -231,46 +262,96 @@ class UserController extends Controller
 
         // dd($Blogs->post_description);
 
-        $real=$request->file('post_image');
+        $real_input_file=$request->file('post_image');
+
+        // dd($real_input_file);
 
         
-        if($real !='')
+       
+
+        if ( ! isset($real_input_file[0])) 
         {
-        
-        $filename = time().'.'.$real->getClientOriginalExtension();
+            $real_input_file[0] = null;
+        }
+         else
+        {
+        $real=$real_input_file[0];
+
+        // var_dump($real);
+
+        $filename = time().'a'.'.'.$real->getClientOriginalExtension();
         $destinationPath = public_path('/images/post_img');
         $real->move($destinationPath, $filename);
-        $Blogs->post_image=$filename;
+        $Blogs->post_image=$filename; 
         }
 
-        $real_two=$request->file('post_image_two');
-        if($real_two !='')
+
+        if ( ! isset($real_input_file[1])) 
         {
-        $filename2 = time().'.'.$real_two->getClientOriginalExtension();
+        $real_input_file[1] = null;
+        }
+        else
+        {
+        $real_two=$real_input_file[1];
+
+        // dd($real_two);
+
+
+        $filename2 = time().'b'.'.'.$real_two->getClientOriginalExtension();
         $destinationPath2 = public_path('/images/post_img');
         $real_two->move($destinationPath2, $filename2);
-        $Blogs->post_image_two=$filename2;
+        $Blogs->post_image_two=$filename2;  
         }
 
-        $real_three=$request->file('post_image_three');
-        if($real_three !='')
+         if ( ! isset($real_input_file[2])) 
         {
-        $filename3 = time().'.'.$real_three->getClientOriginalExtension();
+        $real_input_file[2] = null;
+        }
+        else
+        {
+
+        $real_three=$real_input_file[2];
+
+        // dd($real_three);
+
+
+
+        $filename3 = time().'c'.'.'.$real_three->getClientOriginalExtension();
         $destinationPath3 = public_path('/images/post_img');
         $real_three->move($destinationPath3, $filename3);
-        $Blogs->post_image_three=$filename3;
+        $Blogs->post_image_three=$filename3; 
         }
- 
-        $real_four=$request->file('post_image_four');
-        if($real_four !='')
+
+
+         if ( ! isset($real_input_file[3])) 
         {
-        $filename_four = time().'.'.$real_four->getClientOriginalExtension();
+        $real_input_file[3] = null;
+        }
+        else
+        {
+        $real_four=$real_input_file[3];
+
+        // dd($real_four);
+
+        $filename_four = time().'d'.'.'.$real_four->getClientOriginalExtension();
         $destinationPath_four = public_path('/images/post_img');
         $real_four->move($destinationPath_four, $filename_four);
-        $Blogs->post_image_four=$filename_four;
+        $Blogs->post_image_four=$filename_four;  
         }
 
 
+        
+
+
+
+
+
+        
+
+        
+       
+
+ 
 
         $Blogs->save();
        return Redirect::back()->with('message','Profile Updated Successfully !');

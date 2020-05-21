@@ -9,9 +9,9 @@
 | contains the "web" middleware group. Now create something great!
 | 
 */  
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/test', function () {
     return view('register_test');
@@ -19,7 +19,7 @@ Route::get('/test', function () {
  
 Route::get('/', 'WelcomeController@index');
  
-  
+    
  
 Route::get('login/{provider}', 'SocialController@redirect');
 Route::get('login/{provider}/callback', 'SocialController@Callback');
@@ -117,7 +117,7 @@ Auth::routes();
     // follow unfollow
 
  
-   
+    
 
     // ajax related
    Route::post('/get/catagory', 'AjaxController@getcatagoryBydepartment');
@@ -127,8 +127,13 @@ Auth::routes();
    Route::post('/ajax/submit_comment','AjaxController@submit_comment');
    
    Route::post('/ajax/getBlognotification','AjaxController@getBlognotification');
- 
 
+   Route::post('/ajax/search_people','AjaxController@search_people');
+
+
+
+ 
+ 
     
  
 ##  ##

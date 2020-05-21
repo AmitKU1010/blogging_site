@@ -17,6 +17,8 @@
       <link href="{{ asset('blog_assets/css/font-awesome.min.css') }}" rel="stylesheet" />
       <link href="{{ asset('blog_assets/font-awesome/4.0.3/css/font-awesome.css') }}" rel="stylesheet" />
 
+
+
  
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     
@@ -28,6 +30,9 @@
 
     <!-- WYSIWYG Editor css -->
   <link href="{{ asset('assets/plugins/wysiwyag/richtext.css') }}" rel="stylesheet" />
+
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" type="text/css" media="screen" />
 
 
 
