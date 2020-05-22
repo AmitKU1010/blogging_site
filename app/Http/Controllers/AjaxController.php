@@ -142,13 +142,17 @@ class AjaxController extends Controller
 
       $users=DB::table('users')->where('name','LIKE','%'.$requested_name.'%')->get();
 
-      
-
-        
-
         return json_encode($users);
 
-    }   
+    }  
+
+    public function get_blog_image(Request $request)
+    {
+        $blog_id=$request->blog_id;   
+
+        $blogs=DB::table('blogs')->where('blogs.id',$blog_id)->get();
+        return json_encode($blogs);
+    } 
 
 
     

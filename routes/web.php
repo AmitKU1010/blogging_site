@@ -130,6 +130,9 @@ Auth::routes();
 
    Route::post('/ajax/search_people','AjaxController@search_people');
 
+    
+   Route::post('/ajax/get_blog_image','AjaxController@get_blog_image');
+
 
 
  

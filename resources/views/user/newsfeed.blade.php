@@ -135,14 +135,51 @@
           @if(count($Trending_Blogs) > 0)
            @foreach($Trending_Blogs as $Trending_Blog)
 
-
+                  @php
+                  date_default_timezone_set('Asia/Kolkata');
+                  $fdate = $Trending_Blog->created_at;
+                  $tdate = date("Y-m-d h:i:sa");
+                  $datetime1 = new DateTime($fdate);
+                  $datetime2 = new DateTime($tdate);
+                  $interval = $datetime1->diff($datetime2);
+                  $days = $interval->format('%a');
+                  $hour = $interval->format('%h');
+                  $minute = $interval->format('%i');
+                  $second = $interval->format('%s');
+                  @endphp
 
             <div class="post-content trending">
             <img src="{{URL::asset('/images/profile_image/'.$Trending_Blog->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
  
                  <div class="user-info" style="padding-left: 65px;">
                     <h5><a href="{{url('/')}}/user/other_user_details/{{$Trending_Blog->real_user_id}}" class="profile-link">{{$Trending_Blog->name}}</a></h5>
-                    <p class="text-muted">You Published a photo about 10 sec ago</p>
+
+                    @php if($days<1 && $hour>0 && $minute>=0)
+                    {  
+                    @endphp
+                    <p class="text-muted">Published {{$hour}} hr {{$minute}} minute ago</p>
+                    @php 
+                    }
+                    else if($days>0 && $hour>=0 && $minute>=0 && $second>=0 )
+                    {  
+                    @endphp
+                    <p class="text-muted">Published {{$days}} Days ago</p>
+                    @php
+                    }
+                    else if($days<1 && $hour<1 && $minute>0)
+                    {  
+                    @endphp
+                    <p class="text-muted">Published {{$minute}} minute {{$second}} Second ago</p>
+                    @php 
+                    }
+                    else if($days<1 && $hour<1 && $minute<1)
+                    { 
+                    @endphp
+                     <p class="text-muted">Published {{$second}} Second ago</p>
+                    @php 
+                    }
+                    @endphp
+
                   </div>
 
                   <div class="line-divider"></div>
@@ -167,7 +204,7 @@
                     <div class="col-md-12">
                       <div class="col-md-12">
                          
-              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" id="{{$Trending_Blog->real_blog_id}}" style="width: 847px;height: 400px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image)}}" alt="post-image" id="{{$Trending_Blog->real_blog_id}}" style="width: 847px;height: 400px;cursor: pointer;" class="img-responsive post-image" />
                
                       </div>
                     </div>
@@ -340,12 +377,51 @@
            @if(count($Own_Blogs) > 0)
            @foreach($Own_Blogs as $Own_Blog)
 
+                  @php
+                  date_default_timezone_set('Asia/Kolkata');
+                  $fdate = $Own_Blog->created_at;
+                  $tdate = date("Y-m-d h:i:sa");
+                  $datetime1 = new DateTime($fdate);
+                  $datetime2 = new DateTime($tdate);
+                  $interval  = $datetime1->diff($datetime2);
+                  $days   = $interval->format('%a');
+                  $hour   = $interval->format('%h');
+                  $minute = $interval->format('%i');
+                  $second = $interval->format('%s');
+                  @endphp
+
+
             <div class="post-content own_post"  style="display: none;" >
             <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
 
                  <div class="user-info" style="padding-left: 65px;">
                     <h5><a href="{{url('/')}}/user/other_user_details/{{$Own_Blog->real_user_id}}" class="profile-link">{{Auth::user()->name}}</a></h5>
-                    <p class="text-muted">You Published a photo about 10 sec ago</p>
+                    
+                   @php if($days<1 && $hour>0 && $minute>=0)
+                    {  
+                    @endphp
+                    <p class="text-muted">Published {{$hour}} hr {{$minute}} minute ago</p>
+                    @php 
+                    }
+                    else if($days>0 && $hour>=0 && $minute>=0 && $second>=0 )
+                    {  
+                    @endphp
+                    <p class="text-muted">Published {{$days}} Days ago</p>
+                    @php
+                    }
+                    else if($days<1 && $hour<1 && $minute>0)
+                    {  
+                    @endphp
+                    <p class="text-muted">Published {{$minute}} minute {{$second}} Second ago</p>
+                    @php 
+                    }
+                    else if($days<1 && $hour<1 && $minute<1)
+                    { 
+                    @endphp
+                     <p class="text-muted">Published {{$second}} Second ago</p>
+                    @php 
+                    }
+                    @endphp
                   </div>
 
                   <div class="line-divider"></div>
@@ -369,7 +445,7 @@
                     <div class="col-md-12">
                       <div class="col-md-12">
                         
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 400px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 400px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                
                       </div>
                     </div>
@@ -384,13 +460,13 @@
                     <div class="col-md-12">
                       <div class="col-md-6">
                         
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                
                       </div>
 
                       <div class="col-md-6">
                         
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
                     </div>
                   </div>
@@ -407,13 +483,13 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
 
 
 
                       <div class="col-md-6">     
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
                   </div>
                </div>
@@ -427,7 +503,7 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
 
                   </div>
@@ -445,13 +521,13 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
 
 
 
                       <div class="col-md-6">     
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
                   </div>
                </div>
@@ -465,19 +541,17 @@
                       <div class="col-md-06">
 
                       <div class="col-md-6">
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_three)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
 
 
 
                       <div class="col-md-6">     
-              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_four)}}" alt="post-image" style="width: 847px;height: 200px;" class="img-responsive post-image" />
+              <img src="{{URL::asset('/images/post_img/'.$Own_Blog->post_image_four)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Own_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
                   </div>
                </div>
                </div>
-
-
 
              @php
              }
@@ -512,7 +586,7 @@
 
                     <input type="text" id="comment_input-{{$Own_Blog->real_blog_id}}" class="form-control"  style="height: 41px;" placeholder="Post a comment">
 
-                  <input type="button" style="background-color: #007fff;color: white;" id="comment_btn-{{$Own_Blog->real_blog_id}}" class="comment_btn" value="Comment" onclick="submit_comment(this.id)" placeholder="Post a comment">
+                  <input type="button" style="background-color: #007fff;color: white;" id="comment_btn-{{$Own_Blog->real_blog_id}}"  class="comment_btn" value="Comment" onclick="submit_comment(this.id)" placeholder="Post a comment">
 
                    <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Own_Blog->real_blog_id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Comment..">
                   </div>
@@ -611,34 +685,31 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">All Comments</h4>
+          <h4 class="modal-title">Image Gallery</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="background-color:  #595959;">
                     
 
 
 <!-- Container, Row, and Column used for illustration purposes -->
-<div class="container" style="margin-left: -300px;">
+<div class="container">
     <div class="row" >
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" style="width: 500px;overflow:scroll;height: 350px;">
+    
         
             <!-- Fluid width widget -->        
-          <div class="panel panel-default" id="before_result">
 
            
-                <div class="panel-heading">
+                <!-- <div class="panel-heading">
                     <h3 class="panel-title">
                         <span class="glyphicon glyphicon-comment"></span> 
                         Recent Comments
                     </h3>
+                </div> -->
+               <div class="panel-body" id="img_gallery">
+
                 </div>
-               <div class="panel-body" id="result">
-                <!-- Go to the jquery Section TO see The Append Content -->
-                </div>
-            </div>
             <!-- End fluid width widget --> 
             
-    </div>
   </div>
 </div>
  </div>
@@ -683,12 +754,18 @@
                 @if($users->count())
                 @foreach($users as $user)
 
-              <div class="follow-user">
+               <div class="follow-user">
                @php
                $post_img_val=$user->profile_image;
 
                $gender=$user->gender;
-               if($post_img_val=='' && $user->gender=='male' )
+               if($post_img_val=='' && $user->gender=='' )
+               {
+                @endphp
+                <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="profile-photo-sm pull-left" />
+                @php
+                }
+               else if($post_img_val=='' && $user->gender=='male' )
                {
                 @endphp
                 <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="profile-photo-sm pull-left" />
@@ -833,11 +910,59 @@
         cache: false,
         success: function(data){
           responseData=JSON.parse(data);
-           console.log(responseData);
-          console.log(data);
-          // alert(data);
+           // console.log(responseData);
+           // console.log(data);
+           // alert(data);
 
         $.each(responseData, function(index, value){
+
+                  var start = responseData[index]['created_at'];
+
+                  // var dt= new Date();
+                  // var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+                  // var date=dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getDay();
+
+                  // alert(start);
+                  // alert(date);
+
+
+                // var db_created_dt=new Date(start);
+
+                // var datetime_one = 
+                // db_created_dt.getFullYear() + "-" 
+                // + (db_created_dt.getMonth()+1)  + "-"+ 
+                // db_created_dt.getDate() + " " 
+                // + db_created_dt.getHours() + ":"  
+                // + db_created_dt.getMinutes() + ":" 
+                // + db_created_dt.getSeconds();
+
+
+
+
+                // var currentdate = new Date();
+
+                // var datetime = 
+                // currentdate.getFullYear() + "-" 
+                // + (currentdate.getMonth()+1)  + "-"+ 
+                // currentdate.getDate() + " " 
+                // + currentdate.getHours() + ":"  
+                // + currentdate.getMinutes() + ":" 
+                // + currentdate.getSeconds();
+
+                // alert(datetime_one);
+                // alert(datetime);
+
+                // var hours = Math.abs(datetime_one - datetime) / 36e5;
+
+                // alert(hours);
+
+
+
+                  
+
+                  // alert(fdate);
+
             $("#result").append('<ul class="media-list">\
                         <li class="media">\
                             <div class="media-left">\
@@ -880,6 +1005,12 @@
 
       // $('#ppp'+'-'+separate[1]).show();
 
+      if(comment_input.length==0)
+    {
+     $('#comment_input_trending'+'-'+separate[1]).attr("placeholder","Please Type Something...");
+     exit();
+    }
+
       
 
 
@@ -918,7 +1049,11 @@
         // alert(separate);
         var comment_input=$('#comment_input'+'-'+separate[1]).val();
 
-      
+       if(comment_input.length==0)
+    {
+     $('#comment_input'+'-'+separate[1]).attr("placeholder","Please Type Something...");
+     exit();
+    }
 
       // $('#ppp'+'-'+separate[1]).show();
  
@@ -1150,14 +1285,185 @@ $('.dislike-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
 
 });
 
+$(document).ready(function(){
+$(".post-image").hover(function(){
+    // $(".post-image").after('<span><img src="{{URL::asset('/images/gender_img/female.png')}}" /></span>');
 
+    var blog_id= $(this).attr('id');
+    // alert(blog_id);
+
+  });
+  });
 
 $(document).on('click','.post-image',function()
 {
-    var id= $(this).attr('id');
-    // alert(id);
+    var blog_id= $(this).attr('id');
+    // alert(blog_id);
+ 
+     $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/get_blog_image",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          blog_id : blog_id
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+          // alert(responseData);
+
+        $('#img_gallery').empty();
+       
+        $.each(responseData, function(index, value){
 
     $('#image-modal').modal('show');
+
+    if(responseData[index]['post_image'] !=null && responseData[index]['post_image_two'] ==null && responseData[index]['post_image_three'] ==null && responseData[index]['post_image_four'] ==null)
+    {
+      $('#img_gallery').append('<div class="container">\
+  <div id="myCarousel" class="carousel slide" >\
+    \
+\
+    <!-- Wrapper for slides -->\
+    <div class="carousel-inner" >\
+      <div class="item active">\
+        \
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image']+'" alt="Img"  style="width:52%;height:52%;" />\
+      </div>\
+\
+      \
+    </div>\
+    <!-- Left and right controls -->\
+    \
+  </div>\
+</div><a class="left carousel-control" href="#myCarousel" data-slide="prev">\
+      <span class="glyphicon glyphicon-chevron-left"></span>\
+      <span class="sr-only">Previous</span>\
+    </a>\
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">\
+      <span class="glyphicon glyphicon-chevron-right"></span>\
+      <span class="sr-only">Next</span>\
+    </a>');
+    }
+
+    else if(responseData[index]['post_image'] !=null && responseData[index]['post_image_two'] !=null && responseData[index]['post_image_three'] ==null && responseData[index]['post_image_four'] ==null)
+
+    {
+      $('#img_gallery').append('<div class="container">\
+  <div id="myCarousel" class="carousel slide" >\
+    \
+\
+    <!-- Wrapper for slides -->\
+    <div class="carousel-inner" >\
+      <div class="item active">\
+        \
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image']+'" alt="Img"  style="width:52%;height:52%;" />\
+      </div>\
+      \
+      <div class="item">\
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image_two']+'" alt="Img"  style="width:52%;height:52%;" />\
+      </div>\
+      \
+    </div>\
+    <!-- Left and right controls -->\
+    \
+  </div>\
+</div><a class="left carousel-control" href="#myCarousel" data-slide="prev">\
+      <span class="glyphicon glyphicon-chevron-left"></span>\
+      <span class="sr-only">Previous</span>\
+    </a>\
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">\
+      <span class="glyphicon glyphicon-chevron-right"></span>\
+      <span class="sr-only">Next</span>\
+    </a>');
+
+    }
+
+     else if(responseData[index]['post_image'] !=null && responseData[index]['post_image_two'] !=null && responseData[index]['post_image_three'] !=null && responseData[index]['post_image_four'] ==null)
+
+    {
+      $('#img_gallery').append('<div class="container">\
+  <div id="myCarousel" class="carousel slide" >\
+    \
+\
+    <!-- Wrapper for slides -->\
+    <div class="carousel-inner" >\
+      <div class="item active">\
+        \
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image']+'" alt="Img"  style="width:52%;height:52%;" />\
+      </div>\
+      \
+      <div class="item">\
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image_two']+'" alt="Img"  style="width:52%;height:52%;" />\
+      </div>\
+      <div class="item">\
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image_three']+'" alt="Img"  style="width:52%;height:52%;" />\
+      </div>\
+      \
+    </div>\
+    <!-- Left and right controls -->\
+    \
+  </div>\
+</div><a class="left carousel-control" href="#myCarousel" data-slide="prev">\
+      <span class="glyphicon glyphicon-chevron-left"></span>\
+      <span class="sr-only">Previous</span>\
+    </a>\
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">\
+      <span class="glyphicon glyphicon-chevron-right"></span>\
+      <span class="sr-only">Next</span>\
+    </a>');
+
+    }
+
+     else if(responseData[index]['post_image'] !=null && responseData[index]['post_image_two'] !=null && responseData[index]['post_image_three'] !=null && responseData[index]['post_image_four'] !=null)
+
+    {
+      $('#img_gallery').append('<div class="container">\
+  <div id="myCarousel" class="carousel slide" >\
+    \
+\
+    <!-- Wrapper for slides -->\
+    <div class="carousel-inner" >\
+      <div class="item active">\
+        \
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image']+'" alt="Img"  style="width:52%;height:52%;" />\
+      </div>\
+      \
+      <div class="item">\
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image_two']+'" alt="Img"  style="width:52%;height:52%;" />\
+      </div>\
+\
+      <div class="item">\
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image_three']+'" alt="Img"  style="width:52%;height:52%;" />\
+      </div>\
+      <div class="item">\
+        <img src="{{URL::asset('/images/post_img')}}/'+responseData[index]['post_image_four']+'" alt="Img"  style="width:52%;height:52%;" />\
+      \
+    </div>\
+    <!-- Left and right controls -->\
+    \
+  </div>\
+</div><a class="left carousel-control" href="#myCarousel" data-slide="prev">\
+      <span class="glyphicon glyphicon-chevron-left"></span>\
+      <span class="sr-only">Previous</span>\
+    </a>\
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">\
+      <span class="glyphicon glyphicon-chevron-right"></span>\
+      <span class="sr-only">Next</span>\
+    </a>');
+
+    }
+
+    
+
+       });
+
+
+
+        }
+  });
+
 });
 
 </script>

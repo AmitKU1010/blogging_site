@@ -106,7 +106,7 @@
 
 
                   
-
+ 
                 <li><i class="icon ion-ios-locked-outline"></i><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">Logout</a></li>
 

@@ -88,7 +88,7 @@ class UserController extends Controller
     public function newsfeed_after_search(Request $request)
     {
 
-       $search_post_name=$request->input('search_post_name');   
+         $search_post_name=$request->input('search_post_name');   
 
         
 
@@ -106,7 +106,7 @@ class UserController extends Controller
         ->where('blogs.post_caption', 'LIKE','%'.$search_post_name.'%')
         ->get();
 
-        $users = User::orderBy('id', 'desc')->take(5)->get();
+        $users = User::orderBy('id', 'asc')->take(5)->get();
 
          $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
 
@@ -139,7 +139,7 @@ class UserController extends Controller
 
  
         return view('user.blog_post_special')->with('User',$User)->with('Subcatagory',$Subcatagory)
-        ->with('Category',$Category)->with('cc',$cc);
+        ->with('Category',$Category)->with('cc',$cc)->with('message','Your Blog Posted Successfully !');
     }
  
     public function update_profile(Request $request)
