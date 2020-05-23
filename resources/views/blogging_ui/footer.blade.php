@@ -25,7 +25,10 @@
 
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-  
+
+  <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
+
+   
   <script>
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap4'

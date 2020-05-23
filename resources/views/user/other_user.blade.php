@@ -54,9 +54,15 @@
                $post_img_val=$user->profile_image;
 
                $gender=$user->gender;
-               if($post_img_val=='' && $user->gender=='male' )
+               if($post_img_val=='' && $user->gender=='')
                {
-                @endphp
+               @endphp
+               <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="img-responsive profile-photo" />
+               @php
+               }
+               else if($post_img_val=='' && $user->gender=='male' )
+               {
+                 @endphp
                 <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="img-responsive profile-photo" />
                 @php
                 }

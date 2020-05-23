@@ -11,7 +11,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
+ 
     public function index()
     {
         return view('home');
@@ -47,27 +47,6 @@ class HomeController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
      public function users()
     {
         $users = User::get();
@@ -86,7 +65,7 @@ class HomeController extends Controller
         return view('usersView', compact('user'));
     }
 
- 
+  
     /**
      * Show the application of itsolutionstuff.com.
      *

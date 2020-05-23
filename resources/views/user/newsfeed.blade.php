@@ -32,7 +32,7 @@
               <div class="form-group">
                 <input type="text" name="search_post_name" required class="form-control" placeholder="Search Posts">
               </div>
-              <button class="icon ion-android-search" type="submit"> </button>
+              <button class="icon ion-android-search" style="background: none;border: none;width: 20px;height: 40px;color:  #007fff;font-size: 18px;" type="submit"> </button>
 
             </form>
           </div><!-- /.navbar-collapse -->
@@ -54,8 +54,38 @@
           <div class="col-md-3 static">
             <div class="profile-card">
          
-              <img  alt="{{Auth::user()->name}}" src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" class="profile-photo" />
-              <h5><a href="#" class="text-white">{{Auth::user()->name}}</a></h5>
+              <!-- <img  alt="{{Auth::user()->name}}" src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" class="profile-photo" /> -->
+
+                 @php
+               $post_img_val=Auth::user()->profile_image;
+               $gender=Auth::user()->gender;
+               if($post_img_val=='' && Auth::user()->gender=='' )
+               {
+               @endphp
+               <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="profile-photo" />
+
+               @php
+               }
+               else if($post_img_val=='' && Auth::user()->gender=='male')
+               {
+                @endphp
+                <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="profile-photo" />
+                @php
+                }
+                else if($post_img_val=='' && Auth::user()->gender=='female')
+                {
+                @endphp
+                <img src="{{URL::asset('/images/gender_img/female.png')}}" alt="" class="profile-photo" />
+                  @php
+                }
+                else
+                {
+                @endphp
+               <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image) }}" alt="" class="profile-photo" />
+                @php
+                }
+                @endphp
+              <h5><a href="" class="text-white">{{Auth::user()->name}}</a></h5>
               <a href="" class="text-white"><i class="ion ion-android-person-add"></i> {{$cc}} followers</a>
             </div><!--profile card ends-->
             <ul class="nav-news-feed">
@@ -131,9 +161,19 @@
  
             <!--Trending Post Content 
             ================================================= -->
- 
-          @if(count($Trending_Blogs) > 0)
-           @foreach($Trending_Blogs as $Trending_Blog)
+                  
+                  
+
+                  @if(count($Trending_Blogs) == 0)
+                 
+                  <h3 style="padding-left: 100px; " id="show_trending">Opps!!No Content Found.</h3>
+                  
+                  @endif
+                  
+                  @foreach($Trending_Blogs as $Trending_Blog)
+
+
+
 
                   @php
                   date_default_timezone_set('Asia/Kolkata');
@@ -148,8 +188,13 @@
                   $second = $interval->format('%s');
                   @endphp
 
+                  
+
+
             <div class="post-content trending">
             <img src="{{URL::asset('/images/profile_image/'.$Trending_Blog->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
+
+
  
                  <div class="user-info" style="padding-left: 65px;">
                     <h5><a href="{{url('/')}}/user/other_user_details/{{$Trending_Blog->real_user_id}}" class="profile-link">{{$Trending_Blog->name}}</a></h5>
@@ -318,6 +363,9 @@
              }
             @endphp
 
+
+
+
                  
                 
 
@@ -333,6 +381,15 @@
                     <h5><a href="#" class="profile-link">{{$Trending_Blog->name}}</a> <span class="following"></span></h5>
                     <!-- <p class="text-muted">Caption Of the Post</p> -->
                   <br>
+
+                  @foreach($comment_count as $comm)
+                  @if($comm->id==$Trending_Blog->real_blog_id)
+
+
+                  <h5>{{$comm->user_count}} People Commented On This Post.</h5>
+                  @endif
+                  @endforeach
+
                   </div> 
                   <div class="reaction">
                     <a class="btn text-green like-but"><i class="icon ion-thumbsup"></i> 0</a>
@@ -354,7 +411,7 @@
 
                   <input type="button" id="comment_btn_trending-{{$Trending_Blog->real_blog_id}}" style="background-color: #007fff;color: white;" class="comment_btn_trending" value="Comment" onclick="submit_comment_trending(this.id)" placeholder="Post a comment">
                  &nbsp;
-                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Trending_Blog->id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Comment..">
+                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Trending_Blog->id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Comment">
                   </div>
                   <!-- Comment Input -->
                 
@@ -364,7 +421,7 @@
               </div>
             </div>
             @endforeach
-            @endif
+          
 
              <!--Trending Post Content 
             ================================================= -->
@@ -373,6 +430,13 @@
 
               <!-- Own Post Content
             ================================================= -->
+
+
+                  @if(count($Own_Blogs) == 0)
+                 
+                  <h3 style="padding-left: 100px; " id="show_own">Opps!!No Content Found.</h3>
+                  
+                  @endif
           
            @if(count($Own_Blogs) > 0)
            @foreach($Own_Blogs as $Own_Blog)
@@ -470,8 +534,6 @@
                       </div>
                     </div>
                   </div>
-
-
            @php
          }
     else if($count_image1 !='' && $count_image2 !='' && $count_image3 !='' && $count_image4 =='')
@@ -561,6 +623,7 @@
 
 
 
+
               <!-- Post Container Starts -->
               <div class="post-container">
                 <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="Img" class="profile-photo-md pull-left" />
@@ -588,7 +651,7 @@
 
                   <input type="button" style="background-color: #007fff;color: white;" id="comment_btn-{{$Own_Blog->real_blog_id}}"  class="comment_btn" value="Comment" onclick="submit_comment(this.id)" placeholder="Post a comment">
 
-                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Own_Blog->real_blog_id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Comment..">
+                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Own_Blog->real_blog_id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Comment">
                   </div>
                   <!-- Comment Input -->
 
@@ -822,6 +885,12 @@
         $('.notification').hide();
         $('.trending').show();
 
+        $('#show_trending').show();
+
+        $('#show_own').hide();
+        $('#show_noti').hide();
+
+
         // var divClone2 = $(".own_post").clone();
         // $('.own_post').empty();
         // $(".trending").append(divClone);
@@ -833,6 +902,11 @@
         $('.trending').hide();
         $('.own_post').show();
         $('.notification').hide();
+        $('#show_trending').hide();
+        $('#show_own').show();
+        $('#show_noti').hide();
+
+
 
         // var divClone = $(".trending").clone();
         // $('.trending').empty();
@@ -852,6 +926,12 @@
         $('.trending').hide();
         $('.own_post').hide();
         $('.notification').show();
+        $('#show_trending').hide();
+        $('#show_own').hide();
+        $('#show_noti').show();
+
+
+
  
         $.ajax({
         type:"POST",
@@ -867,7 +947,12 @@
           console.log(data);
           // alert(data);
 
-
+           if(responseData=='')
+          {
+            $("#notification_id").append('<h3 id="show_noti">Opps!!No Content Found.</h3>');
+          }
+          else
+          {
    $.each(responseData, function(index, value)
    {
     $("#notification_id").append('<img src="{{URL::asset('/images/profile_image')}}/'+responseData[index]['profile_image']+'"alt="user" class="profile-photo-md pull-left" />\
@@ -876,6 +961,7 @@
                     <span style="color:black;">'+responseData[index]['noti_desc']+'</span><p class="text-muted">1 minute ago</p>\
                   </div>');
     });
+    }
     }
    });
  
@@ -1156,9 +1242,9 @@
                   <button  style="background-color: #007fff;color: white;" class="action-follow-two"  id="'+responseData[index]['id']+'" data-id="{{ $user->id }}" ><strong>\
             \
                  @if(auth()->user()->isFollowing($user))\
-                UnFollow\
-            @else\
                 Follow\
+            @else\
+                UnFollow\
             @endif\
                 \
             </strong></button>\

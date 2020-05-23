@@ -73,10 +73,17 @@ class UserController extends Controller
 
         $cc=count($follow_count);
 
+        $comment_count=DB::table('blogs')->join('comments','blogs.id','comments.blog_id')
+        ->select(DB::raw('count(comments.blog_id) as user_count, blogs.id'))
+        ->groupBy('blogs.id')
+        ->get();
+
+        // dd($comment_count);
+
 
 
         // $Count_blog=DB::table('followables')->where('user_id',Auth::id())->get();
-        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc'));
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc','comment_count'));
 
  
         // return view('user.newsfeed')->with('Own_Blogs',$Own_Blogs);
@@ -106,13 +113,20 @@ class UserController extends Controller
         ->where('blogs.post_caption', 'LIKE','%'.$search_post_name.'%')
         ->get();
 
+        // dd($Trending_Blogs);
+
         $users = User::orderBy('id', 'asc')->take(5)->get();
 
          $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
 
         $cc=count($follow_count);
 
-        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc'));
+        $comment_count=DB::table('blogs')->join('comments','blogs.id','comments.blog_id')
+        ->select(DB::raw('count(comments.blog_id) as user_count, blogs.id'))
+        ->groupBy('blogs.id')
+        ->get();
+
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc','comment_count'));
 
     }
     public function edit_profile()
@@ -121,11 +135,19 @@ class UserController extends Controller
         $Category=Category::all();
         $Subcatagory= DB::table('categories')->join('subcatagories','subcatagories.catagory_name','categories.id')
         ->get();
+
+        $users = User::get();
+
+
+         $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
+
+        $cc=count($follow_count);
+
  
         return view('user.edit_profile')->with('User',$User)->with('Subcatagory',$Subcatagory)
-        ->with('Category',$Category);
+        ->with('Category',$Category)->with('users',$users)->with('cc',$cc);
     }
-
+ 
     public function blog_post_special()
     {
         $User=User::all();
@@ -340,19 +362,6 @@ class UserController extends Controller
         }
 
 
-        
-
-
-
-
-
-        
-
-        
-       
-
- 
-
         $Blogs->save();
        return Redirect::back()->with('message','Profile Updated Successfully !');
     }
@@ -406,7 +415,24 @@ class UserController extends Controller
 
         $Own_Blogs = Blogs::get();
 
-        return view('user.newsfeed', compact('Own_Blogs'));
+         $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
+
+        $cc=count($follow_count);
+
+        $Trending_Blogs = DB::table('blogs')
+        ->join('users','users.id','blogs.user_id')
+        ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
+        ->get();
+
+           $comment_count=DB::table('blogs')->join('comments','blogs.id','comments.blog_id')
+        ->select(DB::raw('count(comments.blog_id) as user_count, blogs.id'))
+        ->groupBy('blogs.id')
+        ->get();
+
+        $users = User::orderBy('id', 'asc')->take(5)->get();
+
+
+        return view('user.newsfeed', compact('Own_Blogs','cc','Trending_Blogs','comment_count','users'));
        
 
     }

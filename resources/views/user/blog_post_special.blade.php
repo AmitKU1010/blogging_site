@@ -49,9 +49,39 @@
             <div class="row"> 
               <div class="col-md-3">
                 <div class="profile-info">
-                   <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image) }}" alt="" class="img-responsive profile-photo" />
-                 
+                   
 
+                     @php
+               $post_img_val=Auth::user()->profile_image;
+               $gender=Auth::user()->gender;
+               if($post_img_val=='' && Auth::user()->gender=='' )
+               {
+               @endphp
+               <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="img-responsive profile-photo" />
+
+               @php
+               }
+               else if($post_img_val=='' && Auth::user()->gender=='male')
+               {
+                @endphp
+                <img src="{{URL::asset('/images/gender_img/male.png')}}" alt="" class="img-responsive profile-photo" />
+                @php
+                }
+                else if($post_img_val=='' && Auth::user()->gender=='female')
+                {
+                @endphp
+                <img src="{{URL::asset('/images/gender_img/female.png')}}" alt="" class="img-responsive profile-photo" />
+                  @php
+                }
+                else
+                {
+                @endphp
+               <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image) }}" alt="" class="img-responsive profile-photo" />
+                @php
+                }
+                @endphp
+                 
+ 
               <h4 style="color:  #007fff;">{{Auth::user()->name}}</h4>
               <!-- <p class="text-muted">({{Auth::user()->email}})</p> -->
                 </div>
