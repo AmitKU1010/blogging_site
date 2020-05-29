@@ -49,7 +49,7 @@ class HomeController extends Controller
 
      public function users()
     {
-        $users = User::get();
+        $users = User::all();
         return view('users', compact('users'));
     }
  

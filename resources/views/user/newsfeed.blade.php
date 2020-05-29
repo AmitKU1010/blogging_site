@@ -386,14 +386,33 @@
                   @if($comm->id==$Trending_Blog->real_blog_id)
 
 
-                  <h5>{{$comm->user_count}} People Commented On This Post.</h5>
+                  <h5><span id="comment_count_trend-{{$Trending_Blog->real_blog_id}}"> {{$comm->user_count}}</span> People Commented On This Post.</h5>
+                  @endif
+                  @endforeach
+ 
+                  </div> 
+                  <div class="reaction">
+
+
+
+                    <a class="btn text-green like-but" id="like_id-{{$Trending_Blog->real_blog_id}}"><i class="icon ion-thumbsup"></i>
+                  @foreach($likes_count as $likes_counts)
+                  @if($likes_counts->like_blog_id==$Trending_Blog->real_blog_id)
+                  {{$likes_counts->likes_count}}
+                  @endif
+                  @endforeach
+                    </a>
+
+                    <a class="btn text-red dislike-but" id="dislike_id-{{$Trending_Blog->real_blog_id}}"><i class="fa fa-thumbs-down"></i> 
+
+                  @foreach($dislikes_count as $dislikes_counts)
+                  @if($dislikes_counts->like_blog_id==$Trending_Blog->real_blog_id)
+                  {{$dislikes_counts->dislikes_count}}
                   @endif
                   @endforeach
 
-                  </div> 
-                  <div class="reaction">
-                    <a class="btn text-green like-but"><i class="icon ion-thumbsup"></i> 0</a>
-                    <a class="btn text-red dislike-but" id="dislike-but"><i class="fa fa-thumbs-down"></i> 0</a>
+
+                    </a>
                   </div>
                   <div class="line-divider"></div>
 
@@ -409,9 +428,9 @@
 
                     <input type="text" id="comment_input_trending-{{$Trending_Blog->real_blog_id}}" class="form-control"  style="height: 41px;" placeholder="Post a comment">
 
-                  <input type="button" id="comment_btn_trending-{{$Trending_Blog->real_blog_id}}" style="background-color: #007fff;color: white;" class="comment_btn_trending" value="Comment" onclick="submit_comment_trending(this.id)" placeholder="Post a comment">
+                  <input type="button" id="comment_btn_trending-{{$Trending_Blog->real_blog_id}}" style="background-color: #007fff;color: white;" class="comment_btn_trending" value="  Post   " onclick="submit_comment_trending(this.id)" placeholder="Post a comment">
                  &nbsp;
-                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Trending_Blog->id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Comment">
+                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Trending_Blog->id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Post">
                   </div>
                   <!-- Comment Input -->
                 
@@ -632,10 +651,36 @@
                     <h5><a href="{{url('/')}}/user/other_user_details/{{$Own_Blog->real_user_id}}" class="profile-link">{{Auth::user()->name}}</a> <span class="following"></span></h5>
                     <!-- <p class="text-muted">Caption Of the Post</p> -->
                   <br>
+
+
+                  @foreach($comment_count as $comm)
+                  @if($comm->id==$Own_Blog->real_blog_id)
+
+
+                  <h5><span id="comment_count_own-{{$Own_Blog->real_blog_id}}"> {{$comm->user_count}}</span> People Commented On This Post.</h5>
+                  @endif
+                  @endforeach
                   </div>
                   <div class="reaction">
-                    <a class="btn text-green like-but-own"><i class="icon ion-thumbsup"></i> 0</a>
-                    <a class="btn text-red dislike-but-own"><i class="fa fa-thumbs-down"></i> 0</a>
+                    <a class="btn text-green like_but_own" id="like_but_own-{{$Own_Blog->real_blog_id}}"><i class="icon ion-thumbsup"></i> 
+
+                  @foreach($likes_count as $likes_counts)
+                  @if($likes_counts->like_blog_id==$Own_Blog->real_blog_id)
+                  {{$likes_counts->likes_count}}
+                  @endif
+                  @endforeach
+
+                    </a>
+                    <a class="btn text-red dislike_but_own" id="dislike_but_own-{{$Own_Blog->real_blog_id}}"><i class="fa fa-thumbs-down"></i>
+ 
+                      
+                  @foreach($dislikes_count as $dislikes_counts)
+                  @if($dislikes_counts->like_blog_id==$Own_Blog->real_blog_id)
+                  {{$dislikes_counts->dislikes_count}}
+                  @endif
+                  @endforeach
+
+                    </a>
                   </div>
 
                   <div class="line-divider"></div>
@@ -649,9 +694,9 @@
 
                     <input type="text" id="comment_input-{{$Own_Blog->real_blog_id}}" class="form-control"  style="height: 41px;" placeholder="Post a comment">
 
-                  <input type="button" style="background-color: #007fff;color: white;" id="comment_btn-{{$Own_Blog->real_blog_id}}"  class="comment_btn" value="Comment" onclick="submit_comment(this.id)" placeholder="Post a comment">
+                  <input type="button" style="background-color: #007fff;color: white;" id="comment_btn-{{$Own_Blog->real_blog_id}}"  class="comment_btn" value="  Post   " onclick="submit_comment(this.id)" placeholder="Post a comment">
 
-                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Own_Blog->real_blog_id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Comment">
+                   <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Own_Blog->real_blog_id}}" class="modalOpencl" data-toggle="modal" data-target="#myModall" value="Read Post">
                   </div>
                   <!-- Comment Input -->
 
@@ -701,11 +746,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">All Comments</h4>
+          <h4 class="modal-title">All Posts</h4>
         </div>
         <div class="modal-body">
-                    
-
 
 <!-- Container, Row, and Column used for illustration purposes -->
 <div class="container" style="margin-left: -300px;">
@@ -803,7 +846,7 @@
           <div class="col-md-2 static">
        
             <div class="suggestions" id="sticky-sidebar">
-            <a href="{{url('/')}}/user/blog_post_special" style="background-color:#007fff;color:white;font-size:17px;borde-radius:40px;border: 2px solid black;width: 200px;"> Post Your Blog</a>
+            <a href="{{url('/')}}/user/blog_post_special" style="background-color:#007fff;color:white;font-size:17px;borde-radius:40px;border: 2px solid white;width: 200px;"> Post Your Blog</a>
               <!-- <h4 class="grey">Who to Follow</h4> -->
               <div class="search-container">
     <span>
@@ -876,6 +919,9 @@
 
 @include('blogging_ui.footer')
 <script src="{{ asset('js/custom.js') }}" defer></script>
+
+
+</script>
 
  <script type="text/javascript">
       $(document).on("click","#trending_link",function()
@@ -1081,6 +1127,8 @@
 
   function submit_comment_trending(str)
   {
+
+
         var id = str;
         // alert(id);
         var separate=id.split('-');
@@ -1090,6 +1138,21 @@
         var comment_input=$('#comment_input_trending'+'-'+separate[1]).val();
 
       // $('#ppp'+'-'+separate[1]).show();
+
+
+
+        if(comment_input !='')
+        {
+
+          var comment_count_trend= $('#comment_count_trend'+'-'+separate[1]).text();
+
+          var newScore = parseInt(comment_count_trend) + 1;
+
+          $('#comment_count_trend'+'-'+separate[1]).text(newScore.toFixed(0));
+
+        }
+
+   
 
       if(comment_input.length==0)
     {
@@ -1125,8 +1188,8 @@
 
 
   
-  function submit_comment(str)
-  {
+       function submit_comment(str)
+       {
         var id = str;
         // alert(id);
         var separate=id.split('-');
@@ -1135,11 +1198,24 @@
         // alert(separate);
         var comment_input=$('#comment_input'+'-'+separate[1]).val();
 
+
+
+        if(comment_input !='')
+        {
+
+          var comment_count_own= $('#comment_count_own'+'-'+separate[1]).text();
+
+          var newScore = parseInt(comment_count_own) + 1;
+
+          $('#comment_count_own'+'-'+separate[1]).text(newScore.toFixed(0));
+
+        }
+
        if(comment_input.length==0)
-    {
-     $('#comment_input'+'-'+separate[1]).attr("placeholder","Please Type Something...");
-     exit();
-    }
+        {
+       $('#comment_input'+'-'+separate[1]).attr("Placeholder","Please Type Something...");
+       exit();
+        }
 
       // $('#ppp'+'-'+separate[1]).show();
  
@@ -1327,49 +1403,371 @@ $(document).on('click','.action-follow-two',function()
 
 $(document).on('click','.like-but',function()
 {
+        var ffv=$(this).text();
 
-// $('.like-but').text('2');
-$('.like-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
-$('.dislike-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+        var ccv=$(this).next().text();
+
+
+        // alert(ccv);
+        // console.log(ccv);
+
+        var like_blog_id=$(this).attr('id');
+
+        var kk=$('#'+like_blog_id).text();
+
+        var separate=like_blog_id.split('-');
+
+        var real_blog_id=separate[1];
+
+        var dislike_id='dislike_id-'+separate[1];
+        // alert(dislike_id);
+
+        // alert(real_blog_id);
+
+        $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/submit_like",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          real_blog_id : real_blog_id
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+ 
+
+         if(data==0)
+         {
+        // alert('already liked');
+         }
+
+         else if(data)
+         {
+         var newScore = parseInt(ffv) + 1;
+
+         var minus = parseInt(ccv) - 1;
+
+
+
+         if(isNaN(newScore))
+         {
+        $('#'+like_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+        $('#'+dislike_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+         }
+         else
+         {
+        // alert('sdfs');
+        $('#'+like_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+newScore.toFixed(0));
+        $('#'+dislike_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+minus.toFixed(0));
+         }
+          
+         }
+         else 
+         {
+         var newScore = parseInt(ffv) + 1;
+         // alert(newScore);
+
+        $('#'+like_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+newScore.toFixed(0));
+        $('#'+dislike_id).html('&nbsp;&nbsp;<i class="fa fa-thumbs-down">'+newScore.toFixed(0));
+         }
+        
+        }
+       });
+
+
 
 
 });
-
 
 $(document).on('click','.dislike-but',function()
 {
+ 
+var dislike_blog_id=$(this).attr('id');
 
-// $('.like-but').text('2');
-$('.like-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+var ffv=$(this).text();
 
-$('.dislike-but').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+var ccv=$(this).prev().text();
+
+// alert(ccv);
+
+
+
+// alert(dislike_blog_id);
+       var kk=$('#'+dislike_blog_id).text();
+
+       var separate=dislike_blog_id.split('-');
+
+       var real_blog_id=separate[1];
+
+       var like_id='like_id-'+separate[1];
+
+        // alert(like_id);
+
+
+ $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/submit_dislike",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          real_blog_id : real_blog_id
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+
+          // alert(data);
+ 
+
+         if(data==0)
+         {
+        // alert('already liked');
+         }
+
+         else if(data)
+         {
+         var newScore = parseInt(ffv) + 1;
+
+         var minus = parseInt(ccv) - 1;
+
+
+         // alert(newScore);
+
+
+         if(isNaN(newScore))
+         {
+        // alert('no Iam 1 ');
+
+        $('#'+dislike_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+        $('#'+like_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+         }
+         else
+         {
+        // alert('no Iam 2');
+        $('#'+dislike_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+newScore.toFixed(0));
+        $('#'+like_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+minus.toFixed(0));
+         }
+          
+         }
+
+         else 
+         {
+         var newScore = parseInt(ffv) + 1;
+         // alert("i am ruuning 3");
+
+        $('#'+dislike_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+newScore.toFixed(0));
+        $('#'+like_id).html('&nbsp;&nbsp;<i class="fa fa-thumbs-down">'+newScore.toFixed(0));
+         }
+        
+        }
+
+
+
+        
+       });
+
+
 
 
 });
 
 
+// like dislike own blog starts
+ 
 
-$(document).on('click','.like-but-own',function()
+$(document).on('click','.like_but_own',function()
 {
+        var ffv=$(this).text();
 
-// $('.like-but-own').text('2');
-$('.like-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
-$('.dislike-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+        var ccv=$(this).next().text();
+
+
+        // alert(ffv);
+        // alert(ccv);
+
+        // console.log(ccv);
+
+        var like_blog_id=$(this).attr('id');
+
+        // alert(like_blog_id);
+
+        var kk=$('#'+like_blog_id).text();
+
+        var separate=like_blog_id.split('-');
+
+        var real_blog_id=separate[1];
+
+        var dislike_id='dislike_but_own-'+separate[1];
+        // alert(dislike_id);
+
+        // alert(real_blog_id);
+
+        $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/submit_like_own",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          real_blog_id : real_blog_id
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+
+          // alert(data);
+ 
+
+         if(data==0)
+         {
+        // alert('already liked');
+         }
+
+         else if(data)
+         {
+          // alert('one');
+         var newScore = parseInt(ffv) + 1;
+
+         var minus = parseInt(ccv) - 1;
+
+
+
+         if(isNaN(newScore))
+         {
+          // alert('two');
+
+        $('#'+like_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+        $('#'+dislike_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+         }
+         else
+         {
+          // alert('three');
+
+        // alert('sdfs');
+        $('#'+like_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+newScore.toFixed(0));
+        $('#'+dislike_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+minus.toFixed(0));
+         }
+          
+         }
+         else 
+         {
+          // alert('four');
+
+         var newScore = parseInt(ffv) + 1;
+         // alert(newScore);
+
+        $('#'+like_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+newScore.toFixed(0));
+        $('#'+dislike_id).html('&nbsp;&nbsp;<i class="fa fa-thumbs-down">'+newScore.toFixed(0));
+         }
+        
+        }
+       });
+
+
 
 
 });
 
-
-$(document).on('click','.dislike-but-own',function()
+$(document).on('click','.dislike_but_own',function()
 {
+ 
+var dislike_blog_id=$(this).attr('id');
 
-// $('.like-but').text('2');
-$('.like-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+var ffv=$(this).text();
 
-$('.dislike-but-own').html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+var ccv=$(this).prev().text();
+
+// alert(ccv);
+
+
+
+       // alert(dislike_blog_id);
+       var kk=$('#'+dislike_blog_id).text();
+
+       var separate=dislike_blog_id.split('-');
+
+       var real_blog_id=separate[1];
+
+       var like_id='like_but_own-'+separate[1];
+       // alert(like_id);
+
+
+ $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/submit_dislike_own",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          real_blog_id : real_blog_id
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+
+          // alert(data);
+ 
+
+         if(data==0)
+         {
+        // alert('already liked');
+         }
+
+         else if(data)
+         {
+         var newScore = parseInt(ffv) + 1;
+
+         var minus = parseInt(ccv) - 1;
+
+
+         // alert(newScore);
+
+
+         if(isNaN(newScore))
+         {
+        // alert('no Iam 1 ');
+
+        $('#'+dislike_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">1');
+        $('#'+like_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">0');
+         }
+         else
+         {
+        // alert('no Iam 2');
+        $('#'+dislike_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+newScore.toFixed(0));
+        $('#'+like_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+minus.toFixed(0));
+         }
+          
+         }
+
+         else 
+         {
+         var newScore = parseInt(ffv) + 1;
+         // alert("i am ruuning 3");
+
+        $('#'+dislike_blog_id).html('&nbsp;&nbsp;<i class="icon ion-thumbsup">'+newScore.toFixed(0));
+        $('#'+like_id).html('&nbsp;&nbsp;<i class="fa fa-thumbs-down">'+newScore.toFixed(0));
+         }
+        
+        }
+
+
+
+        
+       });
+
+
 
 
 });
+
+
+// like dislike own blog ends
+
+
+
+
+
+
+
 
 $(document).ready(function(){
 $(".post-image").hover(function(){

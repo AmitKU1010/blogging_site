@@ -13,12 +13,9 @@
                     {{ $user->name }}
                     <br/>
                     <small>
-                        <strong>Website:</strong> ItSolutionStuff.com, 
-                        <strong>Email: </strong>{{ $user->email }}
+                      
                     </small>
                 </div>
-
-
                 <div class="card-body">
                     <nav>
                       <div class="nav nav-tabs" id="nav-tab" role="tablist">

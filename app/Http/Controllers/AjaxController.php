@@ -11,10 +11,9 @@ use App\Catagorylist;
 use App\Comment;
 use App\BlogNotification;
 use App\User;
+use App\Like_dislikes;
 
-
-
-
+ 
 class AjaxController extends Controller
 {
 	public function __construct()
@@ -152,10 +151,149 @@ class AjaxController extends Controller
 
         $blogs=DB::table('blogs')->where('blogs.id',$blog_id)->get();
         return json_encode($blogs);
+    }   
+
+    public function submit_like(Request $request)
+    {
+        $real_blog_id=$request->real_blog_id; 
+
+        $select_like=DB::table('like_dislikes')->where([
+        ['user_id', '=', Auth::id()],
+        ['blog_id', '=', $real_blog_id],])->first();
+
+
+        if($select_like == '')
+        {
+        $like_dislikes=DB::table('like_dislikes')
+        ->insert([
+        ['user_id' => Auth::id(), 'blog_id' => $real_blog_id,'like' => 1,'dislike' => 0],]);
+        return json_encode($like_dislikes);
+        }
+        else if($select_like != '')
+        {
+        $like_dislikes=DB::table('like_dislikes')
+        ->where([
+        ['user_id', '=', Auth::id()],
+        ['blog_id', '=', $real_blog_id],])->update(
+        ['like' => 1, 'dislike' => 0]);
+        return json_encode($like_dislikes);
+        }
+        else
+        {
+        return json_encode($like_dislikes);
+        }
+
+
+
     } 
 
 
-    
+    public function submit_dislike(Request $request)
+    {
+        $real_blog_id=$request->real_blog_id; 
+
+        $select_like=DB::table('like_dislikes')->where([
+        ['user_id', '=', Auth::id()],
+        ['blog_id', '=', $real_blog_id],])->first();
+
+
+        if($select_like == '')
+        {
+        $like_dislikes=DB::table('like_dislikes')
+        ->insert([
+        ['user_id' => Auth::id(), 'blog_id' => $real_blog_id,'like' => 0,'dislike' => 1],]);
+        return json_encode($like_dislikes);
+        }
+        else if($select_like != '')
+        {
+        $like_dislikes=DB::table('like_dislikes')
+        ->where([
+        ['user_id', '=', Auth::id()],
+        ['blog_id', '=', $real_blog_id],])
+        ->update(
+        ['like' => 0, 'dislike' => 1]);
+        return json_encode($like_dislikes);
+        }
+        else
+        {
+        return json_encode($like_dislikes);
+        }
+
+
+    } 
+
+
+
+ public function submit_like_own(Request $request)
+    {
+        $real_blog_id=$request->real_blog_id; 
+
+        $select_like=DB::table('like_dislikes')->where([
+        ['user_id', '=', Auth::id()],
+        ['blog_id', '=', $real_blog_id],])->first();
+
+
+        if($select_like == '')
+        {
+        $like_dislikes=DB::table('like_dislikes')
+        ->insert([
+        ['user_id' => Auth::id(), 'blog_id' => $real_blog_id,'like' => 1,'dislike' => 0],]);
+        return json_encode($like_dislikes);
+        }
+        else if($select_like != '')
+        {
+        $like_dislikes=DB::table('like_dislikes')
+        ->where([
+        ['user_id', '=', Auth::id()],
+        ['blog_id', '=', $real_blog_id],])->update(
+        ['like' => 1, 'dislike' => 0]);
+        return json_encode($like_dislikes);
+        }
+        else
+        {
+        return json_encode($like_dislikes);
+        }
+
+
+
+    } 
+
+
+    public function submit_dislike_own(Request $request)
+    {
+        $real_blog_id=$request->real_blog_id; 
+
+        $select_like=DB::table('like_dislikes')->where([
+        ['user_id', '=', Auth::id()],
+        ['blog_id', '=', $real_blog_id],])->first();
+
+
+        if($select_like == '')
+        {
+        $like_dislikes=DB::table('like_dislikes')
+        ->insert([
+        ['user_id' => Auth::id(), 'blog_id' => $real_blog_id,'like' => 0,'dislike' => 1],]);
+        return json_encode($like_dislikes);
+        }
+        else if($select_like != '')
+        {
+        $like_dislikes=DB::table('like_dislikes')
+        ->where([
+        ['user_id', '=', Auth::id()],
+        ['blog_id', '=', $real_blog_id],])
+        ->update(
+        ['like' => 0, 'dislike' => 1]);
+        return json_encode($like_dislikes);
+        }
+        else
+        {
+        return json_encode($like_dislikes);
+        }
+
+
+    } 
+
+     
 
 }
  

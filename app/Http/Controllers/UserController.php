@@ -12,7 +12,7 @@ use App\Blogs;
 use DateTime;
 use DateInterval;
 use App\Comment;
-  
+   
 class UserController extends Controller
 {
     /**
@@ -80,17 +80,35 @@ class UserController extends Controller
 
         // dd($comment_count);
 
+        $comment_count=DB::table('blogs')->join('comments','blogs.id','comments.blog_id')
+        ->select(DB::raw('count(comments.blog_id) as user_count, blogs.id'))
+        ->groupBy('blogs.id')
+        ->get();
+
+        $likes_count=DB::table('blogs')->leftJoin('like_dislikes','blogs.id','like_dislikes.blog_id')
+        ->select(DB::raw('blogs.id as like_blog_id,count(like_dislikes.like) as likes_count'))
+        ->where('like_dislikes.like','=',1)
+        ->groupBy('like_dislikes.blog_id','blogs.id')
+        ->get();
+
+        // dd($likes_count);
+
+         $dislikes_count=DB::table('blogs')->leftJoin('like_dislikes','blogs.id','like_dislikes.blog_id')
+        ->select(DB::raw('blogs.id as like_blog_id,count(like_dislikes.like) as dislikes_count'))
+        ->where('like_dislikes.like','=',0)
+        ->groupBy('like_dislikes.blog_id','blogs.id')
+        ->get();
+
+
+
 
 
         // $Count_blog=DB::table('followables')->where('user_id',Auth::id())->get();
-        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc','comment_count'));
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc','comment_count','likes_count','dislikes_count'));
 
  
         // return view('user.newsfeed')->with('Own_Blogs',$Own_Blogs);
     } 
- 
-
-
 
     public function newsfeed_after_search(Request $request)
     {
@@ -136,7 +154,21 @@ class UserController extends Controller
         $Subcatagory= DB::table('categories')->join('subcatagories','subcatagories.catagory_name','categories.id')
         ->get();
 
-        $users = User::get();
+        // $users = User::whereIn('id', [1, 2, 3])->get();
+ 
+
+        $users = User::join('followables', 'users.id',   '=', 'followables.followable_id')
+                 ->select('users.*', 'followables.*')
+                 ->where('users.id','!=',Auth::id())
+                 ->get();
+
+
+    //     $users = User::with("manufacturer")
+    //     ->whereHas('followables',function($query) use ($needle){
+    // $query->where("name","like","%{$needle}%");
+
+       
+
 
 
          $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
@@ -224,17 +256,11 @@ class UserController extends Controller
     public function comments(Request $request)
     {  
         $Comment=new Comment();
-
         $Comment->user_id=Auth::id();
         $Comment->blog_id=$request->input('blog_id');
         $Comment->comment_description=$request->input('comment');
         $Comment->save();
-
-       return Redirect::back()->with('message','Profile Updated Successfully !');
-
-
-   
-
+        return Redirect::back()->with('message','Profile Updated Successfully !');
     }
  
     public function other_user_details($id)
@@ -253,17 +279,19 @@ class UserController extends Controller
         {
 
 
+        $follow_count=DB::table('users')->join('followables','users.id','followables.user_id')->where('followables.user_id',$id)->get();
+
+        $cc=count($follow_count);
 
         $User=User::all();
         $Category=Category::all();
         $Subcatagory= DB::table('categories')->join('subcatagories','subcatagories.catagory_name','categories.id')
         ->get();
 
+        $users = User::orderBy('id', 'asc')->take(5)->get();
 
-
- 
         return view('user.edit_profile')->with('User',$User)->with('Subcatagory',$Subcatagory)
-        ->with('Category',$Category);
+        ->with('Category',$Category)->with('cc',$cc)->with('users',$users);
 
         }
         

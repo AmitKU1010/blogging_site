@@ -133,6 +133,15 @@ Auth::routes();
     
    Route::post('/ajax/get_blog_image','AjaxController@get_blog_image');
 
+   Route::post('/ajax/submit_like','AjaxController@submit_like');
+
+   Route::post('/ajax/submit_dislike','AjaxController@submit_dislike');
+
+   Route::post('/ajax/submit_like_own','AjaxController@submit_like_own');
+   
+   Route::post('/ajax/submit_dislike_own','AjaxController@submit_dislike_own');
+
+
 
 
  
