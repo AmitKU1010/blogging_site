@@ -1,7 +1,8 @@
 @extends('backLayouts.adminlayout')
 
     @section('title')
-        Master Setup Merge | MoSeva Admin
+         YReview Admin
+        
     @endsection
     @section('content')
 

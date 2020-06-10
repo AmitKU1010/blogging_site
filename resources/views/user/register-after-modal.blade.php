@@ -298,7 +298,7 @@ h2 {
       <!-- hidden catagory -->
 
 
-      <input type="text" readonly style="width:180px;margin-left: 30px;color: white;background-color: grey;text-align: center;" id="btn" class="btn-class" name="catagory_btn[]" value="Follow">
+      <input type="button" style="width:180px;margin-left: 30px;color: white;background-color: grey;text-align: center;" id="btn" class="btn-class" name="catagory_btn[]" value="Follow">
     </div>
   </div>
 

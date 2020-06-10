@@ -11,6 +11,7 @@ use App\Catagorylist;
 use App\Comment;
 use App\BlogNotification;
 use App\User;
+use App\Blogs;
 use App\Like_dislikes;
 
  
@@ -21,7 +22,7 @@ class AjaxController extends Controller
         // $this->middleware('auth'); 
     }
  
-     public function getcatagoryBydepartment(Request $request)
+    public function getcatagoryBydepartment(Request $request)
     {
         // echo $request->item_catagory;
         // exit;
@@ -290,6 +291,33 @@ class AjaxController extends Controller
         return json_encode($like_dislikes);
         }
 
+
+    } 
+
+     public function getBlogdetails(Request $request)
+    {
+       
+
+           $blog= Blogs::where('blogs.id',$request->blog_id)
+           ->select('categories.catagory_name as catagory_names','subcatagories.subcatagory_name as subcatagory_names','blogs.*','blogs.catagory_name as bcn')
+           ->join('categories','categories.id','blogs.catagory_name')
+           ->join('subcatagories','blogs.subcatagory_name','subcatagories.id')
+           ->first()->toArray();
+           return json_encode($blog);
+    }  
+
+     public function Notification_counter_add(Request $request)
+    { 
+         $notifications_counter=DB::table('notifications')
+        ->join('blogs','blogs.id','notifications.blog_id')
+        ->where('blogs.user_id','=',Auth::id())
+        ->update(
+        ['notification_counter_status' => 1]);
+
+            
+        return json_encode($notifications_counter);
+
+   
 
     } 
 

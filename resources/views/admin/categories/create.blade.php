@@ -1,7 +1,8 @@
  @extends('backLayouts.adminlayout')
 
     @section('title')
-        Add category | MoSeva Admin
+         YReview Admin
+      
     @endsection
     
     @section('content')
@@ -43,6 +44,10 @@
 									<li class="nav-item m-2">
 										<a class="nav-link btn btn-light" href="{{route('admin.subcategories.index')}}">Add Sub-category</a>
 									</li>
+
+                                     <li class="nav-item m-2">
+                                        <a class="nav-link btn btn-light" href="{{route('admin.trackuserlist')}}">All Users</a>
+                                    </li>
 								</ul>
 							</div>
 						</div> <!-- ./panel -->
@@ -117,12 +122,13 @@
 
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id="example2" class="hover table-bordered border-top-0 border-bottom-0 text-center" >
+                                            <table id="example" class="hover table-bordered border-top-0 border-bottom-0 text-center" >
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
                                                         <th>Image</th>
+                                                        <th>Name</th>
+
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -136,17 +142,17 @@
                                                         @foreach($categories as $categoriess)
                                                             <tr>
                                                                 <td>{{$i++}}</td>
-                                                               <td><img width="10%" class="img-circle" src="{{ URL::asset('/images/catagory_img/'.$categoriess->catagory_img) }}"></td></td>
+                                                               <td><img style="width: 90px;height: 90px;" class="img-circle" src="{{ URL::asset('/images/catagory_img/'.$categoriess->catagory_img) }}"></td></td>
                                                                 <td>{{$categoriess->catagory_name}}</td>
                                                                    <td>
                                                                     <a href="{{ url('/')}}/admin/categories/edit/{{ $categoriess->id }}" class="btn btn-indigo btn-sm">
                                                                         <i class="fa fa-pencil mr-1"></i>
-                                                                        Edit
+                                                                        
                                                                     </a>
  
                                                                     <a href="{{ url('/')}}/admin/categories/destroy/{{ $categoriess->id }} " class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">
                                                                         <i class="fa fa-trash-o mr-1"></i>
-                                                                        Delete
+                                                                        
                                                                     </a>
                                                                 </td>
                                                             </tr>

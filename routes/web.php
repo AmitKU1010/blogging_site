@@ -94,14 +94,8 @@ Auth::routes();
     Route::post('/user/blog_post','UserController@blog_post');
 
     Route::get('/user/other_user_details/{id}','UserController@other_user_details');
- 
 
-
-
-
-
-
-
+    Route::post('/user/modify_blog_update','UserController@modify_blog_update');
  
 
     Route::get('/home', 'HomeController@index')->name('home');
@@ -141,6 +135,11 @@ Auth::routes();
    
    Route::post('/ajax/submit_dislike_own','AjaxController@submit_dislike_own');
 
+   Route::post('/ajax/getBlogdetails','AjaxController@getBlogdetails');
+   
+   Route::post('/ajax/Notification_counter_add','AjaxController@Notification_counter_add');
+   
+
 
 
 
@@ -165,7 +164,9 @@ Auth::routes();
 
     Route::post('vendor/dashboard', 'AdminController@vendordashboard');
 
+    Route::get('user_blog_details/{id}', 'AdminController@user_blog_details');
 
+ 
  
    
 
@@ -214,7 +215,7 @@ Auth::routes();
     Route::post('/categories/update/{id}', 'CategoryController@update');
     Route::get('/categories/destroy/{id}','CategoryController@destroy');
     // categories
-
+ 
      // Sub-categories
     Route::resource('subcategories', 'SubcatagoryController');
     Route::post('/subcategories/store', 'SubcatagoryController@store');

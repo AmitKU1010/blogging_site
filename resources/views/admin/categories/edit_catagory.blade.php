@@ -21,20 +21,13 @@
                         {{ session('status') }}
                     </div>
                 @endif
-
+ 
 				<div class="row ">
 					<div class="col-lg-12">
 						<div class="panel panel-primary">
 							<div class=" ">
 								<ul class="nav nav-pills">
 									<li class="nav-item m-2">
-										<a class="nav-link btn btn-light" href="{{route('admin.branches.index')}}">All Lists</a>
-									</li>
-									<li class="nav-item m-2">
-										<a class="nav-link btn btn-light" href="{{route('admin.pins.index')}}">ADD Pin Code</a>
-									</li>
-									<li class="nav-item m-2">
-										<a class="nav-link btn btn-primary" href="{{route('admin.branches.create')}}">Add Branch</a>
 									</li>
 								</ul>
 							</div>
@@ -46,7 +39,7 @@
 							</div>
 							<div class="card-body">
 
-					<form method="post" action="{{url('/')}}/admin/categories/update/{{$Category->id}}">
+					<form method="post" action="{{url('/')}}/admin/categories/update/{{$Category->id}}" enctype="multipart/form-data">
 												{{csrf_field()}}
 												@include('flash')
 							 	<div class="container">
@@ -66,12 +59,7 @@
 																
 																<input type="text" class="form-control" name="catagory_name" value="{{$Category->catagory_name}}"  >
 															</div>
-                                                            <span class="col-auto align-self-center">
-                                                                <span class="form-help" data-toggle="popover" data-placement="top"
-                                                                data-content="
-                                                                    <p>Branch address identify physical location of the moseva office</p>
-                                                                ">?</span>
-                                                            </span>
+                                                            
                                                         </div>
 													</div>
 												</div>
@@ -90,7 +78,7 @@
 																
 																<input type="file" class="form-control" name="catagory_img" value="{{$Category->catagory_img}}"  >
 
-																<img src="$Category->catagory_img">
+															
 															</div>
                                                             <span class="col-auto align-self-center">
                                                             </span>

@@ -73,7 +73,7 @@
                 {
                 @endphp
                 <img src="{{URL::asset('/images/gender_img/female.png')}}" alt="" class="img-responsive profile-photo" />
-                  @php
+                @php
                 }
                 else
                 {
@@ -151,7 +151,7 @@
               </ul>
             </div>
             <div class="col-md-7">
-              @if(session()->has('message'))
+            @if(session()->has('message'))
             <div class="alert alert-success" style="color: white;background-color: blue;">
             {{ session()->get('message') }}
             </div>

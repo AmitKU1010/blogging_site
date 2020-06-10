@@ -1,5 +1,5 @@
 <!-- Original -->
-
+ 
 @include('blogging_ui.header')
 <body>
     <header id="header" >
@@ -41,10 +41,6 @@
     </header>
     <!--Header End-->
 
-
-
-   
-  
     <div id="page-contents">
       <div class="container">
         <div class="row">
@@ -103,7 +99,7 @@
             </ul><!--news-feed links ends-->
                <div id="chat-block" >
               <div class="title"><a href="{{url('/')}}/user/edit_profile" style="color:white;">My Profile</a></div>
-
+ 
             </div><!--chat block ends-->
           </div>
           <div class="col-md-7">
@@ -138,10 +134,10 @@
       </li>
       <li><a href="#2" id="own_post_link" data-toggle="tab">Own Posts</a>
       </li>
-      <li><a href="#javascript:void(0)" data-toggle="tab" id="notification_link">Notification</a>
+      <li><a href="#javascript:void(0)" data-toggle="tab" id="notification_link"></span>Notification &nbsp;&nbsp;<span class="badge" style=" background-color: red;">{{$noti_counter}}</a>
       </li>
     </ul>
-
+   
      <!--  <div class="tab-content ">
         <div class="tab-pane active" id="1">
           <h3>Trending Post Will Show Here</h3>
@@ -166,14 +162,11 @@
 
                   @if(count($Trending_Blogs) == 0)
                  
-                  <h3 style="padding-left: 100px; " id="show_trending">Opps!!No Content Found.</h3>
+                  <h3 style="padding-left: 100px;display: none; " id="show_trending">Opps!!No Content Found.</h3>
                   
                   @endif
                   
                   @foreach($Trending_Blogs as $Trending_Blog)
-
-
-
 
                   @php
                   date_default_timezone_set('Asia/Kolkata');
@@ -273,7 +266,7 @@
               <img src="{{URL::asset('/images/post_img/'.$Trending_Blog->post_image_two)}}" alt="post-image" style="width: 847px;height: 200px;" id="{{$Trending_Blog->real_blog_id}}" class="img-responsive post-image" />
                       </div>
                     </div>
-                  </div>
+            </div>
 
 
            @php
@@ -375,7 +368,7 @@
 
               <!-- Post Container Starts -->
               <div class="post-container">
-                <img src="{{URL::asset('/images/profile_image/'.$Trending_Blog->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
+                <!-- <img src="{{URL::asset('/images/profile_image/'.$Trending_Blog->profile_image)}}" alt="user" class="profile-photo-md pull-left" /> -->
                 <div class="post-detail">
                   <div class="user-info">
                     <h5><a href="#" class="profile-link">{{$Trending_Blog->name}}</a> <span class="following"></span></h5>
@@ -393,27 +386,36 @@
                   </div> 
                   <div class="reaction">
 
-
+                     @foreach($likes_count as $likes_counts)
+                  @if($likes_counts->like_blog_id==$Trending_Blog->real_blog_id)
 
                     <a class="btn text-green like-but" id="like_id-{{$Trending_Blog->real_blog_id}}"><i class="icon ion-thumbsup"></i>
-                  @foreach($likes_count as $likes_counts)
-                  @if($likes_counts->like_blog_id==$Trending_Blog->real_blog_id)
-                  {{$likes_counts->likes_count}}
-                  @endif
-                  @endforeach
+                    {{$likes_counts->likes_count}}
                     </a>
 
-                    <a class="btn text-red dislike-but" id="dislike_id-{{$Trending_Blog->real_blog_id}}"><i class="fa fa-thumbs-down"></i> 
-
+                  <a class="btn text-red dislike-but" id="dislike_id-{{$Trending_Blog->real_blog_id}}"><i class="fa fa-thumbs-down"></i> 
                   @foreach($dislikes_count as $dislikes_counts)
                   @if($dislikes_counts->like_blog_id==$Trending_Blog->real_blog_id)
                   {{$dislikes_counts->dislikes_count}}
-                  @endif
+                  </a>
+
+                    <div>
+                      @php  
+                      $total=$likes_counts->likes_count+$dislikes_counts->dislikes_count;
+                      $like_percentage=($likes_counts->likes_count/$total)*100;
+                      $dislikelike_percentage=($dislikes_counts->dislikes_count/$total)*100;
+                      @endphp
+
+                      {{round($like_percentage)}}% people like this post <br>
+                      {{round($dislikelike_percentage)}}% people dislike this post</div>
+                  
+
+                      @endif
                   @endforeach
-
-
-                    </a>
+                      @endif
+                  @endforeach
                   </div>
+                  <br>
                   <div class="line-divider"></div>
 
                     <div class="post-comment">
@@ -453,7 +455,7 @@
 
                   @if(count($Own_Blogs) == 0)
                  
-                  <h3 style="padding-left: 100px; " id="show_own">Opps!!No Content Found.</h3>
+                  <h3 style="padding-left: 100px;display: none; " id="show_own">Opps!!No Content Found.</h3>
                   
                   @endif
           
@@ -478,7 +480,19 @@
             <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="user" class="profile-photo-md pull-left" />
 
                  <div class="user-info" style="padding-left: 65px;">
-                    <h5><a href="{{url('/')}}/user/other_user_details/{{$Own_Blog->real_user_id}}" class="profile-link">{{Auth::user()->name}}</a></h5>
+
+                    <h5>
+                      <a href="{{url('/')}}/user/other_user_details/{{$Own_Blog->real_user_id}}" class="profile-link">{{Auth::user()->name}}</a>
+
+                    <span style="padding-left: 400px;">
+                    <!-- <a href=""  class="fa fa-pencil mr-1" title="edit post"> -->
+                    <!-- <i class="fa fa-pencil mr-1"></i> -->
+                    <input type="button" style="background-color: #007fff;color: white;"  data-id="{{$Own_Blog->real_blog_id}}" class="modalOpencledit_blog_post" data-toggle="modal" data-target="#edit_blog_post" id="{{$Own_Blog->real_blog_id}}" value="Edit">
+                    </a>
+                    </span>
+                    </h5>
+
+
                     
                    @php if($days<1 && $hour>0 && $minute>=0)
                     {  
@@ -645,7 +659,7 @@
 
               <!-- Post Container Starts -->
               <div class="post-container">
-                <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="Img" class="profile-photo-md pull-left" />
+               <!--  <img src="{{URL::asset('/images/profile_image/'.Auth::user()->profile_image)}}" alt="Img" class="profile-photo-md pull-left" /> -->
                 <div class="post-detail">
                   <div class="user-info">
                     <h5><a href="{{url('/')}}/user/other_user_details/{{$Own_Blog->real_user_id}}" class="profile-link">{{Auth::user()->name}}</a> <span class="following"></span></h5>
@@ -765,7 +779,7 @@
                         Recent Comments
                     </h3>
                 </div>
-               <div class="panel-body" id="result">
+                <div class="panel-body" id="result">
                 <!-- Go to the jquery Section TO see The Append Content -->
                 </div>
             </div>
@@ -828,7 +842,115 @@
 <!-- Modal Ends -->
 
 
+    <!-- Eidt Blog Post Modal
+            ================================================= -->
+
+             <!-- Modal starts -->
+             <!-- Modal -->
+  <div class="modal fade" id="edit_blog_post" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Blog Posts</h4>
+        </div>
+        <div class="modal-body">
+ 
+<!-- Container, Row, and Column used for illustration purposes -->
+<div class="container" style="margin-left: -300px;">
+    <div class="row" >
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" style="width: 500px;height: 470px;">
+
   
+              <div class="edit-blog-container" >
+                    
+                <div class="edit-block">
+                  <form method="post" action="{{url('/')}}/user/modify_blog_update"  name="basic-info" id="basic-info" class="form-inline" enctype="multipart/form-data" >    
+                    {{csrf_field()}}
+
+                    <input type="hidden" name="blog_id_updateModal" id="blog_id_updateModal" value="">
+                    <div class="row">
+                      <div class="form-group col-xs-6">
+                        <label for="firstname">Choose Catagory</label> 
+                       <select name="catagory_name" id="catagory_name" class="form-control">
+                        <option>Select</option>
+                          @foreach($Category as $Categorys)
+                         <option value="{{$Categorys->id}}">{{$Categorys->catagory_name}}</option>
+                         @endforeach
+                       </select>
+                         @if ($errors->count() > 0)
+                        <span class='help-block' style="color: red;">
+                        <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                        @endif
+                      </div>  
+                      <div class="form-group col-xs-6">
+                        <label for="lastname" class="">Choose Subcatagory</label>
+                        <select name="subcatagory_name" id="subcatagory_name" class="form-control">
+                         <option>Select</option>
+                        
+                        
+                       </select>
+                          @if ($errors->count() > 0)
+                        <span class='help-block' style="color: red;">
+                        <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                        @endif
+                      </div>
+                    </div>
+  
+                     <div class="row">
+                        <div class="form-group col-xs-12">
+                        <label for="city"> Post Image One</label>
+                        <input  class="form-control input-group-lg" multiple="true" type="file" name="post_image[]" id="pst_img">
+                      </div> 
+                    </div>
+
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="email">Post Caption</label>
+                        <textarea cols="3" rows="3" name="post_caption" id="pst_caption">
+                        </textarea>
+                            @if ($errors->count() > 0)
+                        <span class='help-block' style="color: red;">
+                        <strong>{{ $errors->first('email_new') }}</strong>
+                        </span>
+                        @endif
+                      </div>
+                    </div>
+
+                    <!-- <div class="form-group mt-5" style="background-color: #383535;">
+                      <label class="form-label" style="color: white;">Description</label>
+                      <textarea class="content" name="post_description" id="pst_des" placeholder="Enter Description" placeholder="Here you can write your blog post description"></textarea> -->
+
+                      <div class="form-group mt-5">
+                      <label class="form-label">Description</label>
+
+                      <textarea  name="post_description" cols="119" rows="4" id="pst_des" placeholder="Enter Description" placeholder="Here you can write your blog post description"></textarea>
+                    </div> 
+
+                    <button class="btn btn-primary">Save Changes</button>
+                  </form>
+                </div>
+              </div>
+              <!-- For blog post -->
+             
+            
+    </div>
+  </div>
+</div>
+ </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal Ends -->
+
+
+
+        
 
  
 
@@ -836,7 +958,7 @@
             
 
            
-           
+            
         
           
 
@@ -923,6 +1045,21 @@
 
 </script>
 
+<script type="text/javascript">
+ // $(document).ready(function(){
+        // var ls=$('.like-but').text(); 
+        // var ds=$('.dislike-but').text(); 
+
+        // alert(ls);
+        // alert(ds);
+
+        // var nn=parseInt(ls)+parseInt(ds);
+        // alert(nn);
+
+
+    // });
+ </script>
+
  <script type="text/javascript">
       $(document).on("click","#trending_link",function()
       {
@@ -963,7 +1100,29 @@
 
         $(document).on("click","#notification_link",function()
       {
-        // window.location.href=window.location.href;
+        $('.badge').text('0');
+  
+          $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/Notification_counter_add",
+         data:{
+          "_token": "{{ csrf_token() }}",
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+          //  console.log(responseData);
+          console.log(data);
+          // alert(data);
+
+      }
+      });
+
+
+
+
+
 
         $('#notification_id').empty();
 
@@ -1102,10 +1261,10 @@
                             </div>\
                             <div class="media-body">\
                                 <h4 class="media-heading"> <a href="{{URL::asset('/user/other_user_details')}}/'+responseData[index]['id']+'">\
-                                    '+responseData[index]['uname']+'</a>&nbsp;<span style="color:black;font-size:13px;">about a minute ago</span>\
+                                    '+responseData[index]['uname']+'</a>&nbsp;<span style="color:black;font-size:13px;">commented that</span>\
                                     <br>\
                                     <small>\
-                                        commented that \
+                                       \
                                     </small>\
                                 </h4>\
                                 <p style="font-size:13px;color:black;"> <strong>\
@@ -1122,7 +1281,99 @@
 
 
 
+ 
 
+  $(document).on('click','.modalOpencledit_blog_post',function()
+  {
+   var blog_id = $(this).data('id');
+
+   $('#blog_id_updateModal').val(blog_id);
+
+   // alert(blog_id);
+
+   // var thisSelf=$(this);
+   // $('#result').empty();
+ // alert(blog_id);
+  $.ajax({
+        type:"POST",
+        url:"{{url('/')}}/ajax/getBlogdetails",
+         data:{
+          "_token": "{{ csrf_token() }}",
+          blog_id : blog_id,
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+           // console.log(responseData);
+           // console.log(data);
+           // alert(data);
+
+           var catagory_name_modal=$('#catagory_name').val();
+           var post_catagory=responseData.catagory_names;
+           var post_subcatagory=responseData.subcatagory_names;
+
+
+           var bcn=responseData.bcn;
+           
+           var post_caption=responseData.post_caption;
+           var post_description=responseData.post_description;
+
+
+           console.log(post_catagory);
+           console.log(post_subcatagory);
+           console.log(catagory_name_modal);
+
+
+           // alert(post_description);
+
+ 
+           // alert(jj);
+           $('#pst_caption').text(post_caption);
+           $('#pst_des').text(post_description);
+
+
+           $('#catagory_name option').each(function()
+           {
+
+           var art=$(this).val();
+
+
+
+           var kkk=$('#catagory_name').html('<option selected="selected" id='+bcn+'">'+post_catagory+'</option>');
+          
+
+          });
+
+
+            $('#subcatagory_name option').each(function()
+           {
+
+           var subcatagory_option=$(this).val();
+
+           $('#subcatagory_name').html('<option selected="selected"">'+post_subcatagory+'</option>');
+
+          });
+
+
+
+
+           // $('#subcatagory_name').append('<option selected="selected"">'+post_subcatagory+'</option>');
+
+           // alert(kkk); 
+
+
+
+  
+
+          
+
+
+
+
+        }
+  });
+  });
 
 
   function submit_comment_trending(str)
@@ -1949,6 +2200,41 @@ $(document).on('click','.post-image',function()
   });
 
 });
+
+
+ $(document).on('change','#catagory_name', function(){ 
+  // alert('hmgj');
+    var thisSelf=$(this);
+ 
+      var catagory_name = $("#catagory_name").val();
+ 
+           $.ajax({
+        type:"POST",
+        url: "{{url('/')}}/get/subcatagory",
+        data:{
+          "_token": "{{ csrf_token() }}",
+          catagory_name : catagory_name,
+        },
+        dataType : 'html',
+        cache: false,
+        success: function(data){
+          responseData=JSON.parse(data);
+           // console.log(responseData);
+           // console.log(data);
+           // alert(data);
+            thisSelf.parent().parent().find('[name^=subcatagory_name]')
+               .empty()
+               .append('<option selected="selected" value="">-Select -</option>');
+
+           for (index = 0; index < responseData.length; ++index) {
+               thisSelf.parent().parent().find('[name^=subcatagory_name]').append(
+                '<option value="'+responseData[index]['sbid']+'">'+responseData[index]['subcatagory_name']+'</option>'
+              );   
+            }  
+        }
+      });
+        
+      }); 
 
 </script>
 

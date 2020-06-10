@@ -54,7 +54,7 @@
 								
 							</ul>
 						</li>
- 
+ <!-- 
 						<li class="slide">
 							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-clone"></i><span class="side-menu__label">Manage Pages</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
@@ -66,7 +66,7 @@
 									<a href="#!" class="slide-item">Others</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 					</ul>
 				</aside>
 			@php

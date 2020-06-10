@@ -43,6 +43,12 @@
 									<li class="nav-item m-2">
 										<a class="nav-link btn btn-primary" href="{{route('admin.subcategories.index')}}">Add Sub-category</a>
 									</li>
+
+                                    <li class="nav-item m-2">
+                                        <a class="nav-link btn btn-light" href="{{route('admin.trackuserlist')}}">All Users</a>
+                                    </li>
+
+
 								</ul>
 							</div>
 						</div> <!-- ./panel -->
@@ -53,12 +59,12 @@
                                     <div class="card-header">
                                         <div class="card-title">Create New Subcatagory</div>
                                     </div> <!-- ./card-header -->
-                                    
+                                     
                                     <form method="post" action="{{url('/')}}/admin/subcategories/store">
                                         {{csrf_field()}}
 
                                             @include('flash')
-
+ 
                                             <div class="card-body">
                                                     <div class="form-group mt-1">
                                                         <div class="row">
@@ -71,9 +77,9 @@
                                                                     <div class="row gutters-sm">
                                                                         <div class="col">
                                                                         <select name="catagory_name" id="catagory_name" class="form-control">
+                                                                       <option>Select</option>
                                                                           @if(count($catagory)>0)
                                                                         @foreach($catagory as $catagorys)
-                                                                       <option>Select</option>
                                                                    <option value="{{$catagorys->id}}">{{$catagorys->catagory_name}}</option>
                                                                    @endforeach
                                                                    @endif
@@ -128,7 +134,7 @@
 
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id="example2" class="hover table-bordered border-top-0 border-bottom-0 text-center" >
+                                            <table id="example" class="hover table-bordered border-top-0 border-bottom-0 text-center" >
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -152,12 +158,12 @@
                                                                 <td>
                                                                     <a href="{{ url('/')}}/admin/subcategories/edit/{{ $Subcatagorys->id }}" class="btn btn-indigo btn-sm">
                                                                         <i class="fa fa-pencil mr-1"></i>
-                                                                        Edit
+                                                                        
                                                                     </a>
                 
                                                                     <a href="{{ url('/')}}/admin/subcategories/destroy/{{ $Subcatagorys->id}} " class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">
                                                                         <i class="fa fa-trash-o mr-1"></i>
-                                                                        Delete
+                                                                        
                                                                     </a>
                                                                 </td>
                                                             </tr>

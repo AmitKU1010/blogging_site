@@ -122,6 +122,18 @@ class CategoryController extends Controller
 
         $Category->catagory_name=$request->input('catagory_name');
 
+        $Category_image = $request->file('catagory_img');
+
+        // dd($Category_image);
+        if($Category_image !='')
+        {
+        $filename = time().'.'.$Category_image->getClientOriginalExtension();
+        $destinationPath = public_path('/images/catagory_img');
+        $Category_image->move($destinationPath, $filename);
+        $Category->catagory_img=$filename;
+        }
+
+
         $Category->save();
 
         return redirect('admin/categories/create')->with('success','Catagory Updated Succesfully');

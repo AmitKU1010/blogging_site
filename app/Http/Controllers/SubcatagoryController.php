@@ -81,7 +81,13 @@ class SubcatagoryController extends Controller
     public function edit($id)
     {
        $Subcatagory=Subcatagory::find($id);
-       return view('admin.subcatagory.edit_subcatagory')->with('Subcatagory',$Subcatagory);
+       // $Subcatagory_all=DB::table('subcatagories')->join('categories','categories.id','subcatagories.catagory_name')
+       // ->select('subcatagories.*','categories.id as cat_id','categories.catagory_name as cat_name')
+       // ->get();
+
+        $catagory = Category::all();
+
+       return view('admin.subcatagory.edit_subcatagory')->with('Subcatagory',$Subcatagory)->with('catagory',$catagory);
     }
 
     /** 
@@ -102,6 +108,8 @@ class SubcatagoryController extends Controller
      
 
          $Subcatagory=Subcatagory::find($id);
+
+        $Subcatagory->catagory_name=$request->input('catagory_name');
 
         $Subcatagory->subcatagory_name=$request->input('subcatagory_name');
 

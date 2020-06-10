@@ -101,10 +101,40 @@ class UserController extends Controller
 
 
 
+       
 
+         $notifications_counter=DB::table('notifications')
+        ->join('blogs','blogs.id','notifications.blog_id')
+
+        ->where([
+        ['blogs.user_id', '=', Auth::id()],
+        ['notifications.comment_person_id', '!=',  Auth::id()],])
+        ->whereNull('notifications.notification_counter_status')
+        ->get();
+
+        $noti_counter=count($notifications_counter);
+
+
+         $Category=Category::all();
+
+        $Subcatagory= DB::table('categories')->join('subcatagories','subcatagories.catagory_name','categories.id')
+        ->get();
+
+
+        // $like_percentage=DB::table('blogs')
+        // ->leftJoin('like_dislikes','blogs.id','like_dislikes.blog_id')
+        // ->where('like_dislikes.like','=',1)
+        // ->get();
+
+        // $dislike_percentage=DB::table('blogs')
+        // ->leftJoin('like_dislikes','blogs.id','like_dislikes.blog_id')
+        // ->where('like_dislikes.like','=',0)
+        // ->get();
+
+        // dd($dislike_percentage);
 
         // $Count_blog=DB::table('followables')->where('user_id',Auth::id())->get();
-        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc','comment_count','likes_count','dislikes_count'));
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc','comment_count','likes_count','dislikes_count','noti_counter','Category','Subcatagory'));
 
  
         // return view('user.newsfeed')->with('Own_Blogs',$Own_Blogs);
@@ -131,7 +161,7 @@ class UserController extends Controller
         ->where('blogs.post_caption', 'LIKE','%'.$search_post_name.'%')
         ->get();
 
-        // dd($Trending_Blogs);
+         // dd($Trending_Blogs);
 
         $users = User::orderBy('id', 'asc')->take(5)->get();
 
@@ -144,7 +174,33 @@ class UserController extends Controller
         ->groupBy('blogs.id')
         ->get();
 
-        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc','comment_count'));
+         $notifications_counter=DB::table('notifications')
+        ->join('blogs','blogs.id','notifications.blog_id')
+
+        ->where([
+        ['blogs.user_id', '=', Auth::id()],
+        ['notifications.comment_person_id', '!=',  Auth::id()],])
+        ->whereNull('notifications.notification_counter_status')
+        ->get();
+
+        $noti_counter=count($notifications_counter);
+
+        $likes_count=DB::table('blogs')->leftJoin('like_dislikes','blogs.id','like_dislikes.blog_id')
+        ->select(DB::raw('blogs.id as like_blog_id,count(like_dislikes.like) as likes_count'))
+        ->where('like_dislikes.like','=',1)
+        ->groupBy('like_dislikes.blog_id','blogs.id')
+        ->get();
+
+         $dislikes_count=DB::table('blogs')->leftJoin('like_dislikes','blogs.id','like_dislikes.blog_id')
+        ->select(DB::raw('blogs.id as like_blog_id,count(like_dislikes.like) as dislikes_count'))
+        ->where('like_dislikes.like','=',0)
+        ->groupBy('like_dislikes.blog_id','blogs.id')
+        ->get();
+
+        $Category=Category::all();
+
+
+        return view('user.newsfeed', compact('Own_Blogs','Trending_Blogs','users','cc','comment_count','noti_counter','likes_count','dislikes_count','Category'));
 
     }
     public function edit_profile()
@@ -299,6 +355,101 @@ class UserController extends Controller
 
 
     }
+
+    public function modify_blog_update(Request $request)
+    {
+        $blog_id_updateModal=$request->input('blog_id_updateModal');
+        $Blogs=Blogs::find($blog_id_updateModal);
+        // $Blogs->catagory_name=$request->input('catagory_name');
+        // $Blogs->subcatagory_name=$request->input('subcatagory_name');
+        $Blogs->post_caption=$request->input('post_caption'); 
+        $Blogs->post_description=$request->input('post_description');
+
+        // dd($Blogs->post_description);
+
+        $real_input_file=$request->file('post_image');
+
+        // dd($real_input_file);
+
+        
+       
+
+        if ( ! isset($real_input_file[0])) 
+        {
+            $real_input_file[0] = null;
+        }
+         else
+        {
+        $real=$real_input_file[0];
+
+        // var_dump($real);
+
+        $filename = time().'a'.'.'.$real->getClientOriginalExtension();
+        $destinationPath = public_path('/images/post_img');
+        $real->move($destinationPath, $filename);
+        $Blogs->post_image=$filename; 
+        }
+
+
+        if ( ! isset($real_input_file[1])) 
+        {
+        $real_input_file[1] = null;
+        }
+        else
+        {
+        $real_two=$real_input_file[1];
+
+        // dd($real_two);
+
+
+        $filename2 = time().'b'.'.'.$real_two->getClientOriginalExtension();
+        $destinationPath2 = public_path('/images/post_img');
+        $real_two->move($destinationPath2, $filename2);
+        $Blogs->post_image_two=$filename2;  
+        }
+
+         if ( ! isset($real_input_file[2])) 
+        {
+        $real_input_file[2] = null;
+        }
+        else
+        {
+
+        $real_three=$real_input_file[2];
+
+        // dd($real_three);
+
+
+
+        $filename3 = time().'c'.'.'.$real_three->getClientOriginalExtension();
+        $destinationPath3 = public_path('/images/post_img');
+        $real_three->move($destinationPath3, $filename3);
+        $Blogs->post_image_three=$filename3; 
+        }
+
+
+         if ( ! isset($real_input_file[3])) 
+        {
+        $real_input_file[3] = null;
+        }
+        else
+        {
+        $real_four=$real_input_file[3];
+
+        // dd($real_four);
+
+        $filename_four = time().'d'.'.'.$real_four->getClientOriginalExtension();
+        $destinationPath_four = public_path('/images/post_img');
+        $real_four->move($destinationPath_four, $filename_four);
+        $Blogs->post_image_four=$filename_four;  
+        }
+
+
+        $Blogs->save();
+       return Redirect::back()->with('message','Updated Successfully !');
+
+
+    }
  
 
       public function update_blog(Request $request)
@@ -441,16 +592,22 @@ class UserController extends Controller
           $ChoosenTopics->save();
         }
 
-        $Own_Blogs = Blogs::get();
-
-         $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
-
-        $cc=count($follow_count);
+        $Own_Blogs =DB::table('blogs')
+         ->join('users','users.id','blogs.user_id')
+         ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
+         ->where('blogs.user_id',Auth::id())
+         ->get();
+ 
 
         $Trending_Blogs = DB::table('blogs')
         ->join('users','users.id','blogs.user_id')
         ->select('users.*','blogs.*','blogs.id as real_blog_id','blogs.user_id as real_user_id')
         ->get();
+
+         $follow_count=DB::table('users')->join('followables','users.id','followables.followable_id')->where('followables.followable_id',Auth::id())->get();
+
+        $cc=count($follow_count);
+
 
            $comment_count=DB::table('blogs')->join('comments','blogs.id','comments.blog_id')
         ->select(DB::raw('count(comments.blog_id) as user_count, blogs.id'))
@@ -460,7 +617,42 @@ class UserController extends Controller
         $users = User::orderBy('id', 'asc')->take(5)->get();
 
 
-        return view('user.newsfeed', compact('Own_Blogs','cc','Trending_Blogs','comment_count','users'));
+
+        $likes_count=DB::table('blogs')->leftJoin('like_dislikes','blogs.id','like_dislikes.blog_id')
+        ->select(DB::raw('blogs.id as like_blog_id,count(like_dislikes.like) as likes_count'))
+        ->where('like_dislikes.like','=',1)
+        ->groupBy('like_dislikes.blog_id','blogs.id')
+        ->get();
+
+        // dd($likes_count);
+
+         $dislikes_count=DB::table('blogs')->leftJoin('like_dislikes','blogs.id','like_dislikes.blog_id')
+        ->select(DB::raw('blogs.id as like_blog_id,count(like_dislikes.like) as dislikes_count'))
+        ->where('like_dislikes.like','=',0)
+        ->groupBy('like_dislikes.blog_id','blogs.id')
+        ->get();
+
+       
+
+         $notifications_counter=DB::table('notifications')
+        ->join('blogs','blogs.id','notifications.blog_id')
+
+        ->where([
+        ['blogs.user_id', '=', Auth::id()],
+        ['notifications.comment_person_id', '!=',  Auth::id()],])
+        ->whereNull('notifications.notification_counter_status')
+        ->get();
+
+        $noti_counter=count($notifications_counter);
+
+
+         $Category=Category::all();
+
+        $Subcatagory= DB::table('categories')->join('subcatagories','subcatagories.catagory_name','categories.id')
+        ->get();
+
+
+        return view('user.newsfeed', compact('Own_Blogs','cc','Trending_Blogs','comment_count','users','noti_counter','likes_count','dislikes_count','Category','Subcatagory'));
        
 
     }
